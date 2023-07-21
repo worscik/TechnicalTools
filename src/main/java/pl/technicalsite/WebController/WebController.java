@@ -28,7 +28,7 @@ public class WebController {
         if(fileDto.isCustom()){
             return "custom";
         }
-        return "standard";
+        return fileService.preapreStandardFile(fileDto);
     }
 
 

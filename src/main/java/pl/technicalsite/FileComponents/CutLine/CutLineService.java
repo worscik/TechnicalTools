@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import static pl.technicalsite.FileModel.MappingsType.*;
 
 @Component
-public class CutLine {
+public class CutLineService {
 
     public String resolveCutLine(String structure){
         switch (structure) {

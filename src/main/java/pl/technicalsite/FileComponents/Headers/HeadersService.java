@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import static pl.technicalsite.FileModel.MappingsType.*;
 
 @Component
-public class Headers {
+public class HeadersService {
 
     public String reseolveHeaders(String structure){
         switch (structure) {

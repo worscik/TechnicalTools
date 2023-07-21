@@ -1,10 +1,10 @@
 package pl.technicalsite.FileService;
 
+import pl.technicalsite.FileModel.FileDto;
+
 public interface IFileService {
 
-    boolean checkStructure(String structure);
-
-    String perpareFile();
+    String preapreStandardFile(FileDto fileDto);
 
     String buildTemplete();
 
