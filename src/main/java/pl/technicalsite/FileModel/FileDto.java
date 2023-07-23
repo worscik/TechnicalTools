@@ -8,12 +8,8 @@ public class FileDto extends FileCustomDto{
     private String structure;
     @JsonProperty("HeadersFile")
     private String headers;
-
-    public FileDto(String structure, String headers) {
-        super();
-        this.structure = structure;
-        this.headers = headers;
-    }
+    @JsonProperty("Fields")
+    private FieldsDto fieldsDto;
 
     public String getStructure() {
         return structure;
@@ -31,11 +27,20 @@ public class FileDto extends FileCustomDto{
         this.headers = headers;
     }
 
+    public FieldsDto getFieldsDto() {
+        return fieldsDto;
+    }
+
+    public void setFieldsDto(FieldsDto fieldsDto) {
+        this.fieldsDto = fieldsDto;
+    }
+
     @Override
     public String toString() {
         return "FileDto{" +
                 "structure='" + structure + '\'' +
                 ", headers='" + headers + '\'' +
+                ", fieldsDto=" + fieldsDto +
                 '}';
     }
 }

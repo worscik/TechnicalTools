@@ -1,6 +1,6 @@
 package pl.technicalsite.FileModel;
 
-public class FieldsBuilder {
+public class FileFieldsBuilder {
 
     private String id;
     private String name;
@@ -38,48 +38,7 @@ public class FieldsBuilder {
     private String intDetail2;
     private String intDetail3;
 
-    @Override
-    public String toString() {
-        return "TemplateDto{" +
-                ", id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", newProductKey='" + newProductKey + '\'' +
-                ", newProductValue='" + newProductValue + '\'' +
-                ", availableKey='" + availableKey + '\'' +
-                ", availableValue='" + availableValue + '\'' +
-                ", bestsellerKey='" + bestsellerKey + '\'' +
-                ", bestsellerValue='" + bestsellerValue + '\'' +
-                ", brand='" + brand + '\'' +
-                ", categories='" + categories + '\'' +
-                ", categoryMain='" + categoryMain + '\'' +
-                ", description='" + description + '\'' +
-                ", detail1='" + detail1 + '\'' +
-                ", detail2='" + detail2 + '\'' +
-                ", detail3='" + detail3 + '\'' +
-                ", detail4='" + detail4 + '\'' +
-                ", detail5='" + detail5 + '\'' +
-                ", manufacturer='" + manufacturer + '\'' +
-                ", price='" + price + '\'' +
-                ", currency='" + currency + '\'' +
-                ", pricePromo='" + pricePromo + '\'' +
-                ", quantity='" + quantity + '\'' +
-                ", urlProduct='" + urlProduct + '\'' +
-                ", urlImg='" + urlImg + '\'' +
-                ", genderKey='" + genderKey + '\'' +
-                ", genderValue='" + genderValue + '\'' +
-                ", urlCategory='" + urlCategory + '\'' +
-                ", urlCategoryMark='" + urlCategoryMark + '\'' +
-                ", popularity='" + popularity + '\'' +
-                ", season='" + season + '\'' +
-                ", color='" + color + '\'' +
-                ", addidtionalImage='" + addidtionalImage + '\'' +
-                ", intDetail1='" + intDetail1 + '\'' +
-                ", intDetail2='" + intDetail2 + '\'' +
-                ", intDetail3='" + intDetail3 + '\'' +
-                '}';
-    }
-
-    private FieldsBuilder(Builder builder) {
+    public FileFieldsBuilder(Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
         this.newProductKey = builder.newProductKey;
@@ -115,9 +74,146 @@ public class FieldsBuilder {
         this.intDetail1 = builder.intDetail1;
         this.intDetail2 = builder.intDetail2;
         this.intDetail3 = builder.intDetail3;
+    }
 
+    public String getId() {
+        return id;
+    }
 
+    public String getName() {
+        return name;
+    }
 
+    public String getNewProductKey() {
+        return newProductKey;
+    }
+
+    public String getNewProductValue() {
+        return newProductValue;
+    }
+
+    public String getAvailableKey() {
+        return availableKey;
+    }
+
+    public String getAvailableValue() {
+        return availableValue;
+    }
+
+    public String getBestsellerKey() {
+        return bestsellerKey;
+    }
+
+    public String getBestsellerValue() {
+        return bestsellerValue;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public String getCategories() {
+        return categories;
+    }
+
+    public String getCategoryMain() {
+        return categoryMain;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getDetail1() {
+        return detail1;
+    }
+
+    public String getDetail2() {
+        return detail2;
+    }
+
+    public String getDetail3() {
+        return detail3;
+    }
+
+    public String getDetail4() {
+        return detail4;
+    }
+
+    public String getDetail5() {
+        return detail5;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public String getPricePromo() {
+        return pricePromo;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public String getUrlProduct() {
+        return urlProduct;
+    }
+
+    public String getUrlImg() {
+        return urlImg;
+    }
+
+    public String getGenderKey() {
+        return genderKey;
+    }
+
+    public String getGenderValue() {
+        return genderValue;
+    }
+
+    public String getUrlCategory() {
+        return urlCategory;
+    }
+
+    public String getUrlCategoryMark() {
+        return urlCategoryMark;
+    }
+
+    public String getPopularity() {
+        return popularity;
+    }
+
+    public String getSeason() {
+        return season;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public String getAddidtionalImage() {
+        return addidtionalImage;
+    }
+
+    public String getIntDetail1() {
+        return intDetail1;
+    }
+
+    public String getIntDetail2() {
+        return intDetail2;
+    }
+
+    public String getIntDetail3() {
+        return intDetail3;
     }
 
     public static class Builder{
@@ -332,8 +428,8 @@ public class FieldsBuilder {
             return this;
         }
 
-        public FieldsBuilder build(){
-            return new FieldsBuilder(this);
+        public FileFieldsBuilder build(){
+            return new FileFieldsBuilder(this);
         }
 
     }

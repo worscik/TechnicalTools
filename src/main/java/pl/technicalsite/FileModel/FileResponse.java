@@ -1,12 +1,19 @@
 package pl.technicalsite.FileModel;
 
-public class FileResponse {
+import org.springframework.http.HttpStatus;
 
-    String xsltFile;
+public class FileResponse extends ErrorResponse{
 
-    public FileResponse(String xsltFile) {
+    private String xsltFile;
+    private HttpStatus httpStatus;
+
+
+    public FileResponse(String errorMsg, HttpStatus httpStatus) {
+        super(errorMsg);
         this.xsltFile = xsltFile;
+        this.httpStatus = httpStatus;
     }
+
 
 
 }

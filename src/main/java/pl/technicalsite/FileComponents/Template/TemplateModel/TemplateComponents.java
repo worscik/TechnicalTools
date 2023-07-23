@@ -1,4 +1,5 @@
-package pl.technicalsite.FileComponents.TemplateComponentsBuilder;
+package pl.technicalsite.FileComponents.Template.TemplateModel;
+
 
 public class TemplateComponents {
 

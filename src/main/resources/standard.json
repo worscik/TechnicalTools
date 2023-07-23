@@ -1,4 +1,8 @@
 {
   "StructureFile": "rrs/channel/item",
-  "HeadersFile": "headers"
+  "HeadersFile": "headers",
+  "Fields" : {
+    "id": "1",
+    "name": "test"
+  }
 }
