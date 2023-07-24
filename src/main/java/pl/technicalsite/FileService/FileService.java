@@ -5,12 +5,11 @@ import pl.technicalsite.FileComponents.CutLine.CutLineService;
 import pl.technicalsite.FileComponents.Headers.HeadersService;
 import pl.technicalsite.FileComponents.MatchLine.MatchLineService;
 import pl.technicalsite.FileComponents.Structure.StructureFile;
-import pl.technicalsite.FileComponents.Template.TemplateModel.Template;
 import pl.technicalsite.FileComponents.Template.TemplateModel.TemplateComponents;
 import pl.technicalsite.FileComponents.Template.TemplateService.TemplateService;
 import pl.technicalsite.FileModel.FieldsDto;
 import pl.technicalsite.FileModel.FileDto;
-import pl.technicalsite.FileModel.FileFieldsBuilder;
+import pl.technicalsite.FileModel.FieldsBuilder;
 
 @Service
 public class FileService implements IFileService{
@@ -39,7 +38,7 @@ public class FileService implements IFileService{
         String structure = fileDto.getStructure();
         TemplateComponents templateComponents = buildComponentsTemplate(structure);
 //        FileFieldsBuilder fileFieldsBuilder = biuldFileFields(fileDto.getFieldsDto());
-        FileFieldsBuilder fileFields = biuldFileFields(fileDto.getFieldsDto());
+        FieldsBuilder fileFields = biuldFileFields(fileDto.getFieldsDto());
         return templateService.buildStandardFile(templateComponents, fileFields);
     }
 
@@ -61,8 +60,8 @@ public class FileService implements IFileService{
                 .build();
     }
 
-    private FileFieldsBuilder biuldFileFields(FieldsDto fieldsDto){
-        return new FileFieldsBuilder.Builder()
+    private FieldsBuilder biuldFileFields(FieldsDto fieldsDto){
+        return new FieldsBuilder.Builder()
                 .id(fieldsDto.getId())
                 .name(fieldsDto.getName())
                 .newProductValue(fieldsDto.getNewProductValue())

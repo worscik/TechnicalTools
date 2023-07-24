@@ -1,6 +1,6 @@
 package pl.technicalsite.FileModel;
 
-public class FileFieldsBuilder {
+public class FieldsBuilder {
 
     private String id;
     private String name;
@@ -38,7 +38,7 @@ public class FileFieldsBuilder {
     private String intDetail2;
     private String intDetail3;
 
-    public FileFieldsBuilder(Builder builder) {
+    public FieldsBuilder(Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
         this.newProductKey = builder.newProductKey;
@@ -428,8 +428,8 @@ public class FileFieldsBuilder {
             return this;
         }
 
-        public FileFieldsBuilder build(){
-            return new FileFieldsBuilder(this);
+        public FieldsBuilder build(){
+            return new FieldsBuilder(this);
         }
 
     }
