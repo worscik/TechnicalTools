@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import pl.technicalsite.FileComponents.Template.TemplateModel.Template;
 import pl.technicalsite.FileComponents.Template.TemplateModel.TemplateComponents;
 import pl.technicalsite.FileModel.FieldsDto;
+import pl.technicalsite.FileModel.FileDto;
 import pl.technicalsite.FileModel.FileFieldsBuilder;
 
 @Service
@@ -15,8 +16,9 @@ public class TemplateService {
         this.template = template;
     }
 
-    public String buildStandardFile(TemplateComponents templateComponents, FieldsDto fieldsDto){
-        return  template.createFile(templateComponents,fieldsDto);
+    public String buildStandardFile(TemplateComponents templateComponents, FileFieldsBuilder fileFieldsBuilder){
+
+        return  template.createFile(templateComponents, fileFieldsBuilder);
     }
 
 

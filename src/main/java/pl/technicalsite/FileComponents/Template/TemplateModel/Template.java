@@ -3,16 +3,17 @@ package pl.technicalsite.FileComponents.Template.TemplateModel;
 import org.springframework.stereotype.Component;
 import pl.technicalsite.FileModel.FieldsDto;
 import pl.technicalsite.FileModel.FileFieldsBuilder;
+
 @Component
-public class Template{
+public class Template {
 
     public static final String NEWLINE = "\n";
 
-    public String createFile(TemplateComponents templateComponents, FieldsDto fieldsDto){
+    public String createFile(TemplateComponents templateComponents, FileFieldsBuilder fileField) {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + NEWLINE) ;
+        sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + NEWLINE);
         sb.append("<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" version=\"1.0\"" + NEWLINE);
         sb.append("		xmlns:g=\"http://base.google.com/ns/1.0\">" + NEWLINE);
         sb.append("    <xsl:output method=\"text\"/>" + NEWLINE);
@@ -21,25 +22,25 @@ public class Template{
         sb.append("" + NEWLINE);
         sb.append("    <xsl:variable name=\"newline\"><xsl:text>&#x0a;</xsl:text></xsl:variable>" + NEWLINE);
         sb.append("    <xsl:variable name=\"sep\"><xsl:text>&#x7f;</xsl:text></xsl:variable>" + NEWLINE);
-        sb.append(""+ NEWLINE);
+        sb.append("" + NEWLINE);
         sb.append("    <xsl:template match=\"rss/channel/title | rss/channel/link | rss/channel/description\" />" + NEWLINE);
         sb.append("    <xsl:template match=\"" + templateComponents.getStructure() + "\">" + NEWLINE);
         sb.append("" + NEWLINE);
         sb.append("        <!-- ustawienie zmiennych -->" + NEWLINE);
         sb.append("        <!--EXTERNAL_ID-->" + NEWLINE);
         sb.append("        <xsl:choose>" + NEWLINE);
-        sb.append("            <xsl:when test=\"string-length(" + fieldsDto.getId() + ")\">" + NEWLINE);
-        sb.append("                <xsl:value-of select=\"normalize-space(" + fieldsDto.getId() + ")\">" + NEWLINE);
+        sb.append("            <xsl:when test=\"string-length(" + fileField.getId() + ")\">" + NEWLINE);
+        sb.append("                <xsl:value-of select=\"normalize-space(" + fileField.getId() + ")\">" + NEWLINE);
         sb.append("            </xsl:when>" + NEWLINE);
         sb.append("            <xsl:otherwise>" + NEWLINE);
         sb.append("                <xsl:text>\\N</xsl:text>" + NEWLINE);
-        sb.append("            </xsl:otherwise>"+ NEWLINE);
-        sb.append("        </xsl:choose>"+ NEWLINE);
+        sb.append("            </xsl:otherwise>" + NEWLINE);
+        sb.append("        </xsl:choose>" + NEWLINE);
         sb.append("        <xsl:value-of select=\"$sep\"/>" + NEWLINE);
         sb.append("        <!--NAME-->" + NEWLINE);
         sb.append("        <xsl:choose>" + NEWLINE);
-        sb.append("            <xsl:when test=\"string-length("+ fieldsDto.getName() +")\">" + NEWLINE);
-        sb.append("                <xsl:value-of select=\"substring(normalize-space("+ fieldsDto.getName() +"),0,100)\"/>" + NEWLINE);
+        sb.append("            <xsl:when test=\"string-length(" + fileField.getName() + ")\">" + NEWLINE);
+        sb.append("                <xsl:value-of select=\"substring(normalize-space(" + fileField.getName() + "),0,100)\"/>" + NEWLINE);
         sb.append("            </xsl:when>" + NEWLINE);
         sb.append("            <xsl:otherwise>" + NEWLINE);
         sb.append("                <xsl:text>\\N</xsl:text>" + NEWLINE);
@@ -48,7 +49,7 @@ public class Template{
         sb.append("        <xsl:value-of select=\"$sep\"/>" + NEWLINE);
         sb.append("        <!--NEW_PRODUCT-->" + NEWLINE);
         sb.append("        <xsl:choose>" + NEWLINE);
-        sb.append("            <xsl:when test=\"" + fieldsDto.getNewProductKey() + "\"" + "= \"" + fieldsDto.getNewProductValue() + "\">" + NEWLINE);
+        sb.append("            <xsl:when test=\"" + fileField.getNewProductKey() + "\"" + "= \"" + fileField.getNewProductValue() + "\">" + NEWLINE);
         sb.append("                <xsl:value-of select=\"1\"/>" + NEWLINE);
         sb.append("            </xsl:when>" + NEWLINE);
         sb.append("            <xsl:otherwise>" + NEWLINE);

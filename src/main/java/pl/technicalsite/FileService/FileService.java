@@ -5,6 +5,7 @@ import pl.technicalsite.FileComponents.CutLine.CutLineService;
 import pl.technicalsite.FileComponents.Headers.HeadersService;
 import pl.technicalsite.FileComponents.MatchLine.MatchLineService;
 import pl.technicalsite.FileComponents.Structure.StructureFile;
+import pl.technicalsite.FileComponents.Template.TemplateModel.Template;
 import pl.technicalsite.FileComponents.Template.TemplateModel.TemplateComponents;
 import pl.technicalsite.FileComponents.Template.TemplateService.TemplateService;
 import pl.technicalsite.FileModel.FieldsDto;
@@ -38,8 +39,8 @@ public class FileService implements IFileService{
         String structure = fileDto.getStructure();
         TemplateComponents templateComponents = buildComponentsTemplate(structure);
 //        FileFieldsBuilder fileFieldsBuilder = biuldFileFields(fileDto.getFieldsDto());
-        FieldsDto fieldsDto = fileDto.getFieldsDto();
-        return templateService.buildStandardFile(templateComponents, fieldsDto);
+        FileFieldsBuilder fileFields = biuldFileFields(fileDto.getFieldsDto());
+        return templateService.buildStandardFile(templateComponents, fileFields);
     }
 
     @Override
@@ -60,13 +61,13 @@ public class FileService implements IFileService{
                 .build();
     }
 
-//    private FileFieldsBuilder biuldFileFields(FieldsDto fieldsDto){
-//        return new FileFieldsBuilder.Builder()
-//                .id(fieldsDto.getId())
-//                .name(fieldsDto.getName())
-//                .newProductValue(fieldsDto.getNewProductValue())
-//                .newProductValue(fieldsDto.getNewProductValue())
-//                .build();
-//    }
+    private FileFieldsBuilder biuldFileFields(FieldsDto fieldsDto){
+        return new FileFieldsBuilder.Builder()
+                .id(fieldsDto.getId())
+                .name(fieldsDto.getName())
+                .newProductValue(fieldsDto.getNewProductValue())
+                .newProductValue(fieldsDto.getNewProductValue())
+                .build();
+    }
 
 }
