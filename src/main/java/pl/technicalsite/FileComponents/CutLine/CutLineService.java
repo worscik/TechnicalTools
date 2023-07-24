@@ -9,8 +9,8 @@ public class CutLineService {
 
     public String resolveCutLine(String structure){
         switch (structure) {
-            case RRS_CHANNEL_ITEM -> {
-                return "rrs - Headers";
+            case RSS_CHANNEL_ITEM -> {
+                return "rss - Headers";
             }
             case ROOT_ITEM -> {
                 return "root - Headers";

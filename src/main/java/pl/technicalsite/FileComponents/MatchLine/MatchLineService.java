@@ -9,8 +9,8 @@ public class MatchLineService {
 
     public String resolveMatchLine(String structure){
         switch (structure) {
-            case RRS_CHANNEL_ITEM -> {
-                return "rrs - matchLine";
+            case RSS_CHANNEL_ITEM -> {
+                return "rss - matchLine";
             }
             case ROOT_ITEM -> {
                 return "root - matchLine";

@@ -9,7 +9,7 @@ public class HeadersService {
 
     public String reseolveHeaders(String structure){
         switch (structure) {
-            case RRS_CHANNEL_ITEM -> {
+            case RSS_CHANNEL_ITEM -> {
                 return "rss - Headers";
             }
             case ROOT_ITEM -> {
