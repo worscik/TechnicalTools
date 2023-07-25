@@ -1,8 +1,8 @@
-package pl.technicalsite.FileComponents.Template.TemplateService;
+package pl.technicalsite.Template.TemplateService;
 
 import org.springframework.stereotype.Service;
-import pl.technicalsite.FileComponents.Template.TemplateModel.Template;
-import pl.technicalsite.FileComponents.Template.TemplateModel.TemplateComponents;
+import pl.technicalsite.Template.TemplateModel.Template;
+import pl.technicalsite.Template.TemplateModel.TemplateComponents;
 import pl.technicalsite.FileModel.FieldsBuilder;
 
 @Service
@@ -15,7 +15,6 @@ public class TemplateService {
     }
 
     public String buildStandardFile(TemplateComponents templateComponents, FieldsBuilder fieldsBuilder){
-
         return  template.createFile(templateComponents, fieldsBuilder);
     }
 
