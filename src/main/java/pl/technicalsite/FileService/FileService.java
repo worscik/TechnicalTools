@@ -10,10 +10,13 @@ import pl.technicalsite.Template.TemplateService.TemplateService;
 import pl.technicalsite.FileModel.FieldsDto;
 import pl.technicalsite.FileModel.FileDto;
 import pl.technicalsite.FileModel.FieldsBuilder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Service
 public class FileService implements IFileService{
 
+    private static final Logger logger = LogManager.getLogger(FileService.class);
     private final CutLineService cutLineService;
     private final HeadersService headersService;
     private final StructureFile structureFile;
@@ -33,6 +36,9 @@ public class FileService implements IFileService{
     @Override
     public String preapreStandardFile(FileDto fileDto) {
         if(!checkStructure(fileDto.getStructure())){
+            logger.info("Structure is not correct");
+            logger.error("Structure is not correct");
+            logger.warn("Structure is not correct");
             return "Structure is not correct";
         }
         try{
@@ -41,7 +47,7 @@ public class FileService implements IFileService{
         FieldsBuilder fileFields = biuldFileFields(fileDto.getFieldsDto());
         return templateService.buildStandardFile(templateComponents, fileFields);
         } catch (Exception e){
-            System.out.println("Error: " + e);
+            logger.error(e);
             return "Error" + e;
         }
     }

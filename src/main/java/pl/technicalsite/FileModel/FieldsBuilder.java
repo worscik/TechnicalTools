@@ -4,7 +4,7 @@ public class FieldsBuilder {
 
     private String id;
     private String name;
-    private String newProductKey = "UNDEFINED";
+    private String newProductKey;
     private String newProductValue;
     private String availableKey;
     private String availableValue;
