@@ -14,7 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Service
-public class FileService implements IFileService{
+public class FileService implements IFileService {
 
     private static final Logger logger = LogManager.getLogger(FileService.class);
     private final CutLineService cutLineService;
@@ -35,20 +35,18 @@ public class FileService implements IFileService{
 
     @Override
     public String preapreStandardFile(FileDto fileDto) {
-        if(!checkStructure(fileDto.getStructure())){
+        if (!checkStructure(fileDto.getStructure(), fileDto.isCustom())) {
             logger.info("Structure is not correct");
-            logger.error("Structure is not correct");
-            logger.warn("Structure is not correct");
             return "Structure is not correct";
         }
-        try{
-        String structure = fileDto.getStructure();
-        TemplateComponents templateComponents = buildComponentsTemplate(structure);
-        FieldsBuilder fileFields = biuldFileFields(fileDto.getFieldsDto());
-        return templateService.buildStandardFile(templateComponents, fileFields);
-        } catch (Exception e){
+        try {
+            String structure = fileDto.getStructure();
+            TemplateComponents templateComponents = buildComponentsTemplate(structure);
+            FieldsBuilder fileFields = biuldFileFields(fileDto.getFieldsDto());
+            return templateService.buildStandardFile(templateComponents, fileFields);
+        } catch (Exception e) {
             logger.error(e);
-            return "Error" + e;
+            return "error..";
         }
     }
 
@@ -57,11 +55,15 @@ public class FileService implements IFileService{
         return null;
     }
 
-    private boolean checkStructure(String structure) {
+    private boolean checkStructure(String structure, boolean isCustom) {
+        if (isCustom) {
+            logger.info("used custom flag");
+            return true;
+        }
         return structureFile.resolveStructure(structure);
     }
 
-    private TemplateComponents buildComponentsTemplate(String structure){
+    private TemplateComponents buildComponentsTemplate(String structure) {
         return new TemplateComponents.Builder()
                 .structure(structure)
                 .headers(headersService.reseolveHeaders(structure))
@@ -70,7 +72,7 @@ public class FileService implements IFileService{
                 .build();
     }
 
-    private FieldsBuilder biuldFileFields(FieldsDto field){
+    private FieldsBuilder biuldFileFields(FieldsDto field) {
         return new FieldsBuilder.Builder()
                 .id(field.getId())
                 .name(resolveEmptyField(field.getName()))
@@ -110,13 +112,12 @@ public class FileService implements IFileService{
                 .build();
     }
 
-    public static String resolveEmptyField(String value){
-        if(value.equals("")){
+    public static String resolveEmptyField(String value) {
+        if (value.equals("")) {
             return "UNDEFINED";
         }
         return value;
     }
-
 
 
 }

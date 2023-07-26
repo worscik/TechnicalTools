@@ -10,9 +10,8 @@ public class Template {
 
     public String createFile(TemplateComponents templateComponents, FieldsBuilder fileField) {
 
-        String sb = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + NEWLINE +
-                "<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" version=\"1.0\"" + NEWLINE +
-                "		xmlns:g=\"http://base.google.com/ns/1.0\">" + NEWLINE +
+        String sb = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + NEWLINE
+                + templateComponents.getHeaders() + NEWLINE +
                 "    <xsl:output method=\"text\"/>" + NEWLINE +
                 "    <xsl:strip-space elements=\"node\"/>" + NEWLINE +
                 "    <xsl:strip-space elements=\"*\" />" + NEWLINE +
@@ -20,8 +19,8 @@ public class Template {
                 "    <xsl:variable name=\"newline\"><xsl:text>&#x0a;</xsl:text></xsl:variable>" + NEWLINE +
                 "    <xsl:variable name=\"sep\"><xsl:text>&#x7f;</xsl:text></xsl:variable>" + NEWLINE +
                 NEWLINE +
-                "    <xsl:template match=\"rss/channel/title | rss/channel/link | rss/channel/description\" />" + NEWLINE +
-                "    <xsl:template match=\"" + templateComponents.getStructure() + "\">" + NEWLINE +
+                templateComponents.getCutLine() + NEWLINE +
+                templateComponents.getMatchLine() + NEWLINE +
                 NEWLINE +
                 "        <!-- ustawienie zmiennych -->" + NEWLINE +
                 "        <!--EXTERNAL_ID-->" + NEWLINE +
@@ -40,7 +39,7 @@ public class Template {
                 "                <xsl:value-of select=\"substring(normalize-space(" + fileField.getName() + "),0,100)\"/>" + NEWLINE +
                 "            </xsl:when>" + NEWLINE +
                 "            <xsl:otherwise>" + NEWLINE +
-                "                <xsl:text>\\N</xsl:text>" + NEWLINE +
+                "                <xsl:text>noName</xsl:text>" + NEWLINE +
                 "            </xsl:otherwise>" + NEWLINE +
                 "        </xsl:choose>" + NEWLINE +
                 "        <xsl:value-of select=\"$sep\"/>" + NEWLINE +
