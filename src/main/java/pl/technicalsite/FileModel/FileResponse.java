@@ -2,7 +2,7 @@ package pl.technicalsite.FileModel;
 
 import org.springframework.http.HttpStatus;
 
-public class FileResponse extends ErrorResponse{
+public class FileResponse extends ErrorResponse {
 
     private String xsltFile;
     private HttpStatus httpStatus;
@@ -13,7 +13,6 @@ public class FileResponse extends ErrorResponse{
         this.xsltFile = xsltFile;
         this.httpStatus = httpStatus;
     }
-
 
 
 }

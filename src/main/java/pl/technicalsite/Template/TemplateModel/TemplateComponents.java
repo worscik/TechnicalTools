@@ -48,7 +48,7 @@ public class TemplateComponents {
                 '}';
     }
 
-    public static class Builder{
+    public static class Builder {
         private String structure;
         private String headers;
         private String cutLine;
@@ -74,12 +74,11 @@ public class TemplateComponents {
             return this;
         }
 
-        public TemplateComponents build(){
+        public TemplateComponents build() {
             return new TemplateComponents(this);
         }
 
     }
-
 
 
 }

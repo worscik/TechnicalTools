@@ -1,9 +1,9 @@
 package pl.technicalsite.Template.TemplateService;
 
 import org.springframework.stereotype.Service;
+import pl.technicalsite.FileModel.FieldsBuilder;
 import pl.technicalsite.Template.TemplateModel.Template;
 import pl.technicalsite.Template.TemplateModel.TemplateComponents;
-import pl.technicalsite.FileModel.FieldsBuilder;
 
 @Service
 public class TemplateService {

@@ -1,17 +1,17 @@
 package pl.technicalsite.FileService;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import pl.technicalsite.FileComponents.CutLine.CutLineService;
 import pl.technicalsite.FileComponents.Headers.HeadersService;
 import pl.technicalsite.FileComponents.MatchLine.MatchLineService;
 import pl.technicalsite.FileComponents.Structure.StructureFile;
-import pl.technicalsite.Template.TemplateModel.TemplateComponents;
-import pl.technicalsite.Template.TemplateService.TemplateService;
+import pl.technicalsite.FileModel.FieldsBuilder;
 import pl.technicalsite.FileModel.FieldsDto;
 import pl.technicalsite.FileModel.FileDto;
-import pl.technicalsite.FileModel.FieldsBuilder;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import pl.technicalsite.Template.TemplateModel.TemplateComponents;
+import pl.technicalsite.Template.TemplateService.TemplateService;
 
 @Service
 public class FileService implements IFileService {
@@ -118,6 +118,5 @@ public class FileService implements IFileService {
         }
         return value;
     }
-
 
 }

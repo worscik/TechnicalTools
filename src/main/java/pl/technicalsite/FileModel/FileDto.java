@@ -2,7 +2,7 @@ package pl.technicalsite.FileModel;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class FileDto extends FileCustomDto{
+public class FileDto extends FileCustomDto {
 
     @JsonProperty("StructureFile")
     private String structure;

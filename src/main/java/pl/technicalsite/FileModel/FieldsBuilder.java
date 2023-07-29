@@ -216,7 +216,7 @@ public class FieldsBuilder {
         return intDetail3;
     }
 
-    public static class Builder{
+    public static class Builder {
         private String id;
         private String name;
         private String newProductKey;
@@ -428,7 +428,7 @@ public class FieldsBuilder {
             return this;
         }
 
-        public FieldsBuilder build(){
+        public FieldsBuilder build() {
             return new FieldsBuilder(this);
         }
 
