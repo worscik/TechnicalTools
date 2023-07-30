@@ -9,6 +9,7 @@ import pl.technicalsite.FileComponents.MatchLine.MatchLineService;
 import pl.technicalsite.FileComponents.Structure.StructureFile;
 import pl.technicalsite.FileModel.FieldsBuilder;
 import pl.technicalsite.FileModel.FieldsDto;
+import pl.technicalsite.FileModel.FileCustomDto;
 import pl.technicalsite.FileModel.FileDto;
 import pl.technicalsite.Template.TemplateModel.TemplateComponents;
 import pl.technicalsite.Template.TemplateService.TemplateService;
@@ -34,16 +35,29 @@ public class FileService implements IFileService {
     }
 
     @Override
-    public String preapreStandardFile(FileDto fileDto) {
+    public String preapreStandardFile(FileDto fileDto, FileCustomDto fileCustomDto) {
         if (!checkStructure(fileDto.getStructure(), fileDto.isCustom())) {
             logger.info("Structure is not correct");
             return "Structure is not correct";
         }
         try {
             String structure = fileDto.getStructure();
-            TemplateComponents templateComponents = buildComponentsTemplate(structure);
+            TemplateComponents templateComponents = buildStandardComponentsTemplate(structure);
             FieldsBuilder fileFields = biuldFileFields(fileDto.getFieldsDto());
-            return templateService.buildStandardFile(templateComponents, fileFields);
+            return templateService.buildFile(templateComponents, fileFields);
+        } catch (Exception e) {
+            logger.error(e);
+            return "error..";
+        }
+    }
+
+    @Override
+    public String prepareCustomFile(FileDto fileDto, FileCustomDto fileCustomDto) {
+        try {
+            String structure = fileDto.getStructure();
+            TemplateComponents templateComponents = buildCustomComponentsTemplate(structure, fileDto.isCustom(), fileCustomDto);
+            FieldsBuilder fileFields = biuldFileFields(fileDto.getFieldsDto());
+            return templateService.buildFile(templateComponents, fileFields);
         } catch (Exception e) {
             logger.error(e);
             return "error..";
@@ -63,12 +77,21 @@ public class FileService implements IFileService {
         return structureFile.resolveStructure(structure);
     }
 
-    private TemplateComponents buildComponentsTemplate(String structure) {
+    private TemplateComponents buildCustomComponentsTemplate(String structure, boolean isCustom, FileCustomDto fileCustomDto) {
         return new TemplateComponents.Builder()
                 .structure(structure)
                 .headers(headersService.reseolveHeaders(structure))
-                .cutLine(cutLineService.resolveCutLine(structure))
-                .matchLine(matchLineService.resolveMatchLine(structure))
+                .cutLine(cutLineService.resolveCustomMatchLine(structure, fileCustomDto.getCutLine()))
+                .matchLine(matchLineService.resolveCustomMatchLine(structure, fileCustomDto.getCustomMatchLine()))
+                .build();
+    }
+
+    private TemplateComponents buildStandardComponentsTemplate(String structure) {
+        return new TemplateComponents.Builder()
+                .structure(structure)
+                .headers(headersService.reseolveHeaders(structure))
+                .cutLine(cutLineService.resolveStandardCutLine(structure))
+                .matchLine(matchLineService.resolveStandardMatchLine(structure))
                 .build();
     }
 

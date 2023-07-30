@@ -1,6 +1,7 @@
 package pl.technicalsite.FileComponents.Headers;
 
 import org.springframework.stereotype.Component;
+import pl.technicalsite.FileModel.FileCustomDto;
 
 import static pl.technicalsite.FileModel.MappingsType.*;
 
@@ -24,4 +25,5 @@ public class HeadersService {
         }
         return null;
     }
+
 }

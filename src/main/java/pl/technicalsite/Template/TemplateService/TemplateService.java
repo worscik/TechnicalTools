@@ -14,9 +14,8 @@ public class TemplateService {
         this.template = template;
     }
 
-    public String buildStandardFile(TemplateComponents templateComponents, FieldsBuilder fieldsBuilder) {
+    public String buildFile(TemplateComponents templateComponents, FieldsBuilder fieldsBuilder) {
         return template.createFile(templateComponents, fieldsBuilder);
     }
-
 
 }
