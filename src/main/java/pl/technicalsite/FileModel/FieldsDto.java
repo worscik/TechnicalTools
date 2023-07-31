@@ -1,7 +1,9 @@
 package pl.technicalsite.FileModel;
 
-public class FieldsDto {
+import io.micrometer.common.lang.NonNull;
 
+public class FieldsDto {
+    @NonNull
     private String id;
     private String name;
     private String newProductKey;

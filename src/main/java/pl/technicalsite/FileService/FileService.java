@@ -34,41 +34,6 @@ public class FileService implements IFileService {
         this.templateService = templateService;
     }
 
-    @Override
-    public String preapreStandardFile(FileDto fileDto, FileCustomDto fileCustomDto) {
-        if (!checkStructure(fileDto.getStructure(), fileDto.isCustom())) {
-            logger.info("Structure is not correct");
-            return "Structure is not correct";
-        }
-        try {
-            String structure = fileDto.getStructure();
-            TemplateComponents templateComponents = buildStandardComponentsTemplate(structure);
-            FieldsBuilder fileFields = biuldFileFields(fileDto.getFieldsDto());
-            return templateService.buildFile(templateComponents, fileFields);
-        } catch (Exception e) {
-            logger.error(e);
-            return "error..";
-        }
-    }
-
-    @Override
-    public String prepareCustomFile(FileDto fileDto, FileCustomDto fileCustomDto) {
-        try {
-            String structure = fileDto.getStructure();
-            TemplateComponents templateComponents = buildCustomComponentsTemplate(structure, fileDto.isCustom(), fileCustomDto);
-            FieldsBuilder fileFields = biuldFileFields(fileDto.getFieldsDto());
-            return templateService.buildFile(templateComponents, fileFields);
-        } catch (Exception e) {
-            logger.error(e);
-            return "error..";
-        }
-    }
-
-    @Override
-    public String buildTemplete() {
-        return null;
-    }
-
     private boolean checkStructure(String structure, boolean isCustom) {
         if (isCustom) {
             logger.info("used custom flag");
@@ -93,6 +58,41 @@ public class FileService implements IFileService {
                 .cutLine(cutLineService.resolveStandardCutLine(structure))
                 .matchLine(matchLineService.resolveStandardMatchLine(structure))
                 .build();
+    }
+
+    @Override
+    public String preapreStandardFile(FileDto fileDto, FileCustomDto fileCustomDto) {
+        if (!checkStructure(fileDto.getStructure(), fileDto.isCustom())) {
+            logger.info("Structure is not correct");
+            return "Structure is not correct";
+        }
+        try {
+            String structure = fileDto.getStructure();
+            TemplateComponents templateComponents = buildStandardComponentsTemplate(structure);
+            FieldsBuilder fileFields = biuldFileFields(fileDto.getFieldsDto());
+            return createFile(templateComponents, fileFields);
+        } catch (Exception e) {
+            logger.error(e);
+            return "error..";
+        }
+    }
+
+    @Override
+    public String prepareCustomFile(FileDto fileDto, FileCustomDto fileCustomDto) {
+        try {
+            String structure = fileDto.getStructure();
+            TemplateComponents templateComponents = buildCustomComponentsTemplate(structure, fileDto.isCustom(), fileCustomDto);
+            FieldsBuilder fileFields = biuldFileFields(fileDto.getFieldsDto());
+            return templateService.createFile(templateComponents, fileFields);
+        } catch (Exception e) {
+            logger.error(e);
+            return "error..";
+        }
+    }
+
+    @Override
+    public String createFile(TemplateComponents templateComponents, FieldsBuilder fieldsBuilder) {
+        return templateService.createFile(templateComponents, fieldsBuilder);
     }
 
     private FieldsBuilder biuldFileFields(FieldsDto field) {
