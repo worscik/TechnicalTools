@@ -28,7 +28,8 @@ public class WebController {
     public String createXsls(@RequestBody FileDto fileDto, FileCustomDto fileCustomDto) {
         //TODO custom script
         if (fileDto.isCustom()) {
-            return fileService.prepareCustomFile(fileDto, fileCustomDto);
+//            fileService.prepareCustomFile(fileDto, fileCustomDto);
+            return "Custom is not ready yet";
         }
         return fileService.preapreStandardFile(fileDto, fileCustomDto);
     }
