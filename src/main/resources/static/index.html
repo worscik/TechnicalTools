@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSON Creator</title>
+    <style>
+        /* Resetowanie domyślnych stylów dla przeglądarek */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Stylowanie całego formularza */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            padding: 20px;
+        }
+
+        #formContainer {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Stylowanie pól etykieta + input */
+        .input-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .input-row label {
+            flex-basis: 25%;
+            font-weight: bold;
+        }
+
+        .input-row input[type="text"] {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.2s ease-in-out;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        /* Stylowanie przycisku */
+        button {
+            display: block;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Układ pól w formularzu */
+        .form-row {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="formContainer">
+    <h1>Technical Tools JSON Creator</h1>
+    <form id="jsonForm">
+        <div class="form-row">
+            <label for="structure">Structure File:</label>
+            <select id="structure" name="StructureFile">
+                <option value="rss/channel/item">RSS Channel Item</option>
+                <option value="root/item">Root Item</option>
+                <option value="products/product">Products Product</option>
+                <option value="feed/entry">Feed Entry</option>
+                <option value="offers/group/o">Offers Group O</option>
+            </select>
+        </div>
+
+        <!-- Dynamiczne dodawanie pól dla obiektu Fields -->
+        <div id="fieldsContainer" class="form-row">
+            <!-- Skrypt JavaScript będzie dodawał pola tutaj -->
+        </div>
+
+        <div class="form-row">
+            <button type="button" id="createJson">Utwórz</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Skrypt jak poprzednio
+
+    // Dynamiczne dodawanie pól na podstawie obiektu Fields
+    var fieldsContainer = document.getElementById('fieldsContainer');
+    var fields = {
+        id: "ID",
+        name: "Name",
+        newProductKey: "New Product Key",
+        newProductValue: "New Product Value",
+        availableKey: "Available Key",
+        availableValue: "Available Value",
+        bestsellerKey: "Bestseller Key",
+        bestsellerValue: "Bestseller Value",
+        brand: "Brand value",
+        categories: "Categories",
+        categoryMain: "Category main",
+        description: "Description",
+        detail1: "Detail 1",
+        detail2: "Detail 2",
+    detail3: "Detail 3",
+    detail4: "Deeail 4",
+    detail5: "Detail 5",
+    price: "Price",
+    currency: "Currency",
+    pricePromo: "Promo price",
+    quantity: "Quantity",
+    urlProduct: "Url product",
+   urlImg: "Url img",
+  genderKey: "Gender Key",
+    genderValue: "Gender Value",
+    };
+
+    for (var fieldName in fields) {
+        var label = document.createElement('label');
+        label.textContent = fields[fieldName];
+        var input = document.createElement('input');
+        input.type = 'text';
+        input.id = fieldName;
+        input.name = 'Fields.' + fieldName;
+
+        var div = document.createElement('div');
+        div.classList.add('form-row', 'input-row');
+        div.appendChild(label);
+        div.appendChild(input);
+
+        fieldsContainer.appendChild(div);
+    }
+</script>
+</body>
+</html>
