@@ -1,9 +1,11 @@
 package pl.technicalsite.FileModel;
 
-import io.micrometer.common.lang.NonNull;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class FieldsDto {
-    @NonNull
+    @NotNull(message = "Id may not be null")
     private String id;
     private String name;
     private String newProductKey;
@@ -22,7 +24,9 @@ public class FieldsDto {
     private String detail4;
     private String detail5;
     private String manufacturer;
+    @NotNull(message = "Price may not be null")
     private String price;
+    @NotBlank(message = "Currency may not be null")
     private String currency;
     private String pricePromo;
     private String quantity;

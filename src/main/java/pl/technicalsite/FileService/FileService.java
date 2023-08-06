@@ -136,7 +136,7 @@ public class FileService implements IFileService {
     }
 
     public static String resolveEmptyField(String value) {
-        if (value.equals("")) {
+        if (value.equals("0") || value == null || value.length() == 0) {
             return "UNDEFINED";
         }
         return value;

@@ -1,91 +1,103 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSON Creator</title>
+    <title>Technical Tools</title>
     <style>
-        /* Resetowanie domyślnych stylów dla przeglądarek */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        body{
+            margin-left: 15%;
+            font-size: 15px;
         }
 
-        /* Stylowanie całego formularza */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            padding: 20px;
+        .form-column {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
         }
 
-        #formContainer {
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        /* Stylowanie pól etykieta + input */
-        .input-row {
+        /* Styl dla pól obok siebie */
+        .form-row {
             display: flex;
             align-items: center;
             margin-bottom: 10px;
         }
 
-        .input-row label {
-            flex-basis: 25%;
+        .form-row label {
+            flex-basis: 5%;
             font-weight: bold;
         }
 
-        .input-row input[type="text"] {
-            flex: 1;
+        .form-row input[type="text"] {
+            padding-left: 5%;
+            width: 30%;
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            transition: border-color 0.2s ease-in-out;
         }
 
-        input[type="text"]:focus {
-            outline: none;
-            border-color: #4CAF50;
-        }
-
-        /* Stylowanie przycisku */
-        button {
-            display: block;
-            margin-top: 20px;
-            padding: 10px;
+        /* Styl dla przycisku */
+        #submitButton {
             background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            padding: 10px;
             font-size: 16px;
-            transition: background-color 0.2s ease-in-out;
         }
 
-        button:hover {
+        #addNewField{
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        #submitButton:hover {
             background-color: #45a049;
         }
 
-        /* Układ pól w formularzu */
-        .form-row {
-            margin-bottom: 10px;
+        #fieldList {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #fff;
+    cursor: pointer;
+    width: 20%;
+    margin-right: 10px;
+}
+
+#fieldList:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+#footer {
+            margin-top: auto; /* Ustawienie stopki na samym dole */
+            margin-left: 30%;
+            color: green;
+            padding: 10px;
         }
+
+        /* Styl kontenera formularza */
+        #formContainer {
+            display: flex;
+            flex-direction: column;
+            min-height: 93vh; /* Minimalna wysokość kontenera równa wysokości okna przeglądarki */
+        }
+
     </style>
 </head>
 <body>
 <div id="formContainer">
-    <h1>Technical Tools JSON Creator</h1>
+    <h1>XML Creator TechnicalSupport</h1>
     <form id="jsonForm">
         <div class="form-row">
             <label for="structure">Structure File:</label>
             <select id="structure" name="StructureFile">
-                <option value="rss/channel/item">RSS Channel Item</option>
+                <option value="rss/channel/item">Rss/channel/item</option>
                 <option value="root/item">Root Item</option>
                 <option value="products/product">Products Product</option>
                 <option value="feed/entry">Feed Entry</option>
@@ -93,65 +105,344 @@
             </select>
         </div>
 
-        <!-- Dynamiczne dodawanie pól dla obiektu Fields -->
-        <div id="fieldsContainer" class="form-row">
-            <!-- Skrypt JavaScript będzie dodawał pola tutaj -->
-        </div>
 
-        <div class="form-row">
-            <button type="button" id="createJson">Utwórz</button>
-        </div>
-    </form>
+
+        <form id="advancedForm">
+
+            <input id="categories" value= "0" hidden>
+            <input id="manufacturer" hidden>
+            <input id="quantity" value="" hidden>
+            <input id="genderKey" value="" hidden>
+            <input id="genderValue" value="" hidden>
+            <input id="urlCategory" value="" hidden>
+            <input id="urlCategoryMark" value="" hidden>
+            <input id="popularity" value="" hidden>
+            <input id="season" value="" hidden>
+            <input id="color" value="" hidden>
+            <input id="addidtionalImage" value="" hidden>
+            <input id="intDetail1" value="" hidden>
+            <input id="intDetail2" value="" hidden>
+            <input id="intDetail3" value="" hidden>
+
+            <div class="form-row">
+                <label for="id">Id:</label>
+                <input type="text" id="id" name="id" value="" required>
+            </div>
+
+            <div class="form-column">
+                <div class="form-row">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" value="" >
+                </div>
+            </div>
+
+            <div class="form-row">
+                <label for="description">Description:</label>
+                <input type="text" id="description" name="description" value="" >
+            </div>
+
+            <div class="form-row">
+                <label for="availableKey">Available:</label>
+                <input type="text" id="availableKey" name="availableKey" value="" >
+                <label for="availableValue">Value:</label>
+                <input type="text" id="availableValue" name="availableValue" value="" >
+            </div>
+
+            <div class="form-row">
+                <label for="brand">Brand:</label>
+                <input type="text" id="brand" name="brand" value="" >
+            </div>
+
+            <div class="form-row">
+                <label for="newProductKey">New Product:</label>
+                <input type="text" id="newProductKey" name="newProductKey" value="" >
+                <label for="newProductValue">Value:</label>
+                <input type="text" id="newProductValue" name="newProductValue" value="" >
+            </div>
+
+            <div class="form-row">
+                <label for="price">Bestseller:</label>
+                <input type="text" id="bestsellerKey" name="price" value="" >
+                <label for="currency">Value:</label>
+                <input type="text" id="bestsellerValue" name="currency" value="" >
+            </div>
+
+            <div class="form-row">
+                <label for="categoryMain">Category Main:</label>
+                <input type="text" id="categoryMain" name="categoryMain" value="" >
+            </div>
+
+            <div class="form-row">
+                <label for="detail1">Detail 1:</label>
+                <input type="text" id="detail1" name="detail1" value="" >
+            </div>
+
+            <div class="form-row">
+                <label for="detail2">Detail 2:</label>
+                <input type="text" id="detail2" name="detail2" value="" >
+            </div>
+
+            <div class="form-row">
+                <label for="detail3">Detail 3:</label>
+                <input type="text" id="detail3" name="detail3" value="" >
+            </div>
+
+            <div class="form-row">
+                <label for="detail4">Detail 4:</label>
+                <input type="text" id="detail4" name="detail4" value="" >
+            </div>
+
+            <div class="form-row">
+                <label for="detail5">Detail 5:</label>
+                <input type="text" id="detail5" name="detail5" value="" >
+            </div>
+
+            <div class="form-row">
+                <label for="price">Price:</label>
+                <input type="text" id="price" name="price">
+                <label for="currency">Currency:</label>
+                <input type="text" id="currency" name="currency">
+            </div>
+
+            <div class="form-row">
+                <label for="pricePromo">Promo Price:</label>
+                <input type="text" id="pricePromo" name="pricePromo">
+            </div>
+
+            <div class="form-row">
+                <label for="urlProduct">URL Product:</label>
+                <input type="text" id="urlProduct" name="urlProduct">
+            </div>
+
+            <div class="form-row">
+                <label for="urlImg">URL Image:</label>
+                <input type="text" id="urlImg" name="urlImg">
+            </div>
+
+            <!-- Dodaj przycisk "Add New Field" i rozwijaną listę -->
+            <div class="form-row">
+                <button type="button" id="addNewField">Add New Field</button>
+                <select id="fieldList">
+                    <option value="categories">Categories</option>
+                    <option value="quantity">Quantity</option>
+                    <option value="gender">Gender</option>
+                    <option value="urlCategory">Url Category</option>
+                    <option value="urlCategoryMark">Url Category Mark</option>
+                    <option value="popularity">Popularity</option>
+                    <option value="season">Season</option>
+                    <option value="color">Color</option>
+                    <option value="addidtionalImage">Addidtional Image</option>
+                    <option value="intDetail1">Int Detail 1</option>
+                    <option value="intDetail2">Int Detail 2</option>
+                    <option value="intDetail3">Int Detail 3</option>
+                </select>
+            </div>
+
+            <!-- Dodaj przycisk "Submit" -->
+            <div class="form-row">
+                <button type="button" id="submitButton">Submit</button>
+            </div>
+        </form>
 </div>
 
 <script>
-    // Skrypt jak poprzednio
+        const fieldList = document.getElementById("fieldList");
+        const addNewFieldButton = document.getElementById("addNewField");
+        const fieldsContainer = document.querySelector(".form-column");
+        const submitButton = document.getElementById("submitButton");
 
-    // Dynamiczne dodawanie pól na podstawie obiektu Fields
-    var fieldsContainer = document.getElementById('fieldsContainer');
-    var fields = {
-        id: "ID",
-        name: "Name",
-        newProductKey: "New Product Key",
-        newProductValue: "New Product Value",
-        availableKey: "Available Key",
-        availableValue: "Available Value",
-        bestsellerKey: "Bestseller Key",
-        bestsellerValue: "Bestseller Value",
-        brand: "Brand value",
-        categories: "Categories",
-        categoryMain: "Category main",
-        description: "Description",
-        detail1: "Detail 1",
-        detail2: "Detail 2",
-    detail3: "Detail 3",
-    detail4: "Deeail 4",
-    detail5: "Detail 5",
-    price: "Price",
-    currency: "Currency",
-    pricePromo: "Promo price",
-    quantity: "Quantity",
-    urlProduct: "Url product",
-   urlImg: "Url img",
-  genderKey: "Gender Key",
-    genderValue: "Gender Value",
-    };
+        const fieldTemplates = {
+            categories: ['Categories'],
+            quantity: ['Quantity'],
+            gender: ['Gender Key', 'Gender Value'],
+            urlCategory: ['Url Category'],
+            urlCategoryMark: ['Url Category Mark'],
+            popularity: ['Popularity'],
+            season: ['Season'],
+            color: ['Color'],
+            addidtionalImage: ['Addidtional Image'],
+            intDetail1: ['Int Detail 1'],
+            intDetail2: ['Int Detail 2'],
+            intDetail3: ['Int Detail 3'],
+        };
 
-    for (var fieldName in fields) {
-        var label = document.createElement('label');
-        label.textContent = fields[fieldName];
-        var input = document.createElement('input');
-        input.type = 'text';
-        input.id = fieldName;
-        input.name = 'Fields.' + fieldName;
+        addNewFieldButton.addEventListener("click", function () {
+            const selectedField = fieldList.value;
+            const templateFields = fieldTemplates[selectedField];
 
-        var div = document.createElement('div');
-        div.classList.add('form-row', 'input-row');
-        div.appendChild(label);
-        div.appendChild(input);
+            if (templateFields) {
+                templateFields.forEach(function (fieldName) {
+                    const div = document.createElement('div');
+                    div.classList.add('form-row');
 
-        fieldsContainer.appendChild(div);
+                    const label = document.createElement('label');
+                    label.value = "";
+                    label.textContent = fieldName;
+                    label.for = fieldName;
+
+                    const input = document.createElement('input');
+                    input.value = "";
+                    input.type = 'text';
+                    input.id = fieldName.replace(/\s+/g, '');
+                    input.name = fieldName.replace(/\s+/g, '');
+
+                    div.appendChild(label);
+                    div.appendChild(input);
+
+                    fieldsContainer.appendChild(div);
+                });
+
+
+                const selectedOption = fieldList.options[fieldList.selectedIndex];
+                selectedOption.remove();
+            }
+        });
+
+        submitButton.addEventListener("click", function () {
+
+
+        const categoriesElement  = document.getElementById("categories");
+        const categoriesValue = categoriesElement !== null ? categoriesElement.value : "";
+
+
+        const manufacturerElement = document.getElementById("manufacturer");
+        const manufacturerValue = manufacturerElement !== null ? manufacturerElement.value : "";
+
+        const quantityElement = document.getElementById("quantity");
+        const quantityValue = quantityElement !== null ? quantityElement.value : "";
+
+        const genderKeyElement = document.getElementById("genderKey");
+        const genderKey = genderKeyElement !== null ? genderKeyElement.value : "";
+
+        const genderValueElemnt = document.getElementById("genderValue");
+        const genderValue = genderValueElemnt !== null ? genderValueElemnt.value : "";
+
+        const urlCategoryElement = document.getElementById("urlCategory");
+        const urlCategoryValue = urlCategoryElement !== null ? urlCategoryElement.value : "";
+
+        const urlCategoryMarkElement = document.getElementById("urlCategoryMark");
+        const urlCategoryMarkValue = urlCategoryMarkElement !== null ? urlCategoryMarkElement.value : "";
+
+        const popularityElement = document.getElementById("popularity");
+        const popularityValue = popularityElement !== null ? popularityElement.value : "";
+
+        const seasonElement = document.getElementById("season");
+        const seasonValue = seasonElement !== null ? seasonElement.value : "";
+
+        const colorElement = document.getElementById("color");
+        const colorValue = colorElement !== null ? colorElement.value : "";
+
+        const addidtionalImageElement = document.getElementById("addidtionalImage");
+        const addidtionalImageValue = addidtionalImageElement !== null ? addidtionalImageElement.value : "";
+
+        const intDetail1Element = document.getElementById("intDetail1");
+        const intDetail1Value = intDetail1Element !== null ? intDetail1Element.value : "";
+
+        const intDetail2Element = document.getElementById("intDetail2");
+        const intDetail2Value = intDetail2Element !== null ? intDetail2Element.value : "";
+
+        const intDetail3Element = document.getElementById("intDetail3");
+        const intDetail3Value = intDetail3Element !== null ? intDetail3Element.value : "";
+
+        const data = {
+        StructureFile: document.getElementById("structure").value,
+        Fields:{
+        id: + document.getElementById("id").value,
+        name: + document.getElementById("name").value,
+        newProductKey: + document.getElementById("newProductKey").value,
+        newProductValue: + document.getElementById("newProductValue").value,
+        availableKey: + document.getElementById("availableKey").value,
+        availableValue: + document.getElementById("availableValue").value,
+        bestsellerKey: + document.getElementById("bestsellerKey").value,
+        bestsellerValue: + document.getElementById("bestsellerValue").value,
+        brand: + document.getElementById("brand").value,
+        categoryMain: + document.getElementById("categoryMain").value,
+        description: + document.getElementById("description").value,
+        urlProduct: + document.getElementById("urlProduct").value,
+        urlImg: + document.getElementById("urlImg").value,
+        detail1: + document.getElementById("detail1").value,
+        detail2: + document.getElementById("detail2").value,
+        detail3: + document.getElementById("detail3").value,
+        detail4: + document.getElementById("detail4").value,
+        detail5: + document.getElementById("detail5").value,
+        price: + document.getElementById("price").value,
+        currency: + document.getElementById("currency").value,
+        pricePromo: + document.getElementById("pricePromo").value,
+        urlCategory: + document.getElementById("urlCategory").value,
+        categories: categoriesValue,
+        manufacturer: manufacturerValue,
+        quantity: quantityValue,
+        genderKey: genderKey,
+        genderValue: genderValue,
+        urlCategory: urlCategoryValue,
+        urlCategoryMark: urlCategoryMarkValue,
+        popularity: popularityValue,
+        season: seasonValue,
+        color: colorValue,
+        addidtionalImage: addidtionalImageValue,
+        intDetail1: intDetail1Value,
+        intDetail2: intDetail2Value,
+        intDetail3: intDetail3Value
+        }
+        };
+
+         const endpoint = "/create";
+const jsonData = JSON.stringify(data);
+
+const xhr = new XMLHttpRequest();
+xhr.open("POST", endpoint, true);
+xhr.setRequestHeader("Content-Type", "application/json");
+
+xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+            const responseText = xhr.responseText;
+
+            const responseDiv = document.createElement("div");
+            responseDiv.classList.add("response-container");
+
+            const responseTextElement = document.createElement("pre");
+            responseTextElement.textContent = responseText;
+
+            const copyButton = document.createElement("button");
+            copyButton.textContent = "COPY";
+            copyButton.classList.add("copy-button");
+            copyButton.addEventListener("click", function () {
+                const tempTextArea = document.createElement("textarea");
+                tempTextArea.value = responseText;
+                document.body.appendChild(tempTextArea);
+                tempTextArea.select();
+                document.execCommand("copy");
+                document.body.removeChild(tempTextArea);
+            });
+
+            responseDiv.appendChild(copyButton);
+            responseDiv.appendChild(responseTextElement);
+
+            document.body.innerHTML = ''; // Wyczyszczenie zawartości body
+            document.body.appendChild(responseDiv); // Dodanie nowego elementu do body
+        } else {
+            const responseDiv = document.createElement("div");
+            responseDiv.textContent = "Błąd podczas wysyłania danych.";
+
+            document.body.innerHTML = ''; // Wyczyszczenie zawartości body
+            document.body.appendChild(responseDiv); // Dodanie nowego elementu do body
+        }
     }
-</script>
+};
+
+xhr.send(jsonData); // Wysłanie danych na serwer
+
+
+
+
+        });
+    </script>
+
+<div id="footer">
+    Created by Technical Support &copy; 2023
+</div>
+
 </body>
+
 </html>
