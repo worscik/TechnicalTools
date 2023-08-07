@@ -1,10 +1,13 @@
 package pl.technicalsite.FileModel;
 
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+@Valid
 public class FieldsDto {
+
     @NotNull(message = "Id may not be null")
     private String id;
     private String name;

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Technical Tools</title>
     <style>
-        body{
-            margin-left: 15%;
-            font-size: 15px;
+        body {
+            margin-left:15%;
+            font-size: 12px;
         }
 
         .form-column {
@@ -29,7 +30,7 @@
         .form-row input[type="text"] {
             padding-left: 5%;
             width: 30%;
-            padding: 8px;
+            padding: 5px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
@@ -45,7 +46,7 @@
             font-size: 16px;
         }
 
-        #addNewField{
+        #addNewField {
             background-color: #4CAF50;
             color: white;
             border: none;
@@ -60,22 +61,24 @@
         }
 
         #fieldList {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    background-color: #fff;
-    cursor: pointer;
-    width: 20%;
-    margin-right: 10px;
-}
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: #fff;
+            cursor: pointer;
+            width: 20%;
+            margin-right: 10px;
+        }
 
-#fieldList:focus {
-    outline: none;
-    border-color: #4CAF50;
-}
-#footer {
-            margin-top: auto; /* Ustawienie stopki na samym dole */
+        #fieldList:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        #footer {
+            margin-top: auto;
+            /* Ustawienie stopki na samym dole */
             margin-left: 30%;
             color: green;
             padding: 10px;
@@ -85,11 +88,12 @@
         #formContainer {
             display: flex;
             flex-direction: column;
-            min-height: 93vh; /* Minimalna wysokość kontenera równa wysokości okna przeglądarki */
+            min-height: 93vh;
+            /* Minimalna wysokość kontenera równa wysokości okna przeglądarki */
         }
-
     </style>
 </head>
+
 <body>
 <div id="formContainer">
     <h1>XML Creator TechnicalSupport</h1>
@@ -97,7 +101,7 @@
         <div class="form-row">
             <label for="structure">Structure File:</label>
             <select id="structure" name="StructureFile">
-                <option value="rss/channel/item">Rss/channel/item</option>
+                <option value="rss/channel/item">Rss Channel Item</option>
                 <option value="root/item">Root Item</option>
                 <option value="products/product">Products Product</option>
                 <option value="feed/entry">Feed Entry</option>
@@ -105,11 +109,9 @@
             </select>
         </div>
 
-
-
         <form id="advancedForm">
 
-            <input id="categories" value= "0" hidden>
+            <input id="categories" hidden>
             <input id="manufacturer" hidden>
             <input id="quantity" value="" hidden>
             <input id="genderKey" value="" hidden>
@@ -126,75 +128,75 @@
 
             <div class="form-row">
                 <label for="id">Id:</label>
-                <input type="text" id="id" name="id" value="" required>
+                <input type="text" id="id" name="id" value="id is required" required>
             </div>
 
             <div class="form-column">
                 <div class="form-row">
                     <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" value="" >
+                    <input type="text" id="name" name="name" value="">
                 </div>
             </div>
 
             <div class="form-row">
                 <label for="description">Description:</label>
-                <input type="text" id="description" name="description" value="" >
+                <input type="text" id="description" name="description" value="">
             </div>
 
             <div class="form-row">
                 <label for="availableKey">Available:</label>
-                <input type="text" id="availableKey" name="availableKey" value="" >
+                <input type="text" id="availableKey" name="availableKey" value="">
                 <label for="availableValue">Value:</label>
-                <input type="text" id="availableValue" name="availableValue" value="" >
+                <input type="text" id="availableValue" name="availableValue" value="">
             </div>
 
             <div class="form-row">
                 <label for="brand">Brand:</label>
-                <input type="text" id="brand" name="brand" value="" >
+                <input type="text" id="brand" name="brand" value="">
             </div>
 
             <div class="form-row">
                 <label for="newProductKey">New Product:</label>
-                <input type="text" id="newProductKey" name="newProductKey" value="" >
+                <input type="text" id="newProductKey" name="newProductKey" value=" ">
                 <label for="newProductValue">Value:</label>
-                <input type="text" id="newProductValue" name="newProductValue" value="" >
+                <input type="text" id="newProductValue" name="newProductValue" value=" ">
             </div>
 
             <div class="form-row">
                 <label for="price">Bestseller:</label>
-                <input type="text" id="bestsellerKey" name="price" value="" >
+                <input type="text" id="bestsellerKey" name="price" value="">
                 <label for="currency">Value:</label>
-                <input type="text" id="bestsellerValue" name="currency" value="" >
+                <input type="text" id="bestsellerValue" name="currency" value="">
             </div>
 
             <div class="form-row">
                 <label for="categoryMain">Category Main:</label>
-                <input type="text" id="categoryMain" name="categoryMain" value="" >
+                <input type="text" id="categoryMain" name="categoryMain" value="">
             </div>
 
             <div class="form-row">
                 <label for="detail1">Detail 1:</label>
-                <input type="text" id="detail1" name="detail1" value="" >
+                <input type="text" id="detail1" name="detail1" value="">
             </div>
 
             <div class="form-row">
                 <label for="detail2">Detail 2:</label>
-                <input type="text" id="detail2" name="detail2" value="" >
+                <input type="text" id="detail2" name="detail2" value="">
             </div>
 
             <div class="form-row">
                 <label for="detail3">Detail 3:</label>
-                <input type="text" id="detail3" name="detail3" value="" >
+                <input type="text" id="detail3" name="detail3" value="">
             </div>
 
             <div class="form-row">
                 <label for="detail4">Detail 4:</label>
-                <input type="text" id="detail4" name="detail4" value="" >
+                <input type="text" id="detail4" name="detail4" value="">
             </div>
 
             <div class="form-row">
                 <label for="detail5">Detail 5:</label>
-                <input type="text" id="detail5" name="detail5" value="" >
+                <input type="text" id="detail5" name="detail5" value="">
             </div>
 
             <div class="form-row">
@@ -300,138 +302,150 @@
 
         submitButton.addEventListener("click", function () {
 
+            const idElements = document.getElementById("id");
+            const idValue = idElements !== "0" ? idElements.value : null;
 
-        const categoriesElement  = document.getElementById("categories");
-        const categoriesValue = categoriesElement !== null ? categoriesElement.value : "";
+
+            const categoriesElement = document.getElementById("categories");
+            const categoriesValue = categoriesElement !== null ? categoriesElement.value : "";
 
 
-        const manufacturerElement = document.getElementById("manufacturer");
-        const manufacturerValue = manufacturerElement !== null ? manufacturerElement.value : "";
+            const manufacturerElement = document.getElementById("manufacturer");
+            const manufacturerValue = manufacturerElement !== null ? manufacturerElement.value : "";
 
-        const quantityElement = document.getElementById("quantity");
-        const quantityValue = quantityElement !== null ? quantityElement.value : "";
+            const quantityElement = document.getElementById("quantity");
+            const quantityValue = quantityElement !== null ? quantityElement.value : "";
 
-        const genderKeyElement = document.getElementById("genderKey");
-        const genderKey = genderKeyElement !== null ? genderKeyElement.value : "";
+            const genderKeyElement = document.getElementById("genderKey");
+            const genderKey = genderKeyElement !== null ? genderKeyElement.value : "";
 
-        const genderValueElemnt = document.getElementById("genderValue");
-        const genderValue = genderValueElemnt !== null ? genderValueElemnt.value : "";
+            const genderValueElemnt = document.getElementById("genderValue");
+            const genderValue = genderValueElemnt !== null ? genderValueElemnt.value : "";
 
-        const urlCategoryElement = document.getElementById("urlCategory");
-        const urlCategoryValue = urlCategoryElement !== null ? urlCategoryElement.value : "";
+            const urlCategoryElement = document.getElementById("urlCategory");
+            const urlCategoryValue = urlCategoryElement !== null ? urlCategoryElement.value : "";
 
-        const urlCategoryMarkElement = document.getElementById("urlCategoryMark");
-        const urlCategoryMarkValue = urlCategoryMarkElement !== null ? urlCategoryMarkElement.value : "";
+            const urlCategoryMarkElement = document.getElementById("urlCategoryMark");
+            const urlCategoryMarkValue = urlCategoryMarkElement !== null ? urlCategoryMarkElement.value : "";
 
-        const popularityElement = document.getElementById("popularity");
-        const popularityValue = popularityElement !== null ? popularityElement.value : "";
+            const popularityElement = document.getElementById("popularity");
+            const popularityValue = popularityElement !== null ? popularityElement.value : "";
 
-        const seasonElement = document.getElementById("season");
-        const seasonValue = seasonElement !== null ? seasonElement.value : "";
+            const seasonElement = document.getElementById("season");
+            const seasonValue = seasonElement !== null ? seasonElement.value : "";
 
-        const colorElement = document.getElementById("color");
-        const colorValue = colorElement !== null ? colorElement.value : "";
+            const colorElement = document.getElementById("color");
+            const colorValue = colorElement !== null ? colorElement.value : "";
 
-        const addidtionalImageElement = document.getElementById("addidtionalImage");
-        const addidtionalImageValue = addidtionalImageElement !== null ? addidtionalImageElement.value : "";
+            const addidtionalImageElement = document.getElementById("addidtionalImage");
+            const addidtionalImageValue = addidtionalImageElement !== null ? addidtionalImageElement.value : "";
 
-        const intDetail1Element = document.getElementById("intDetail1");
-        const intDetail1Value = intDetail1Element !== null ? intDetail1Element.value : "";
+            const intDetail1Element = document.getElementById("intDetail1");
+            const intDetail1Value = intDetail1Element !== null ? intDetail1Element.value : "";
 
-        const intDetail2Element = document.getElementById("intDetail2");
-        const intDetail2Value = intDetail2Element !== null ? intDetail2Element.value : "";
+            const intDetail2Element = document.getElementById("intDetail2");
+            const intDetail2Value = intDetail2Element !== null ? intDetail2Element.value : "";
 
-        const intDetail3Element = document.getElementById("intDetail3");
-        const intDetail3Value = intDetail3Element !== null ? intDetail3Element.value : "";
+            const intDetail3Element = document.getElementById("intDetail3");
+            const intDetail3Value = intDetail3Element !== null ? intDetail3Element.value : "";
 
-        const data = {
-        StructureFile: document.getElementById("structure").value,
-        Fields:{
-        id: + document.getElementById("id").value,
-        name: + document.getElementById("name").value,
-        newProductKey: + document.getElementById("newProductKey").value,
-        newProductValue: + document.getElementById("newProductValue").value,
-        availableKey: + document.getElementById("availableKey").value,
-        availableValue: + document.getElementById("availableValue").value,
-        bestsellerKey: + document.getElementById("bestsellerKey").value,
-        bestsellerValue: + document.getElementById("bestsellerValue").value,
-        brand: + document.getElementById("brand").value,
-        categoryMain: + document.getElementById("categoryMain").value,
-        description: + document.getElementById("description").value,
-        urlProduct: + document.getElementById("urlProduct").value,
-        urlImg: + document.getElementById("urlImg").value,
-        detail1: + document.getElementById("detail1").value,
-        detail2: + document.getElementById("detail2").value,
-        detail3: + document.getElementById("detail3").value,
-        detail4: + document.getElementById("detail4").value,
-        detail5: + document.getElementById("detail5").value,
-        price: + document.getElementById("price").value,
-        currency: + document.getElementById("currency").value,
-        pricePromo: + document.getElementById("pricePromo").value,
-        urlCategory: + document.getElementById("urlCategory").value,
-        categories: categoriesValue,
-        manufacturer: manufacturerValue,
-        quantity: quantityValue,
-        genderKey: genderKey,
-        genderValue: genderValue,
-        urlCategory: urlCategoryValue,
-        urlCategoryMark: urlCategoryMarkValue,
-        popularity: popularityValue,
-        season: seasonValue,
-        color: colorValue,
-        addidtionalImage: addidtionalImageValue,
-        intDetail1: intDetail1Value,
-        intDetail2: intDetail2Value,
-        intDetail3: intDetail3Value
-        }
-        };
+            const data = {
+                StructureFile: document.getElementById("structure").value,
+                Fields: {
+                    id: + idValue,
+                    name: +document.getElementById("name").value,
+                    newProductKey: +document.getElementById("newProductKey").value,
+                    newProductValue: +document.getElementById("newProductValue").value,
+                    availableKey: +document.getElementById("availableKey").value,
+                    availableValue: +document.getElementById("availableValue").value,
+                    bestsellerKey: +document.getElementById("bestsellerKey").value,
+                    bestsellerValue: +document.getElementById("bestsellerValue").value,
+                    brand: +document.getElementById("brand").value,
+                    categoryMain: +document.getElementById("categoryMain").value,
+                    description: +document.getElementById("description").value,
+                    urlProduct: +document.getElementById("urlProduct").value,
+                    urlImg: +document.getElementById("urlImg").value,
+                    detail1: +document.getElementById("detail1").value,
+                    detail2: +document.getElementById("detail2").value,
+                    detail3: +document.getElementById("detail3").value,
+                    detail4: +document.getElementById("detail4").value,
+                    detail5: +document.getElementById("detail5").value,
+                    price: +document.getElementById("price").value,
+                    currency: +document.getElementById("currency").value,
+                    pricePromo: +document.getElementById("pricePromo").value,
+                    urlCategory: +document.getElementById("urlCategory").value,
+                    categories: categoriesValue,
+                    manufacturer: manufacturerValue,
+                    quantity: quantityValue,
+                    genderKey: genderKey,
+                    genderValue: genderValue,
+                    urlCategory: urlCategoryValue,
+                    urlCategoryMark: urlCategoryMarkValue,
+                    popularity: popularityValue,
+                    season: seasonValue,
+                    color: colorValue,
+                    addidtionalImage: addidtionalImageValue,
+                    intDetail1: intDetail1Value,
+                    intDetail2: intDetail2Value,
+                    intDetail3: intDetail3Value
+                }
+            };
 
-         const endpoint = "/create";
-const jsonData = JSON.stringify(data);
+            const endpoint = "https://techanicalsite.pl/create";
+            const jsonData = JSON.stringify(data);
 
-const xhr = new XMLHttpRequest();
-xhr.open("POST", endpoint, true);
-xhr.setRequestHeader("Content-Type", "application/json");
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", endpoint, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
 
-xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4) {
-        if (xhr.status === 200) {
-            const responseText = xhr.responseText;
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        const responseText = xhr.responseText;
 
-            const responseDiv = document.createElement("div");
-            responseDiv.classList.add("response-container");
+                        const responseDiv = document.createElement("div");
+                        responseDiv.classList.add("response-container");
 
-            const responseTextElement = document.createElement("pre");
-            responseTextElement.textContent = responseText;
+                        const responseTextElement = document.createElement("pre");
+                        responseTextElement.textContent = responseText;
 
-            const copyButton = document.createElement("button");
-            copyButton.textContent = "COPY";
-            copyButton.classList.add("copy-button");
-            copyButton.addEventListener("click", function () {
-                const tempTextArea = document.createElement("textarea");
-                tempTextArea.value = responseText;
-                document.body.appendChild(tempTextArea);
-                tempTextArea.select();
-                document.execCommand("copy");
-                document.body.removeChild(tempTextArea);
-            });
+                        const copyButton = document.createElement("button");
+                        copyButton.textContent = "COPY";
+                        copyButton.classList.add("copy-button");
+                        copyButton.addEventListener("click", function () {
+                            const tempTextArea = document.createElement("textarea");
+                            tempTextArea.value = responseText;
+                            document.body.appendChild(tempTextArea);
+                            tempTextArea.select();
+                            document.execCommand("copy");
+                            document.body.removeChild(tempTextArea);
+                        });
 
-            responseDiv.appendChild(copyButton);
-            responseDiv.appendChild(responseTextElement);
+                        const backButton = document.createElement("button");
+                        backButton.textContent = "BACK";
 
-            document.body.innerHTML = ''; // Wyczyszczenie zawartości body
-            document.body.appendChild(responseDiv); // Dodanie nowego elementu do body
-        } else {
-            const responseDiv = document.createElement("div");
-            responseDiv.textContent = "Błąd podczas wysyłania danych.";
+                        backButton.addEventListener("click", function () {
+                            window.location.href = "https://technicalsite.pl";
 
-            document.body.innerHTML = ''; // Wyczyszczenie zawartości body
-            document.body.appendChild(responseDiv); // Dodanie nowego elementu do body
-        }
-    }
-};
+                        });
 
-xhr.send(jsonData); // Wysłanie danych na serwer
+                        responseDiv.appendChild(copyButton);
+                        responseDiv.appendChild(backButton);
+                        responseDiv.appendChild(responseTextElement);
+
+                        document.body.innerHTML = ''; // Wyczyszczenie zawartości body
+                        document.body.appendChild(responseDiv); // Dodanie nowego elementu do body
+                    } else {
+                        const responseDiv = document.createElement("div");
+                        responseDiv.textContent = "Błąd podczas wysyłania danych.";
+
+                        document.body.innerHTML = ''; // Wyczyszczenie zawartości body
+                        document.body.appendChild(responseDiv); // Dodanie nowego elementu do body
+                    }
+                }
+            };
+
+            xhr.send(jsonData); // Wysłanie danych na serwer
 
 
 

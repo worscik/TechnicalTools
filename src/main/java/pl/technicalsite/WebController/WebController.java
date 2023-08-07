@@ -25,12 +25,11 @@ public class WebController {
 
     @PostMapping("/create")
     @ResponseBody
-    public String createXsls(@RequestBody FileDto fileDto, FileCustomDto fileCustomDto) {
+    public String createXsls(@RequestBody @Valid FileDto fileDto, FileCustomDto fileCustomDto, BindingResult bindingResult) {
 
-       if(fileDto.getFieldsDto().getId().equals("") ||
-       fileDto.getFieldsDto().getId() == null){
-           return "ID cannot be empty";
-       }
+      if(fileDto.getFieldsDto().getId() == null){
+          return "ID can not be null";
+      }
 
         //TODO custom script
         if (fileDto.isCustom()) {
