@@ -8,6 +8,8 @@ import pl.technicalsite.FileModel.FileCustomDto;
 import pl.technicalsite.FileModel.FileDto;
 import pl.technicalsite.FileService.FileService;
 
+import java.security.Principal;
+
 @Controller
 @CrossOrigin(value = "*")
 public class WebController {
@@ -25,10 +27,10 @@ public class WebController {
 
     @PostMapping("/create")
     @ResponseBody
-    public String createXsls(@RequestBody @Valid FileDto fileDto, FileCustomDto fileCustomDto, BindingResult bindingResult) {
+    public String createXsls(@RequestBody @Valid FileDto fileDto, FileCustomDto fileCustomDto) {
 
-      if(fileDto.getFieldsDto().getId() == null){
-          return "ID can not be null";
+      if(fileDto.getFieldsDto().getId() == null || fileDto.getFieldsDto().getId() == ""){
+          return "Wartość pola ID nie może być pusta";
       }
 
         //TODO custom script
@@ -38,6 +40,5 @@ public class WebController {
         }
         return fileService.preapreStandardFile(fileDto, fileCustomDto);
     }
-
 
 }

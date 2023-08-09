@@ -1,462 +1,341 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Technical Tools</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form </title>
     <style>
         body {
-            margin-left:15%;
-            font-size: 12px;
-        }
-
-        .form-column {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
             display: flex;
-            flex-direction: column;
-            margin-bottom: 10px;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
-
-        /* Styl dla pól obok siebie */
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            width: 600px;
+        }
         .form-row {
             display: flex;
             align-items: center;
             margin-bottom: 10px;
         }
-
-        .form-row label {
-            flex-basis: 5%;
-            font-weight: bold;
+        .form-label {
+            width: 120px;
         }
-
-        .form-row input[type="text"] {
-            padding-left: 5%;
-            width: 30%;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+        .form-input {
+            flex-grow: 1;
+            padding: 4px;
         }
+        .submit-button {
+            margin-top: 10px;
+            text-align: center;
 
-        /* Styl dla przycisku */
-        #submitButton {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            padding: 10px;
-            font-size: 16px;
         }
-
-        #addNewField {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            padding: 10px;
-            font-size: 16px;
+        .response-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
         }
-
-        #submitButton:hover {
-            background-color: #45a049;
-        }
-
-        #fieldList {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
+        .response-container {
             background-color: #fff;
-            cursor: pointer;
-            width: 20%;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            height: 10%;
+            overflow-y: auto;
+        }
+        #copy-button, #send-button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
             margin-right: 10px;
+            cursor: pointer;
+            border-radius: 4px;
         }
-
-        #fieldList:focus {
-            outline: none;
-            border-color: #4CAF50;
-        }
-
-        #footer {
-            margin-top: auto;
-            /* Ustawienie stopki na samym dole */
-            margin-left: 30%;
-            color: green;
-            padding: 10px;
-        }
-
-        /* Styl kontenera formularza */
-        #formContainer {
-            display: flex;
-            flex-direction: column;
-            min-height: 93vh;
-            /* Minimalna wysokość kontenera równa wysokości okna przeglądarki */
+        #response-text{
+        height: 10%;
         }
     </style>
 </head>
-
 <body>
-<div id="formContainer">
-    <h1>XML Creator TechnicalSupport</h1>
-    <form id="jsonForm">
+
+<div class="container">
+    <input id="default" value="" hidden>
+
+
+    <form id="data-form">
+        <h3>Technical Tools </h3>
         <div class="form-row">
             <label for="structure">Structure File:</label>
             <select id="structure" name="StructureFile">
-                <option value="rss/channel/item">Rss Channel Item</option>
-                <option value="root/item">Root Item</option>
-                <option value="products/product">Products Product</option>
-                <option value="feed/entry">Feed Entry</option>
-                <option value="offers/group/o">Offers Group O</option>
+                <option value="rss/channel/item">Rss/Channel/Item</option>
+                <option value="root/item">Root/Item</option>
+                <option value="products/product">Products/Product</option>
+                <option value="feed/entry">Feed/Entry</option>
+                <option value="offers/group/o">Offers/Group/O</option>
             </select>
         </div>
+        <div class="form-row">
+            <label class="form-label" for="id">Id:</label>
+            <input class="form-input" type="text" id="id" name="id" required placeholder="required">
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="name">Name:</label>
+            <input class="form-input" type="text" id="name" name="name" required>
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="brand">Brand:</label>
+            <input class="form-input" type="text" id="brand" name="brand" required>
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="description">Description:</label>
+            <input class="form-input" type="text" id="description" name="description" required>
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="available">Available:</label>
+            <input class="form-input-half" type="text" id="availableKey" name="availableKey" required>
+            <label class="form-label" for="availableValue"> Value:</label>
+            <input class="form-input-half" type="text" id="availableValue" name="availableValue" required>
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="newProductKey">New Product:</label>
+            <input class="form-input-half" type="text" id="newProductKey" name="newProductKey" required>
+            <label class="form-label" for="availableValue"> Value:</label>
+            <input class="form-input-half" type="text" id="newProductValue" name="newProductValue" required>
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="bestsellerKey">Bestseller:</label>
+            <input class="form-input-half" type="text" id="bestsellerKey" name="bestsellerKey" required>
+            <label class="form-label" for="bestsellerValue"> Value:</label>
+            <input class="form-input-half" type="text" id="bestsellerValue" name="bestsellerValue" required>
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="categoryMain">Category main:</label>
+            <input class="form-input" type="text" id="categoryMain" name="categoryMain" required>
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="detail1">Detail 1:</label>
+            <input class="form-input" type="text" id="detail1" name="detail1" required>
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="detail2">Detail 2:</label>
+            <input class="form-input" type="text" id="detail2" name="detail2" required>
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="detail3">Detail 3:</label>
+            <input class="form-input" type="text" id="detail3" name="detail3" required>
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="detail4">Detail 4:</label>
+            <input class="form-input" type="text" id="detail4" name="detail4" required>
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="detail5">Detail 5:</label>
+            <input class="form-input" type="text" id="detail5" name="detail5" required>
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="price">Price:</label>
+            <input class="form-input-half" type="text" id="price" name="price" required>
+            <label class="form-label" for="currency">Currency:</label>
+            <input class="form-input-half" type="text" id="currency" name="currency" required>
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="pricePromo">Promo price:</label>
+            <input class="form-input" type="text" id="pricePromo" name="pricePromo" required>
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="urlProduct">Url product:</label>
+            <input class="form-input" type="text" id="urlProduct" name="urlProduct" required>
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="quantity">Quantity:</label>
+            <input class="form-input" type="text" id="quantity" name="quantity" required>
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="urlImg">Url image:</label>
+            <input class="form-input" type="text" id="urlImg" name="urlImg" required>
+        </div>
 
-        <form id="advancedForm">
+        <div class="submit-button">
+            <button id="send-button"  type="button">Send</button>
+        </div>
+    </form>
+    <div class="response-container">
 
-            <input id="categories" hidden>
-            <input id="manufacturer" hidden>
-            <input id="quantity" value="" hidden>
-            <input id="genderKey" value="" hidden>
-            <input id="genderValue" value="" hidden>
-            <input id="urlCategory" value="" hidden>
-            <input id="urlCategoryMark" value="" hidden>
-            <input id="popularity" value="" hidden>
-            <input id="season" value="" hidden>
-            <input id="color" value="" hidden>
-            <input id="addidtionalImage" value="" hidden>
-            <input id="intDetail1" value="" hidden>
-            <input id="intDetail2" value="" hidden>
-            <input id="intDetail3" value="" hidden>
+        <button class="copy-button" id="copy-button">COPY</button>
+        <!-- <button class="back-button" id="back-button">BACK</button> -->
+        <pre id="response-text">Odpowiedź serwera...</pre>
+    </div>
 
-            <div class="form-row">
-                <label for="id">Id:</label>
-                <input type="text" id="id" name="id" value="id is required" required>
-            </div>
-
-            <div class="form-column">
-                <div class="form-row">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" value="">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <label for="description">Description:</label>
-                <input type="text" id="description" name="description" value="">
-            </div>
-
-            <div class="form-row">
-                <label for="availableKey">Available:</label>
-                <input type="text" id="availableKey" name="availableKey" value="">
-                <label for="availableValue">Value:</label>
-                <input type="text" id="availableValue" name="availableValue" value="">
-            </div>
-
-            <div class="form-row">
-                <label for="brand">Brand:</label>
-                <input type="text" id="brand" name="brand" value="">
-            </div>
-
-            <div class="form-row">
-                <label for="newProductKey">New Product:</label>
-                <input type="text" id="newProductKey" name="newProductKey" value=" ">
-                <label for="newProductValue">Value:</label>
-                <input type="text" id="newProductValue" name="newProductValue" value=" ">
-            </div>
-
-            <div class="form-row">
-                <label for="price">Bestseller:</label>
-                <input type="text" id="bestsellerKey" name="price" value="">
-                <label for="currency">Value:</label>
-                <input type="text" id="bestsellerValue" name="currency" value="">
-            </div>
-
-            <div class="form-row">
-                <label for="categoryMain">Category Main:</label>
-                <input type="text" id="categoryMain" name="categoryMain" value="">
-            </div>
-
-            <div class="form-row">
-                <label for="detail1">Detail 1:</label>
-                <input type="text" id="detail1" name="detail1" value="">
-            </div>
-
-            <div class="form-row">
-                <label for="detail2">Detail 2:</label>
-                <input type="text" id="detail2" name="detail2" value="">
-            </div>
-
-            <div class="form-row">
-                <label for="detail3">Detail 3:</label>
-                <input type="text" id="detail3" name="detail3" value="">
-            </div>
-
-            <div class="form-row">
-                <label for="detail4">Detail 4:</label>
-                <input type="text" id="detail4" name="detail4" value="">
-            </div>
-
-            <div class="form-row">
-                <label for="detail5">Detail 5:</label>
-                <input type="text" id="detail5" name="detail5" value="">
-            </div>
-
-            <div class="form-row">
-                <label for="price">Price:</label>
-                <input type="text" id="price" name="price">
-                <label for="currency">Currency:</label>
-                <input type="text" id="currency" name="currency">
-            </div>
-
-            <div class="form-row">
-                <label for="pricePromo">Promo Price:</label>
-                <input type="text" id="pricePromo" name="pricePromo">
-            </div>
-
-            <div class="form-row">
-                <label for="urlProduct">URL Product:</label>
-                <input type="text" id="urlProduct" name="urlProduct">
-            </div>
-
-            <div class="form-row">
-                <label for="urlImg">URL Image:</label>
-                <input type="text" id="urlImg" name="urlImg">
-            </div>
-
-            <!-- Dodaj przycisk "Add New Field" i rozwijaną listę -->
-            <div class="form-row">
-                <button type="button" id="addNewField">Add New Field</button>
-                <select id="fieldList">
-                    <option value="categories">Categories</option>
-                    <option value="quantity">Quantity</option>
-                    <option value="gender">Gender</option>
-                    <option value="urlCategory">Url Category</option>
-                    <option value="urlCategoryMark">Url Category Mark</option>
-                    <option value="popularity">Popularity</option>
-                    <option value="season">Season</option>
-                    <option value="color">Color</option>
-                    <option value="addidtionalImage">Addidtional Image</option>
-                    <option value="intDetail1">Int Detail 1</option>
-                    <option value="intDetail2">Int Detail 2</option>
-                    <option value="intDetail3">Int Detail 3</option>
-                </select>
-            </div>
-
-            <!-- Dodaj przycisk "Submit" -->
-            <div class="form-row">
-                <button type="button" id="submitButton">Submit</button>
-            </div>
-        </form>
 </div>
 
 <script>
-        const fieldList = document.getElementById("fieldList");
-        const addNewFieldButton = document.getElementById("addNewField");
-        const fieldsContainer = document.querySelector(".form-column");
-        const submitButton = document.getElementById("submitButton");
+    const copyButton = document.getElementById("copy-button");
+    const backButton = document.getElementById("back-button");
+    const responseTextElement = document.getElementById("response-text");
+    let formData = {};
 
-        const fieldTemplates = {
-            categories: ['Categories'],
-            quantity: ['Quantity'],
-            gender: ['Gender Key', 'Gender Value'],
-            urlCategory: ['Url Category'],
-            urlCategoryMark: ['Url Category Mark'],
-            popularity: ['Popularity'],
-            season: ['Season'],
-            color: ['Color'],
-            addidtionalImage: ['Addidtional Image'],
-            intDetail1: ['Int Detail 1'],
-            intDetail2: ['Int Detail 2'],
-            intDetail3: ['Int Detail 3'],
-        };
+                    //JSON
+                    document.getElementById("submit-button").addEventListener("click", async function () {
+                        const fields = {
+                    "id": document.getElementById("id").value,
+                    "name": document.getElementById("name").value,
+                    "newProductKey": document.getElementById("newProductKey").value,
+                    "newProductValue": document.getElementById("newProductValue").value,
+                    "availableKey": document.getElementById("availableKey").value,
+                    "availableValue": document.getElementById("availableValue").value,
+                    "bestsellerKey": document.getElementById("bestsellerKey").value,
+                    "bestsellerValue": document.getElementById("bestsellerValue").value,
+                    "brand": document.getElementById("brand").value,
+                    "categories": document.getElementById("default").value,
+                    "categoryMain": document.getElementById("categoryMain").value,
+                    "description": document.getElementById("description").value,
+                    "detail1": document.getElementById("detail1").value,
+                    "detail2": document.getElementById("detail2").value,
+                    "detail3": document.getElementById("detail3").value,
+                    "detail4": document.getElementById("detail4").value,
+                    "detail5": document.getElementById("detail5").value,
+                    "manufacturer": document.getElementById("default").value,
+                    "price": document.getElementById("price").value,
+                    "currency": document.getElementById("currency").value,
+                    "quantity":  document.getElementById("quantity").value,
+                    "urlProduct": document.getElementById("urlProduct").value,
+                    "urlImg": document.getElementById("urlImg").value,
+                    "genderKey": document.getElementById("default").value,
+                    "genderValue": document.getElementById("default").value,
+                    "urlCategory": document.getElementById("default").value,
+                    "urlCategoryMark": document.getElementById("default").value,
+                    "popularity": document.getElementById("default").value,
+                    "season": document.getElementById("default").value,
+                    "color": document.getElementById("default").value,
+                    "addidtionalImage": document.getElementById("default").value,
+                    "intDetail1": document.getElementById("default").value,
+                    "intDetail2": document.getElementById("default").value,
+                    "intDetail3": document.getElementById("default").value,
+                };
 
-        addNewFieldButton.addEventListener("click", function () {
-            const selectedField = fieldList.value;
-            const templateFields = fieldTemplates[selectedField];
+                const jsonObject = {
+                    "StructureFile": document.getElementById("structure").value,
+                    "Fields": fields
+                };
 
-            if (templateFields) {
-                templateFields.forEach(function (fieldName) {
-                    const div = document.createElement('div');
-                    div.classList.add('form-row');
+               try {
+    const response = await fetch("/create", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(jsonObject)
+    });
 
-                    const label = document.createElement('label');
-                    label.value = "";
-                    label.textContent = fieldName;
-                    label.for = fieldName;
+    if (response.status === 200) {
+        const responseText = await response.text();
+        responseTextElement.textContent = responseText;
 
-                    const input = document.createElement('input');
-                    input.value = "";
-                    input.type = 'text';
-                    input.id = fieldName.replace(/\s+/g, '');
-                    input.name = fieldName.replace(/\s+/g, '');
+    } else {
+        console.error("Error: Unexpected response status:", response.status);
+    }
+} catch (error) {
+    console.error("Error:", error);
+}
+});
 
-                    div.appendChild(label);
-                    div.appendChild(input);
 
-                    fieldsContainer.appendChild(div);
+                    function insertResponseBelowForm(response) {
+
+
+
+                // Tworzenie kontenera na odpowiedź
+                const responseDiv = document.createElement("div");
+                responseDiv.classList.add("response-container");
+
+                const responseContent = document.createElement("div");
+                responseContent.classList.add("response-content");
+
+                const copyButton = document.createElement("button");
+                copyButton.textContent = "COPY";
+                copyButton.classList.add("copy-button");
+                copyButton.addEventListener("click", function () {
+                    const tempTextArea = document.createElement("textarea");
+                    tempTextArea.value = response;
+                    document.body.appendChild(tempTextArea);
+                    tempTextArea.select();
+                    document.execCommand("copy");
+                    document.body.removeChild(tempTextArea);
                 });
 
+                // const backButton = document.createElement("button");
+                // backButton.textContent = "BACK";
+                // backButton.classList.add("back-button");
+                // backButton.addEventListener("click", function () {
+                //     // Przywrócenie formularza i ukrycie odpowiedzi
+                //     responseDiv.style.display = "none";
+                //     form.style.display = "block";
+                // });
 
-                const selectedOption = fieldList.options[fieldList.selectedIndex];
-                selectedOption.remove();
-            }
-        });
+                const responseTextElement = document.createElement("pre");
+                responseTextElement.textContent = response;
 
-        submitButton.addEventListener("click", function () {
+                responseContent.appendChild(copyButton);
+                // responseContent.appendChild(backButton);
+                responseContent.appendChild(responseTextElement);
 
-            const idElements = document.getElementById("id");
-            const idValue = idElements !== "0" ? idElements.value : null;
+                responseDiv.appendChild(responseContent);
 
-
-            const categoriesElement = document.getElementById("categories");
-            const categoriesValue = categoriesElement !== null ? categoriesElement.value : "";
+                // Dodawanie odpowiedzi pod formularzem
+                document.body.appendChild(responseDiv);
 
 
-            const manufacturerElement = document.getElementById("manufacturer");
-            const manufacturerValue = manufacturerElement !== null ? manufacturerElement.value : "";
-
-            const quantityElement = document.getElementById("quantity");
-            const quantityValue = quantityElement !== null ? quantityElement.value : "";
-
-            const genderKeyElement = document.getElementById("genderKey");
-            const genderKey = genderKeyElement !== null ? genderKeyElement.value : "";
-
-            const genderValueElemnt = document.getElementById("genderValue");
-            const genderValue = genderValueElemnt !== null ? genderValueElemnt.value : "";
-
-            const urlCategoryElement = document.getElementById("urlCategory");
-            const urlCategoryValue = urlCategoryElement !== null ? urlCategoryElement.value : "";
-
-            const urlCategoryMarkElement = document.getElementById("urlCategoryMark");
-            const urlCategoryMarkValue = urlCategoryMarkElement !== null ? urlCategoryMarkElement.value : "";
-
-            const popularityElement = document.getElementById("popularity");
-            const popularityValue = popularityElement !== null ? popularityElement.value : "";
-
-            const seasonElement = document.getElementById("season");
-            const seasonValue = seasonElement !== null ? seasonElement.value : "";
-
-            const colorElement = document.getElementById("color");
-            const colorValue = colorElement !== null ? colorElement.value : "";
-
-            const addidtionalImageElement = document.getElementById("addidtionalImage");
-            const addidtionalImageValue = addidtionalImageElement !== null ? addidtionalImageElement.value : "";
-
-            const intDetail1Element = document.getElementById("intDetail1");
-            const intDetail1Value = intDetail1Element !== null ? intDetail1Element.value : "";
-
-            const intDetail2Element = document.getElementById("intDetail2");
-            const intDetail2Value = intDetail2Element !== null ? intDetail2Element.value : "";
-
-            const intDetail3Element = document.getElementById("intDetail3");
-            const intDetail3Value = intDetail3Element !== null ? intDetail3Element.value : "";
-
-            const data = {
-                StructureFile: document.getElementById("structure").value,
-                Fields: {
-                    id: + idValue,
-                    name: +document.getElementById("name").value,
-                    newProductKey: +document.getElementById("newProductKey").value,
-                    newProductValue: +document.getElementById("newProductValue").value,
-                    availableKey: +document.getElementById("availableKey").value,
-                    availableValue: +document.getElementById("availableValue").value,
-                    bestsellerKey: +document.getElementById("bestsellerKey").value,
-                    bestsellerValue: +document.getElementById("bestsellerValue").value,
-                    brand: +document.getElementById("brand").value,
-                    categoryMain: +document.getElementById("categoryMain").value,
-                    description: +document.getElementById("description").value,
-                    urlProduct: +document.getElementById("urlProduct").value,
-                    urlImg: +document.getElementById("urlImg").value,
-                    detail1: +document.getElementById("detail1").value,
-                    detail2: +document.getElementById("detail2").value,
-                    detail3: +document.getElementById("detail3").value,
-                    detail4: +document.getElementById("detail4").value,
-                    detail5: +document.getElementById("detail5").value,
-                    price: +document.getElementById("price").value,
-                    currency: +document.getElementById("currency").value,
-                    pricePromo: +document.getElementById("pricePromo").value,
-                    urlCategory: +document.getElementById("urlCategory").value,
-                    categories: categoriesValue,
-                    manufacturer: manufacturerValue,
-                    quantity: quantityValue,
-                    genderKey: genderKey,
-                    genderValue: genderValue,
-                    urlCategory: urlCategoryValue,
-                    urlCategoryMark: urlCategoryMarkValue,
-                    popularity: popularityValue,
-                    season: seasonValue,
-                    color: colorValue,
-                    addidtionalImage: addidtionalImageValue,
-                    intDetail1: intDetail1Value,
-                    intDetail2: intDetail2Value,
-                    intDetail3: intDetail3Value
-                }
-            };
-
-            const endpoint = "https://techanicalsite.pl/create";
-            const jsonData = JSON.stringify(data);
-
-            const xhr = new XMLHttpRequest();
-            xhr.open("POST", endpoint, true);
-            xhr.setRequestHeader("Content-Type", "application/json");
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        const responseText = xhr.responseText;
-
-                        const responseDiv = document.createElement("div");
-                        responseDiv.classList.add("response-container");
-
-                        const responseTextElement = document.createElement("pre");
-                        responseTextElement.textContent = responseText;
-
-                        const copyButton = document.createElement("button");
-                        copyButton.textContent = "COPY";
-                        copyButton.classList.add("copy-button");
-                        copyButton.addEventListener("click", function () {
-                            const tempTextArea = document.createElement("textarea");
-                            tempTextArea.value = responseText;
-                            document.body.appendChild(tempTextArea);
-                            tempTextArea.select();
-                            document.execCommand("copy");
-                            document.body.removeChild(tempTextArea);
-                        });
-
-                        const backButton = document.createElement("button");
-                        backButton.textContent = "BACK";
-
-                        backButton.addEventListener("click", function () {
-                            window.location.href = "https://technicalsite.pl";
-
-                        });
-
-                        responseDiv.appendChild(copyButton);
-                        responseDiv.appendChild(backButton);
-                        responseDiv.appendChild(responseTextElement);
-
-                        document.body.innerHTML = ''; // Wyczyszczenie zawartości body
-                        document.body.appendChild(responseDiv); // Dodanie nowego elementu do body
-                    } else {
-                        const responseDiv = document.createElement("div");
-                        responseDiv.textContent = "Błąd podczas wysyłania danych.";
-
-                        document.body.innerHTML = ''; // Wyczyszczenie zawartości body
-                        document.body.appendChild(responseDiv); // Dodanie nowego elementu do body
                     }
-                }
-            };
+                    function showResponseOverlay(response) {
+            const responseOverlay = document.getElementById("response-overlay");
+            const responseTextElement = document.getElementById("response-text");
+            const copyButton = document.getElementById("copy-button");
+            // const backButton = document.getElementById("back-button");
 
-            xhr.send(jsonData); // Wysłanie danych na serwer
+            responseTextElement.textContent = response;
+            responseOverlay.style.display = "flex";
+                    }
+         copyButton.addEventListener("click", function () {
+        const tempTextArea = document.createElement("textarea");
+        tempTextArea.value = responseTextElement.textContent;
+        document.body.appendChild(tempTextArea);
+        tempTextArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempTextArea);
+    });
+
+    backButton.addEventListener("click", function () {
+        // Tutaj przywracamy formularz z zachowanymi danymi
+        // Możesz wykorzystać formData do tego celu
+
+        // Przykładowy kod do przywracania danych
+        document.getElementById("id").value = formData.id;
+        document.getElementById("name").value = formData.name;
 
 
+        // Możesz dostosować powyższy kod do swoich potrzeb
+    });
 
-
-        });
-    </script>
-
-<div id="footer">
-    Created by Technical Support &copy; 2023
-</div>
-
+</script>
 </body>
-
 </html>
