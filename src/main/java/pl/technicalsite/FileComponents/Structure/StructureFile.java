@@ -12,7 +12,6 @@ public class StructureFile {
             if (x.equals(structure)) {
                 System.out.println("Structure correct: " + structure);
                 return true;
-
             }
         }
         return false;

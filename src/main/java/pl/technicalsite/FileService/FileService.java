@@ -96,7 +96,7 @@ public class FileService implements IFileService {
     }
 
     private FieldsBuilder biuldFileFields(FieldsDto field) {
-        try{
+        try {
             return new FieldsBuilder.Builder()
                     .id(field.getId())
                     .name(resolveEmptyField(field.getName()))
@@ -134,7 +134,7 @@ public class FileService implements IFileService {
                     .intDetail2(resolveEmptyField(field.getIntDetail2()))
                     .intDetail3(resolveEmptyField(field.getIntDetail3()))
                     .build();
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         return null;

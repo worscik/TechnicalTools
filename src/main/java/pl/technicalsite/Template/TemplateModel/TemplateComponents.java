@@ -1,7 +1,5 @@
 package pl.technicalsite.Template.TemplateModel;
 
-import org.springframework.stereotype.Repository;
-
 public class TemplateComponents {
 
     private String structure;

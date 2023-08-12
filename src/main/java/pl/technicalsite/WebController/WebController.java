@@ -2,7 +2,6 @@ package pl.technicalsite.WebController;
 
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.technicalsite.FileModel.FileCustomDto;
 import pl.technicalsite.FileModel.FileDto;
@@ -27,11 +26,11 @@ public class WebController {
 
     @PostMapping("/create")
     @ResponseBody
-    public String createXsls(@RequestBody @Valid FileDto fileDto, FileCustomDto fileCustomDto) {
+    public String createXsls(@RequestBody @Valid FileDto fileDto, FileCustomDto fileCustomDto, Principal principal) {
 
-      if(fileDto.getFieldsDto().getId() == null || fileDto.getFieldsDto().getId() == ""){
-          return "Wartość pola ID nie może być pusta";
-      }
+        if (fileDto.getFieldsDto().getId() == null || fileDto.getFieldsDto().getId() == "") {
+            return "Wartość pola ID nie może być pusta";
+        }
 
         //TODO custom script
         if (fileDto.isCustom()) {

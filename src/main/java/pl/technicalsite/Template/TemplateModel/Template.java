@@ -308,7 +308,7 @@ public class Template {
                 "        <xsl:value-of select=\"$newline\"/>" + NEWLINE +
                 "    </xsl:template>" + NEWLINE +
                 "</xsl:stylesheet>" + NEWLINE;
-        System.out.println("Created file.");
+        System.out.println("Created file " + templateComponents.getHeaders());
         return sb;
     }
 

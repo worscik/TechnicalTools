@@ -1,6 +1,5 @@
 package pl.technicalsite.FileComponents.CutLine;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import static pl.technicalsite.FileModel.MappingsType.*;
@@ -8,7 +7,7 @@ import static pl.technicalsite.FileModel.MappingsType.*;
 @Service
 public class CutLineService {
 
-    public String resolveStandardCutLine(String structure){
+    public String resolveStandardCutLine(String structure) {
         switch (structure) {
             case ROOT_ITEM, OFFERS_GROUP_O, PRODUCTS_PRODUCT -> {
                 return "";

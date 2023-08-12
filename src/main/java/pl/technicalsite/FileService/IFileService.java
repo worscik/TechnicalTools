@@ -7,7 +7,8 @@ import pl.technicalsite.Template.TemplateModel.TemplateComponents;
 
 public interface IFileService {
 
-    String preapreStandardFile(FileDto fileDto,  FileCustomDto fileCustomDto);
+    String preapreStandardFile(FileDto fileDto, FileCustomDto fileCustomDto);
+
     String prepareCustomFile(FileDto fileDto, FileCustomDto fileCustomDto);
 
     String createFile(TemplateComponents templateComponents, FieldsBuilder fieldsBuilder);
