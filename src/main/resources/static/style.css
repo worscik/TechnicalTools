@@ -1,0 +1,161 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    height: 100vh;
+}
+
+.hide {
+    display: none !important;
+}
+
+.container {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    width: 600px;
+}
+
+.header {
+    margin: 0;
+    margin-bottom: 5px;
+    padding: 0;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.buttons-row {
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.form-select {
+    width: 200px;
+    padding: 4px;
+}
+
+
+.form-label {
+    width: 120px;
+}
+
+.form-label-add {
+    width: auto;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.form-input {
+    flex-grow: 1;
+    padding: 4px;
+    border: 1px solid black;
+}
+
+input[type='checkbox'].form-input {
+    flex-grow: 0;
+    width: 20px;
+    height: 20px;
+}
+
+input.error{
+    border: 2px solid red;
+    background-color: rgba(255, 0, 0, 0.157);
+    outline: none;
+}
+
+select.error{
+    border: 2px solid red;
+    background-color: rgba(255, 0, 0, 0.157);
+    outline: none;
+}
+
+.button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.button:hover {
+    background-color: #3e8f41;
+}
+
+.response-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.response-container {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    height: 90vh;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    overflow-y: hidden;
+}
+
+.header-section {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    justify-content: center;
+}
+
+.header-section h2 {
+    margin: 0;
+    padding: 0;
+}
+
+.close-icon {
+    display: block;
+    position: absolute;
+    top: -10px;
+    right:-10px;
+    color: black;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.response-section {
+    flex-grow: 1;
+    overflow-y: scroll;
+}
+
+.buttons-section {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 5px;
+    gap: 10px;
+}
+
+.buttons-section .button{
+    
+}
+

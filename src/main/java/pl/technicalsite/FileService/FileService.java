@@ -9,10 +9,10 @@ import pl.technicalsite.FileComponents.MatchLine.MatchLineService;
 import pl.technicalsite.FileComponents.Structure.StructureFile;
 import pl.technicalsite.FileModel.FieldsBuilder;
 import pl.technicalsite.FileModel.FieldsDto;
-import pl.technicalsite.FileModel.FileCustomDto;
 import pl.technicalsite.FileModel.FileDto;
 import pl.technicalsite.Template.TemplateModel.TemplateComponents;
 import pl.technicalsite.Template.TemplateService.TemplateService;
+
 
 @Service
 public class FileService implements IFileService {
@@ -34,21 +34,8 @@ public class FileService implements IFileService {
         this.templateService = templateService;
     }
 
-    private boolean checkStructure(String structure, boolean isCustom) {
-        if (isCustom) {
-            logger.info("used custom flag");
-            return true;
-        }
+    private boolean checkStructure(String structure) {
         return structureFile.resolveStructure(structure);
-    }
-
-    private TemplateComponents buildCustomComponentsTemplate(String structure, boolean isCustom, FileCustomDto fileCustomDto) {
-        return new TemplateComponents.Builder()
-                .structure(structure)
-                .headers(headersService.reseolveHeaders(structure))
-                .cutLine(cutLineService.resolveCustomMatchLine(structure, fileCustomDto.getCutLine()))
-                .matchLine(matchLineService.resolveCustomMatchLine(structure, fileCustomDto.getCustomMatchLine()))
-                .build();
     }
 
     private TemplateComponents buildStandardComponentsTemplate(String structure) {
@@ -61,10 +48,10 @@ public class FileService implements IFileService {
     }
 
     @Override
-    public String preapreStandardFile(FileDto fileDto, FileCustomDto fileCustomDto) {
-        if (!checkStructure(fileDto.getStructure(), fileDto.isCustom())) {
-            logger.info("Structure is not correct");
-            return "Structure is not correct";
+    public String preapreStandardFile(FileDto fileDto) {
+        if (!checkStructure(fileDto.getStructure())) {
+            logger.info("Structure is not correct" + fileDto.getStructure());
+            return "The structure is incorrect, select those available from the list.";
         }
         try {
             String structure = fileDto.getStructure();
@@ -72,26 +59,16 @@ public class FileService implements IFileService {
             FieldsBuilder fileFields = biuldFileFields(fileDto.getFieldsDto());
             return createFile(templateComponents, fileFields);
         } catch (Exception e) {
-            logger.error(e);
-            return "error..";
-        }
-    }
-
-    @Override
-    public String prepareCustomFile(FileDto fileDto, FileCustomDto fileCustomDto) {
-        try {
-            String structure = fileDto.getStructure();
-            TemplateComponents templateComponents = buildCustomComponentsTemplate(structure, fileDto.isCustom(), fileCustomDto);
-            FieldsBuilder fileFields = biuldFileFields(fileDto.getFieldsDto());
-            return templateService.createFile(templateComponents, fileFields);
-        } catch (Exception e) {
-            logger.error(e);
-            return "error..";
+            logger.error("An error occurred while building the file" + e);
+            return "An unexpected error occurred. Contact the creator.";
         }
     }
 
     @Override
     public String createFile(TemplateComponents templateComponents, FieldsBuilder fieldsBuilder) {
+        if (fieldsBuilder.isCutUTM()) {
+            return templateService.createFileWithCutUTM(templateComponents, fieldsBuilder);
+        }
         return templateService.createFile(templateComponents, fieldsBuilder);
     }
 
@@ -133,11 +110,12 @@ public class FileService implements IFileService {
                     .intDetail1(resolveEmptyField(field.getIntDetail1()))
                     .intDetail2(resolveEmptyField(field.getIntDetail2()))
                     .intDetail3(resolveEmptyField(field.getIntDetail3()))
+                    .cutUTM(field.isCutUTM())
                     .build();
         } catch (Exception e) {
-            System.out.println(e);
+            logger.error("An unexpected error occurred during build object" + e);
+            return null;
         }
-        return null;
     }
 
     public static String resolveEmptyField(String value) {

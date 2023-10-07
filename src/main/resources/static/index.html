@@ -1,332 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form </title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            width: 600px;
-        }
-        .form-row {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .form-label {
-            width: 120px;
-        }
-        .form-input {
-            flex-grow: 1;
-            padding: 4px;
-        }
-        .submit-button {
-            margin-top: 10px;
-            text-align: center;
-        }
-        .response-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-        .response-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            height: 100px;
-            overflow-y: auto;
-        }
-        #copy-button, #submit-button {
-            background-color: #4caf50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
-            margin-right: 10px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        #back-button {
-            background-color: #f44336;
-        }
-        #response-test{
-            height: 100px;
-        }
-    </style>
+    <title>Technical Tools </title>
+    <link rel="stylesheet" href="/style.css">
 </head>
+
 <body>
 
-<div class="container">
-    <input id="default" value="" hidden>
+    <div class="container">
+        <input id="default" value="" hidden>
 
 
-    <form id="data-form">
-        <h3>Technical Tools </h3>
-        <div class="form-row">
-            <label for="structure">Structure File:</label>
-            <select id="structure" name="StructureFile">
-                <option value="rss/channel/item">Rss/Channel/Item</option>
-                <option value="root/item">Root/Item</option>
-                <option value="products/product">Products/Product</option>
-                <option value="feed/entry">Feed/Entry</option>
-                <option value="offers/group/o">Offers/Group/O</option>
-            </select>
-        </div>
-        <div class="form-row">
-            <label class="form-label" for="id">Id:</label>
-            <input class="form-input" type="text" id="id" name="id" required placeholder="required">
-        </div>
-        <div class="form-row">
-            <label class="form-label" for="name">Name:</label>
-            <input class="form-input" type="text" id="name" name="name" required>
-        </div>
-        <div class="form-row">
-            <label class="form-label" for="brand">Brand:</label>
-            <input class="form-input" type="text" id="brand" name="brand" required>
-        </div>
-        <div class="form-row">
-            <label class="form-label" for="description">Description:</label>
-            <input class="form-input" type="text" id="description" name="description" required>
-        </div>
-        <div class="form-row">
-            <label class="form-label" for="available">Available:</label>
-            <input class="form-input-half" type="text" id="availableKey" name="availableKey" required>
-            <label class="form-label" for="availableValue"> Value:</label>
-            <input class="form-input-half" type="text" id="availableValue" name="availableValue" required>
-        </div>
-        <div class="form-row">
-            <label class="form-label" for="newProductKey">New Product:</label>
-            <input class="form-input-half" type="text" id="newProductKey" name="newProductKey" required>
-            <label class="form-label" for="availableValue"> Value:</label>
-            <input class="form-input-half" type="text" id="newProductValue" name="newProductValue" required>
-        </div>
-        <div class="form-row">
-            <label class="form-label" for="bestsellerKey">Bestseller:</label>
-            <input class="form-input-half" type="text" id="bestsellerKey" name="bestsellerKey" required>
-            <label class="form-label" for="bestsellerValue"> Value:</label>
-            <input class="form-input-half" type="text" id="bestsellerValue" name="bestsellerValue" required>
-        </div>
-        <div class="form-row">
-            <label class="form-label" for="categoryMain">Category main:</label>
-            <input class="form-input" type="text" id="categoryMain" name="categoryMain" required>
-        </div>
-        <div class="form-row">
-            <label class="form-label" for="detail1">Detail 1:</label>
-            <input class="form-input" type="text" id="detail1" name="detail1" required>
-        </div>
-        <div class="form-row">
-            <label class="form-label" for="detail2">Detail 2:</label>
-            <input class="form-input" type="text" id="detail2" name="detail2" required>
-        </div>
-        <div class="form-row">
-            <label class="form-label" for="detail3">Detail 3:</label>
-            <input class="form-input" type="text" id="detail3" name="detail3" required>
-        </div>
-        <div class="form-row">
-            <label class="form-label" for="detail4">Detail 4:</label>
-            <input class="form-input" type="text" id="detail4" name="detail4" required>
-        </div>
-        <div class="form-row">
-            <label class="form-label" for="detail5">Detail 5:</label>
-            <input class="form-input" type="text" id="detail5" name="detail5" required>
-        </div>
-        <div class="form-row">
-            <label class="form-label" for="price">Price:</label>
-            <input class="form-input-half" type="text" id="price" name="price" required>
-            <label class="form-label" for="currency">Currency:</label>
-            <input class="form-input-half" type="text" id="currency" name="currency" required>
-        </div>
-        <div class="form-row">
-            <label class="form-label" for="pricePromo">Promo price:</label>
-            <input class="form-input" type="text" id="pricePromo" name="pricePromo" required>
-        </div>
-        <div class="form-row">
-            <label class="form-label" for="urlProduct">Url product:</label>
-            <input class="form-input" type="text" id="urlProduct" name="urlProduct" required>
-        </div>
-        <div class="form-row">
-            <label class="form-label" for="quantity">Quantity:</label>
-            <input class="form-input" type="text" id="quantity" name="quantity" required>
-        </div>
-        <div class="form-row">
-            <label class="form-label" for="urlImg">Url image:</label>
-            <input class="form-input" type="text" id="urlImg" name="urlImg" required>
+        <form id="data-form">
+            <h2 class="header">Technical Tools </h3>
+                <div class="form-row">
+                    <label class="form-label" for="structure">Structure File:</label>
+                    <select class="form-select" id="structure" name="StructureFile">
+                        <option value="rss/channel/item">Rss/Channel/Item</option>
+                        <option value="root/item">Root/Item</option>
+                        <option value="products/product">Products/Product</option>
+                        <option value="feed/entry">Feed/Entry</option>
+                        <option value="offers/group/o">Offers/Group/O</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="id">Id:</label>
+                    <input class="form-input" type="text" id="id" name="id" required placeholder="required">
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="name">Name:</label>
+                    <input class="form-input" type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label" for="newProductKey">New Product:</label>
+                    <input class="form-input" type="text" id="newProductKey" name="newProductKey" required>
+                    <label class="form-label-add" for="availableValue"> Value:</label>
+                    <input class="form-input" type="text" id="newProductValue" name="newProductValue" required>
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="available">Available:</label>
+                    <input class="form-input" type="text" id="availableKey" name="availableKey" required>
+                    <label class="form-label-add" for="availableValue"> Value:</label>
+                    <input class="form-input" type="text" id="availableValue" name="availableValue" required>
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="bestsellerKey">Bestseller:</label>
+                    <input class="form-input" type="text" id="bestsellerKey" name="bestsellerKey" required>
+                    <label class="form-label-add" for="bestsellerValue"> Value:</label>
+                    <input class="form-input" type="text" id="bestsellerValue" name="bestsellerValue" required>
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="brand">Brand:</label>
+                    <input class="form-input" type="text" id="brand" name="brand" required>
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="categories">Categories:</label>
+                    <input class="form-input" type="text" id="categories" name="categories" required>
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="categoryMain">Category main:</label>
+                    <input class="form-input" type="text" id="categoryMain" name="categoryMain" required>
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="description">Description:</label>
+                    <input class="form-input" type="text" id="description" name="description" required>
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="detail1">Detail 1:</label>
+                    <input class="form-input" type="text" id="detail1" name="detail1" required>
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="detail2">Detail 2:</label>
+                    <input class="form-input" type="text" id="detail2" name="detail2" required>
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="detail3">Detail 3:</label>
+                    <input class="form-input" type="text" id="detail3" name="detail3" required>
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="detail4">Detail 4:</label>
+                    <input class="form-input" type="text" id="detail4" name="detail4" required>
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="detail5">Detail 5:</label>
+                    <input class="form-input" type="text" id="detail5" name="detail5" required>
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="manufacturer">Manufacturer:</label>
+                    <input class="form-input" type="text" id="manufacturer" name="manufacturer" required>
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="price">Price:</label>
+                    <input class="form-input" type="text" id="price" name="price" required>
+                    <label class="form-label-add" for="currency">Currency:</label>
+                    <input class="form-input" type="text" id="currency" name="currency" required>
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="pricePromo">Promo price:</label>
+                    <input class="form-input" type="text" id="pricePromo" name="pricePromo" required>
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="quantity">Quantity:</label>
+                    <input class="form-input" type="text" id="quantity" name="quantity" required>
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="urlProduct">Url product:</label>
+                    <input class="form-input" type="text" id="urlProduct" name="urlProduct" required>
+                    <label class="form-label-add" for="cutUTM">Cut UTM?</label>
+                    <input class="form-input" type="checkbox" id="cutUTM" name="cutUTM" required>
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="urlImg">Url image:</label>
+                    <input class="form-input" type="text" id="urlImg" name="urlImg" required>
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="genderKey">Gender:</label>
+                    <input class="form-input" type="text" id="genderKey" name="genderKey" required>
+                    <label class="form-label-add" for="genderValue"> Value:</label>
+                    <input class="form-input" type="text" id="genderValue" name="genderValue" required>
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="popularity">Popularity:</label>
+                    <input class="form-input" type="text" id="popularity" name="popularity" required>
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="season">Season:</label>
+                    <input class="form-input" type="text" id="season" name="season" required>
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="color">Color:</label>
+                    <input class="form-input" type="text" id="color" name="color" required>
+                </div>
+
+                <div class="form-row buttons-row">
+
+                    <button id="clear-button" class='button' type="button">Clear</button>
+
+                    <button id="submit-button" class='button' type="button">Send</button>
+
+                </div>
+
+        </form>
+        <div class="response-overlay hide">
+            <div class="response-container">
+                <div class="header-section">
+                    <h2>Transform</h2>
+                    <span id="close-icon" class="close-icon">x</span>
+                </div>
+                <div class="response-section">
+                    <pre id="response-text">Odpowiedź serwera...</pre>
+                </div>
+                <div class="buttons-section">
+                    <button class="button" id="close-button">Close</button>
+                    <button class="button" id="copy-button">COPY</button>
+              
+                </div>
+
+            </div>
         </div>
 
-        <div class="submit-button">
-            <button id="submit-button"  type="button">Send</button>
-        </div>
-    </form>
-    <div class="response-container">
-
-        <button class="copy-button" id="copy-button">COPY</button>
-        <!-- <button class="back-button" id="back-button">BACK</button> -->
-        <pre id="response-text">Odpowiedź serwera...</pre>
+      
     </div>
 
-</div>
-
-<script>
-    const copyButton = document.getElementById("copy-button");
-    const backButton = document.getElementById("back-button");
-    const responseTextElement = document.getElementById("response-text");
-    let formData = {};
-
-                    //JSON
-                    document.getElementById("submit-button").addEventListener("click", async function () {
-                        const fields = {
-                    "id": document.getElementById("id").value,
-                    "name": document.getElementById("name").value,
-                    "newProductKey": document.getElementById("newProductKey").value,
-                    "newProductValue": document.getElementById("newProductValue").value,
-                    "availableKey": document.getElementById("availableKey").value,
-                    "availableValue": document.getElementById("availableValue").value,
-                    "bestsellerKey": document.getElementById("bestsellerKey").value,
-                    "bestsellerValue": document.getElementById("bestsellerValue").value,
-                    "brand": document.getElementById("brand").value,
-                    "categories": document.getElementById("default").value,
-                    "categoryMain": document.getElementById("categoryMain").value,
-                    "description": document.getElementById("description").value,
-                    "detail1": document.getElementById("detail1").value,
-                    "detail2": document.getElementById("detail2").value,
-                    "detail3": document.getElementById("detail3").value,
-                    "detail4": document.getElementById("detail4").value,
-                    "detail5": document.getElementById("detail5").value,
-                    "manufacturer": document.getElementById("default").value,
-                    "price": document.getElementById("price").value,
-                    "currency": document.getElementById("currency").value,
-                    "pricePromo": document.getElementById("pricePromo").value,
-                    "quantity":  document.getElementById("quantity").value,
-                    "urlProduct": document.getElementById("urlProduct").value,
-                    "urlImg": document.getElementById("urlImg").value,
-                    "genderKey": document.getElementById("default").value,
-                    "genderValue": document.getElementById("default").value,
-                    "urlCategory": document.getElementById("default").value,
-                    "urlCategoryMark": document.getElementById("default").value,
-                    "popularity": document.getElementById("default").value,
-                    "season": document.getElementById("default").value,
-                    "color": document.getElementById("default").value,
-                    "addidtionalImage": document.getElementById("default").value,
-                    "intDetail1": document.getElementById("default").value,
-                    "intDetail2": document.getElementById("default").value,
-                    "intDetail3": document.getElementById("default").value,
-                };
-
-                const jsonObject = {
-                    "StructureFile": document.getElementById("structure").value,
-                    "Fields": fields
-                };
-
-               try {
-    const response = await fetch("/create", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(jsonObject)
-    });
-
-    if (response.status === 200) {
-        const responseText = await response.text();
-        responseTextElement.textContent = responseText;
-
-    } else {
-        console.error("Error: Unexpected response status:", response.status);
-    }
-} catch (error) {
-    console.error("Error:", error);
-}
-});
-
-
-                    function insertResponseBelowForm(response) {
-
-
-
-                // Tworzenie kontenera na odpowiedź
-                const responseDiv = document.createElement("div");
-                responseDiv.classList.add("response-container");
-
-                const responseContent = document.createElement("div");
-                responseContent.classList.add("response-content");
-
-                const copyButton = document.createElement("button");
-                copyButton.textContent = "COPY";
-                copyButton.classList.add("copy-button");
-                copyButton.addEventListener("click", function () {
-                    const tempTextArea = document.createElement("textarea");
-                    tempTextArea.value = response;
-                    document.body.appendChild(tempTextArea);
-                    tempTextArea.select();
-                    document.execCommand("copy");
-                    document.body.removeChild(tempTextArea);
-                });
-
-                // const backButton = document.createElement("button");
-                // backButton.textContent = "BACK";
-                // backButton.classList.add("back-button");
-                // backButton.addEventListener("click", function () {
-                //     // Przywrócenie formularza i ukrycie odpowiedzi
-                //     responseDiv.style.display = "none";
-                //     form.style.display = "block";
-                // });
-
-                const responseTextElement = document.createElement("pre");
-                responseTextElement.textContent = response;
-
-                responseContent.appendChild(copyButton);
-                // responseContent.appendChild(backButton);
-                responseContent.appendChild(responseTextElement);
-
-                responseDiv.appendChild(responseContent);
-
-                // Dodawanie odpowiedzi pod formularzem
-                document.body.appendChild(responseDiv);
-
-
-                    }
-                    function showResponseOverlay(response) {
-            const responseOverlay = document.getElementById("response-overlay");
-            const responseTextElement = document.getElementById("response-text");
-            const copyButton = document.getElementById("copy-button");
-            // const backButton = document.getElementById("back-button");
-
-            responseTextElement.textContent = response;
-            responseOverlay.style.display = "flex";
-                    }
-         copyButton.addEventListener("click", function () {
-        const tempTextArea = document.createElement("textarea");
-        tempTextArea.value = responseTextElement.textContent;
-        document.body.appendChild(tempTextArea);
-        tempTextArea.select();
-        document.execCommand("copy");
-        document.body.removeChild(tempTextArea);
-    });
-
-</script>
+    <script src="/app.js"></script>
 </body>
+
 </html>

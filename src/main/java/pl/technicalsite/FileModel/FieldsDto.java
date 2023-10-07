@@ -46,6 +46,7 @@ public class FieldsDto {
     private String intDetail1;
     private String intDetail2;
     private String intDetail3;
+    private boolean cutUTM;
 
     public FieldsDto(String id,
                      String name,
@@ -81,7 +82,8 @@ public class FieldsDto {
                      String addidtionalImage,
                      String intDetail1,
                      String intDetail2,
-                     String intDetail3) {
+                     String intDetail3,
+                     boolean cutUTM) {
         this.id = id;
         this.name = name;
         this.newProductKey = newProductKey;
@@ -117,6 +119,7 @@ public class FieldsDto {
         this.intDetail1 = intDetail1;
         this.intDetail2 = intDetail2;
         this.intDetail3 = intDetail3;
+        this.cutUTM = cutUTM;
     }
 
     public String getId() {
@@ -397,5 +400,13 @@ public class FieldsDto {
 
     public void setIntDetail3(String intDetail3) {
         this.intDetail3 = intDetail3;
+    }
+
+    public boolean isCutUTM() {
+        return cutUTM;
+    }
+
+    public void setCutUTM(boolean cutUTM) {
+        this.cutUTM = cutUTM;
     }
 }

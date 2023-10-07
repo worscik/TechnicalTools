@@ -23,20 +23,4 @@ public class CutLineService {
         return null;
     }
 
-    public String resolveCustomMatchLine(String structure, String customMatchLine) {
-        switch (structure) {
-            case ROOT_ITEM, OFFERS_GROUP_O, PRODUCTS_PRODUCT -> {
-                return "";
-            }
-            case RSS_CHANNEL_ITEM -> {
-                return "<xsl:template match=\"rss/channel/title | rss/channel/link | rss/channel/description\"/>";
-            }
-
-            case FEED_ENTRY -> {
-                return "<xsl:template match=\"a:feed/a:title | a:feed/a:link | a:feed/a:updated\" />";
-            }
-        }
-        return null;
-    }
-
 }
