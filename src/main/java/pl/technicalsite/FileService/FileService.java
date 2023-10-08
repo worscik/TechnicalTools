@@ -56,11 +56,11 @@ public class FileService implements IFileService {
         try {
             String structure = fileDto.getStructure();
             TemplateComponents templateComponents = buildStandardComponentsTemplate(structure);
-            FieldsBuilder fileFields = biuldFileFields(fileDto.getFieldsDto());
+            FieldsBuilder fileFields = buildFileFields(fileDto.getFieldsDto());
             return createFile(templateComponents, fileFields);
         } catch (Exception e) {
             logger.error("An error occurred while building the file" + e);
-            return "An unexpected error occurred. Contact the creator.";
+            return "An unexpected error occurred.";
         }
     }
 
@@ -72,7 +72,7 @@ public class FileService implements IFileService {
         return templateService.createFile(templateComponents, fieldsBuilder);
     }
 
-    private FieldsBuilder biuldFileFields(FieldsDto field) {
+    private FieldsBuilder buildFileFields(FieldsDto field) {
         try {
             return new FieldsBuilder.Builder()
                     .id(field.getId())

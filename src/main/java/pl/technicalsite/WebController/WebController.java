@@ -28,7 +28,7 @@ public class WebController {
 
     @PostMapping("/create")
     @ResponseBody
-    public ResponseEntity<FileResponse> createXsls(@RequestBody @Valid FileDto fileDto) {
+    public ResponseEntity<FileResponse> create(@RequestBody @Valid FileDto fileDto) {
         FileResponse fileResponse = new FileResponse("");
         if (fileDto.getFieldsDto().getId() == null || fileDto.getFieldsDto().getId().isBlank()) {
             fileResponse.setResult("The ID field value cannot be empty");
