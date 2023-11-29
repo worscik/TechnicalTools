@@ -4,9 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import pl.technicalsite.FileComponents.CutLine.CutLineService;
-import pl.technicalsite.FileComponents.Headers.HeadersService;
 import pl.technicalsite.FileComponents.MatchLine.MatchLineService;
 import pl.technicalsite.FileComponents.Structure.StructureFile;
+import pl.technicalsite.FileComponents.Headers.HeadersService;
 import pl.technicalsite.FileModel.FieldsBuilder;
 import pl.technicalsite.FileModel.FieldsDto;
 import pl.technicalsite.FileModel.FileDto;
@@ -41,7 +41,7 @@ public class FileService implements IFileService {
     private TemplateComponents buildStandardComponentsTemplate(String structure) {
         return new TemplateComponents.Builder()
                 .structure(structure)
-                .headers(headersService.reseolveHeaders(structure))
+                .headers(headersService.resolveHeaders(structure))
                 .cutLine(cutLineService.resolveStandardCutLine(structure))
                 .matchLine(matchLineService.resolveStandardMatchLine(structure))
                 .build();
@@ -119,7 +119,7 @@ public class FileService implements IFileService {
     }
 
     public static String resolveEmptyField(String value) {
-        if (value == "" || value == null) {
+        if (value.isEmpty()) {
             return "UNDEFINED";
         }
         return value;
