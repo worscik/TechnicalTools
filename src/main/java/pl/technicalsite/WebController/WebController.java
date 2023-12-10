@@ -5,16 +5,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.technicalsite.AppConfig.AppConfig;
 import pl.technicalsite.AppConfig.AppVersionResponse;
-import pl.technicalsite.FileModel.FieldsFileResponse;
 import pl.technicalsite.FileModel.FileDto;
 import pl.technicalsite.FileModel.FileResponse;
 import pl.technicalsite.FileService.FileServiceImpl;
 import pl.technicalsite.FileService.XslReaderImpl;
 
-import java.security.Principal;
 import java.util.Map;
 import java.util.Objects;
 
@@ -66,12 +63,12 @@ public class WebController {
 
     @PostMapping("/readFromFile")
     @ResponseBody
-    public FieldsFileResponse readFromFile(@RequestBody String xslFile) {
+    public Map<String, String> readFromFile(@RequestBody String xslFile) {
         if (!Objects.nonNull(xslFile)) {
             return null;
         }
         Map<String, String> result = xslReaderImpl.readFromXsl(xslFile);
-        return new FieldsFileResponse(result);
+        return result;
     }
 
 }

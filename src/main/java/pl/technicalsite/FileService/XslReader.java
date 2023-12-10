@@ -6,9 +6,10 @@ public interface XslReader {
 
     Map<String, String> readFromXsl(String xsl);
 
-    Map<String, String> createMapWithKeysAndValues(Map<String, String> keys,
-                                                   Map<String, String> values,
-                                                   Map<String, String> currency);
+    Map<String, String> resolveValuesAndKeys(Map<String, String> keys,
+                                             Map<String, String> numeric,
+                                             Map<String, String> values,
+                                             Map<String, String> currency);
 
 
 }
