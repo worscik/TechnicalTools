@@ -51,7 +51,7 @@ public class FileServiceImpl implements FileService {
     public String preapreStandardFile(FileDto fileDto) {
         if (!checkStructure(fileDto.getStructure())) {
             logger.info("Structure is not correct" + fileDto.getStructure());
-            return "The structure is incorrect, select those available from the list.";
+            return "The structure is incorrect, select those available from the list (The other type is not currently supported).)";
         }
         try {
             String structure = fileDto.getStructure();

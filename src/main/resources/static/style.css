@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #263B4B;
     margin: 0;
     display: flex;
     justify-content: center;
@@ -13,11 +13,15 @@ body {
     display: none !important;
 }
 
+.modal-container .response .modal-section{
+overflow-y: hidden;
+}
+
 .container {
-    background-color: #fff;
+    background-color: #d3d8db;
     padding: 10px;
     border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px 20px #012638;
     width: 600px;
 }
 
@@ -35,14 +39,100 @@ body {
 
 .buttons-row {
     gap: 10px;
-    justify-content: flex-end;
+    /* justify-content: flex-end; */
 }
 
 .form-select {
     width: 200px;
     padding: 4px;
+    padding: 4px;
+    border: 1px solid #263B4B;
+    border-radius: 5px;
 }
 
+.form-select:focus {
+  color: #263B4B;
+  background-color: #fff;
+  border-color: #adf700;
+  outline: 0;
+  box-shadow: 0 0 0 .2rem #d7fc81;
+}
+
+/*  */
+.form-input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Hide the default checkbox */
+input[type=checkbox].form-input {
+  visibility: hidden;
+}
+
+/* Creating a custom checkbox
+based on demand */
+.geekmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: white;
+  border: 1px solid #263B4B;
+  border-radius: 5px;
+}
+
+/* Specify the background color to be
+shown when hovering over checkbox */
+.form-input-container:hover .form-input ~ .geekmark {
+  background-color: rgb(236, 236, 236);
+}
+
+/* Specify the background color to be
+shown when checkbox is active */
+.form-input-container .form-input:active ~ .geekmark {
+  background-color: #263B4B;
+}
+
+/* Specify the background color to be
+shown when checkbox is checked */
+.form-input-container .form-input:checked ~ .geekmark {
+  background-color: #263B4B;
+}
+
+/* Checkmark to be shown in checkbox */
+/* It is not be shown when not checked */
+.geekmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Display checkmark when checked */
+.form-input-container .form-input:checked ~ .geekmark:after {
+  display: block;
+}
+
+/* Styling the checkmark using webkit */
+/* Rotated the rectangle by 45 degree and
+showing only two border to make it look
+like a tickmark */
+.form-input-container .geekmark:after {
+  left: 6px;
+  bottom: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+/*  */
 
 .form-label {
     width: 120px;
@@ -57,7 +147,24 @@ body {
 .form-input {
     flex-grow: 1;
     padding: 4px;
-    border: 1px solid black;
+    border: 1px solid #263B4B;
+    border-radius: 5px;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.form-input:focus{
+  color: #263B4B;
+  background-color: #fff;
+  border-color: #adf700;
+  outline: 0;
+  box-shadow: 0 0 0 .2rem #d7fc81;
+}
+
+
+
+.structure-input{
+    margin-left: 5px;
+    display: none;
 }
 
 input[type='checkbox'].form-input {
@@ -79,8 +186,9 @@ select.error{
 }
 
 .button {
-    background-color: #4caf50;
-    color: white;
+    background-color: #d7fc81;
+    color: #263B4B;
+    font-weight: bold;
     border: none;
     padding: 10px 20px;
     text-align: center;
@@ -91,11 +199,15 @@ select.error{
     border-radius: 4px;
 }
 
-.button:hover {
-    background-color: #3e8f41;
+.button.right{
+  margin-left: auto;
 }
 
-.response-overlay {
+.button:hover {
+    background-color: #adf700;
+}
+
+.modal-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -107,16 +219,24 @@ select.error{
     align-items: center;
 }
 
-.response-container {
-    display: flex;
-    flex-direction: column;
-    width: 800px;
-    height: 90vh;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    overflow-y: hidden;
+.modal-container {
+  position: relative;
+  display: flex;
+  width: 800px;
+  height: 90vh;
+  background-color: #d3d8db;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+.modal-container .response,
+.modal-container .transform{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+   /* overflow-y: hidden; */
 }
 
 .header-section {
@@ -134,17 +254,29 @@ select.error{
 .close-icon {
     display: block;
     position: absolute;
-    top: -10px;
-    right:-10px;
+    top: 10px;
+    right:15px;
     color: black;
     cursor: pointer;
     font-weight: bold;
     font-size: 24px;
+    z-index: 999;
 }
 
-.response-section {
+.modal-section {
     flex-grow: 1;
-    overflow-y: scroll;
+    margin: 10px 0;
+    /* overflow-y: scroll; */
+}
+
+.modal-container .transform textarea{
+  width: calc(100% - 10px);
+  height:  calc(100% - 10px);
+  padding: 5px;
+  border: 1px solid #263B4B;
+  border-radius: 5px;
+  color: #263B4B;
+  resize: none;
 }
 
 .buttons-section {
@@ -156,6 +288,133 @@ select.error{
 }
 
 .buttons-section .button{
-    
+
 }
 
+
+/* Toast section */
+.toast-notification {
+    position: fixed;
+    text-decoration: none;
+    z-index: 999999;
+    max-width: 300px;
+    background-color: #fff;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
+    display: flex;
+    padding: 10px;
+    transform: translate(0, -150%);
+  }
+  .toast-notification .toast-notification-wrapper {
+    flex: 1;
+    padding-right: 10px;
+    overflow: hidden;
+  }
+  .toast-notification .toast-notification-wrapper .toast-notification-header {
+    padding: 0 0 5px 0;
+    margin: 0;
+    font-weight: 500;
+    font-size: 14px;
+    word-break: break-all;
+    color: #4f525a;
+  }
+  .toast-notification .toast-notification-wrapper .toast-notification-content {
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    word-break: break-all;
+    color: #4f525a;
+  }
+  .toast-notification .toast-notification-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 24px;
+    padding-bottom: 4px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.2);
+  }
+  .toast-notification .toast-notification-close:hover {
+    color: rgba(0, 0, 0, 0.4);
+  }
+  .toast-notification.toast-notification-top-center {
+    transform: translate(calc(50vw - 50%), -150%);
+  }
+  .toast-notification.toast-notification-bottom-left, .toast-notification.toast-notification-bottom-right {
+    transform: translate(0, 150%);
+  }
+  .toast-notification.toast-notification-bottom-center {
+    transform: translate(calc(50vw - 50%), 150%);
+  }
+  .toast-notification.toast-notification-dark {
+    background-color: #2d2e31;
+  }
+  .toast-notification.toast-notification-dark .toast-notification-wrapper .toast-notification-header {
+    color: #edeff3;
+  }
+  .toast-notification.toast-notification-dark .toast-notification-wrapper .toast-notification-content {
+    color: #edeff3;
+  }
+  .toast-notification.toast-notification-dark .toast-notification-close {
+    color: rgba(255, 255, 255, 0.2);
+  }
+  .toast-notification.toast-notification-dark .toast-notification-close:hover {
+    color: rgba(255, 255, 255, 0.4);
+  }
+  .toast-notification.toast-notification-success {
+    background-color: #C3F3D7;
+    border-left: 10px solid #51a775;
+  }
+  .toast-notification.toast-notification-success .toast-notification-wrapper .toast-notification-header {
+    color: #51a775;
+  }
+  .toast-notification.toast-notification-success .toast-notification-wrapper .toast-notification-content {
+    color: #51a775;
+  }
+  .toast-notification.toast-notification-success .toast-notification-close {
+    color: rgba(0, 0, 0, 0.2);
+  }
+  .toast-notification.toast-notification-success .toast-notification-close:hover {
+    color: rgba(0, 0, 0, 0.4);
+  }
+  .toast-notification.toast-notification-error {
+    background-color: #f3c3c3;
+    border-left: 10px solid #a75151;
+  }
+  .toast-notification.toast-notification-error .toast-notification-wrapper .toast-notification-header {
+    color: #a75151;
+  }
+  .toast-notification.toast-notification-error .toast-notification-wrapper .toast-notification-content {
+    color: #a75151;
+  }
+  .toast-notification.toast-notification-error .toast-notification-close {
+    color: rgba(0, 0, 0, 0.2);
+  }
+  .toast-notification.toast-notification-error .toast-notification-close:hover {
+    color: rgba(0, 0, 0, 0.4);
+  }
+  .toast-notification.toast-notification-verified {
+    background-color: #d0eaff;
+    border-left: 4px solid #6097b8;
+  }
+  .toast-notification.toast-notification-verified .toast-notification-wrapper .toast-notification-header {
+    color: #6097b8;
+  }
+  .toast-notification.toast-notification-verified .toast-notification-wrapper .toast-notification-content {
+    color: #6097b8;
+  }
+  .toast-notification.toast-notification-verified .toast-notification-close {
+    color: rgba(0, 0, 0, 0.2);
+  }
+  .toast-notification.toast-notification-verified .toast-notification-close:hover {
+    color: rgba(0, 0, 0, 0.4);
+  }
+  .toast-notification.toast-notification-dimmed {
+    opacity: .3;
+  }
+  .toast-notification.toast-notification-dimmed:hover, .toast-notification.toast-notification-dimmed:active {
+    opacity: 1;
+  }
+/* Toast section  end */
