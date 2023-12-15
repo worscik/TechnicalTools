@@ -14,7 +14,7 @@ body {
 }
 
 .modal-container .response .modal-section{
-overflow-y: hidden;
+overflow-y: scroll;
 }
 
 .container {
