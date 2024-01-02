@@ -13,7 +13,6 @@ import pl.technicalsite.FileModel.FileResponse;
 import pl.technicalsite.FileService.FileServiceImpl;
 import pl.technicalsite.FileService.XslReaderImpl;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
@@ -72,6 +71,11 @@ public class WebController {
         }
         Map<String, String> result = xslReaderImpl.readFromXsl(xslFile);
         return new ResponseEntity(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/login")
+    String loginForm() {
+        return "login-form";
     }
 
 }

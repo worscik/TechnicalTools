@@ -23,11 +23,9 @@ public class SecurityConfig {
                         .requestMatchers("create").hasRole("USER")
                         .requestMatchers("readFromXsl").hasRole("USER")
                         .anyRequest().authenticated()
-                )
-                .formLogin()
-                .and()
-                .csrf().disable()
-                .httpBasic(withDefaults());
+                );
+        http.formLogin();
+        http.csrf().disable().httpBasic(withDefaults());
         return http.build();
     }
 
