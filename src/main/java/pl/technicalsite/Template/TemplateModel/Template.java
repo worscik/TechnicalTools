@@ -193,6 +193,7 @@ public class Template {
                 "            </xsl:otherwise>" + NEWLINE +
                 "        </xsl:choose>" + NEWLINE +
                 "        <xsl:value-of select=\"$sep\"/>" + NEWLINE +
+                //TODO ZMIENIC NA LICZBOWE
                 "        <!--QUANTITY-->" + NEWLINE +
                 "        <xsl:choose>" + NEWLINE +
                 "            <xsl:when test=\"string-length(" + fileField.getQuantity() + ")\">" + NEWLINE +

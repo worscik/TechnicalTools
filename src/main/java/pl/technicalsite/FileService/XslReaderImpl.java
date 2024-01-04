@@ -15,17 +15,17 @@ public class XslReaderImpl implements XslReader {
     private List<String> structureList = List.of("structure");
     private List<String> classicKeyList = List.of("id", "name",
             "brand", "categories", "categoryMain", "description", "detail1",
-            "detail2", "detail3", "detail4", "detail5", "manufacturer", "price", "pricePromo", "quantity",
+            "detail2", "detail3", "detail4", "detail5", "manufacturer", "price", "pricePromo",
             "urlProduct", "urlImg", "urlCategory", "urlCategoryMark", "popularity", "season",
             "color", "addidtionalImage");
-    private List<String> numericKeyList = List.of("newProductKey", "availableKey", "bestsellerKey", "genderKey");
-    private List<String> numericValueList = List.of("newProductValue", "availableValue", "bestsellerValue", "genderValue");
+    private List<String> numericKeyList = List.of("newProductKey", "availableKey", "bestsellerKey", "quantityKey","genderKey");
+    private List<String> numericValueList = List.of("newProductValue", "availableValue", "bestsellerValue", "quantityValue","genderValue");
     private List<String> currencyList = List.of("currency");
 
     private final String structure = "(?:template.match\\=\\\\\\\"([A-z\\/]+)\\\\)";
     private final String classicKey = "(?:when test=\\\\\\\"string-length\\((.*)\\)\\\\\\\">\\\\)";
-    private final String keyInNumericLine = "(?:when test\\=\\\\\\\"(.*) =)";
-    private final String valueInNumericLine = "(?: = '(.*)')";
+    private final String keyInNumericLine = "(?:when test\\=\\\\\\\"(.*) (=|>))";
+    private final String valueInNumericLine = "(?: (?:=|>) ?\\'(.*)')";
     private final String currency = "(?:translate\\(price\\, \\'([A-z]+)\\')";
 
 
@@ -87,9 +87,13 @@ public class XslReaderImpl implements XslReader {
         List<String> elements = new ArrayList<>();
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(xsl);
+
         while (m.find()) {
             if (m.group(1) != null) {
                 String element = m.group(1);
+                if(element.equalsIgnoreCase("UNDEFINED")){
+                    element = "";
+                }
                 elements.add(element);
             }
         }
@@ -99,13 +103,16 @@ public class XslReaderImpl implements XslReader {
     private List<String> resolveBooleanValues(String xsl, String pattern) {
         List<String> elements = new ArrayList<>();
         if(xsl.contains("<xsl:when test=\\\"UNDEFINED\\\"")){
-            elements.add("UNDEFINED");
+            elements.add("");
         }
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(xsl);
         while (m.find()) {
             if (m.group(1) != null) {
                 String element = m.group(1);
+                if(element.equalsIgnoreCase("UNDEFINED")){
+                    element = "";
+                }
                 elements.add(element);
             }
         }
