@@ -26,8 +26,7 @@ public class XslReaderImpl implements XslReader {
     private final String classicKey = "(?:when test=\\\\\\\"string-length\\((.*)\\)\\\\\\\">\\\\)";
     private final String keyInNumericLine = "(?:when test\\=\\\\\\\"(.*) (=|>))";
     private final String valueInNumericLine = "(?: (?:=|>) ?\\'(.*)')";
-    private final String currency = "(?:translate\\(price\\, \\'([A-z]+)\\')";
-
+    private final String currency = "(?:translate\\(.*\\, \\'([A-z,#&0-9; ]+)\\')";
 
     @Override
     public Map<String, String> readFromXsl(String xsl) {
