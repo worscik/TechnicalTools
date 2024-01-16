@@ -29,9 +29,9 @@ public class WebController {
         this.xslReaderImpl = xslReaderImpl;
     }
 
-    @RequestMapping("/")
+    @GetMapping("/login")
     public String homePage() {
-        return "index.html";
+        return "loginPage";
     }
 
     @PostMapping("/create")
@@ -72,10 +72,4 @@ public class WebController {
         Map<String, String> result = xslReaderImpl.readFromXsl(xslFile);
         return new ResponseEntity(result, HttpStatus.OK);
     }
-
-    @GetMapping("/login")
-    String loginForm() {
-        return "login-form";
-    }
-
 }
