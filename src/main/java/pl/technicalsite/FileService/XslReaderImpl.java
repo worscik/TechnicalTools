@@ -15,11 +15,11 @@ public class XslReaderImpl implements XslReader {
     private List<String> structureList = List.of("structure");
     private List<String> classicKeyList = List.of("id", "name",
             "brand", "categories", "categoryMain", "description", "detail1",
-            "detail2", "detail3", "detail4", "detail5", "manufacturer", "price", "pricePromo",
+            "detail2", "detail3", "detail4", "detail5", "manufacturer", "price", "pricePromo", "quantityKey",
             "urlProduct", "urlImg", "urlCategory", "urlCategoryMark", "popularity", "season",
             "color", "addidtionalImage");
-    private List<String> numericKeyList = List.of("newProductKey", "availableKey", "bestsellerKey", "quantityKey","genderKey");
-    private List<String> numericValueList = List.of("newProductValue", "availableValue", "bestsellerValue", "quantityValue","genderValue");
+    private List<String> numericKeyList = List.of("newProductKey", "availableKey", "bestsellerKey", "genderKey");
+    private List<String> numericValueList = List.of("newProductValue", "availableValue", "bestsellerValue","genderValue");
     private List<String> currencyList = List.of("currency");
 
     private final String structure = "(?:template.match\\=\\\\\\\"([A-z\\/]+)\\\\)";
