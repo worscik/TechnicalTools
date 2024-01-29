@@ -20,6 +20,7 @@ public class SecurityConfig {
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests((authz) -> authz
+                        .requestMatchers("/images/*.png").permitAll()
                         .requestMatchers("create").hasRole("USER")
                         .requestMatchers("readFromXsl").hasRole("USER")
                         .anyRequest().authenticated()
