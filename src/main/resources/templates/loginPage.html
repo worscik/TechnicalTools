@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <title>Zaloguj się</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;800&display=swap');
 
@@ -119,6 +119,9 @@
         }
 
         .form .row button {
+            border: none;
+            outline: none;
+            background: none;
             width: 100%;
             height: 50px;
             border-radius: 4px;
@@ -128,6 +131,11 @@
             text-transform: uppercase;
             font-weight: bold;
 
+        }
+
+        .form .row button:hover{
+            cursor: pointer;
+            background-color: #c6f558;
         }
 
         .forgot {
@@ -144,32 +152,32 @@
 </head>
 
 <body>
-    <div class="login-container">
-        <div class="header">
-            <img src="./image 1.png" alt="login icon">
-            <p class="login-header">LOGIN</p>
-        </div>
-        <form class="form" action="/login" method="post">
-            <div class="row">
-                <label for="username">
-                    <i class="fa-regular fa-user"></i>
-                    <input id="username" name="username" placeholder="login">
-                </label>
-            </div>
-            <div class="row">
-                <label for="username">
-                    <i class="fa-regular fa-user"></i>
-                    <input id="username" name="password" placeholder="pasword" type="password">
-                </label>
-            </div>
-            <div class="row">
-                <button type="submit" class="form-item">login</button>
-            </div>
-        </form>
-        <div class="forgot">
-            <span>Forgot password? Contact with sales<span class="green">Manago</span> support!</span>
-        </div>
+<div class="login-container">
+    <div class="header">
+        <img src="./userImage.png" alt="login icon">
+        <p class="login-header">LOGIN</p>
     </div>
+    <form class="form" action="/login" method="post">
+        <div class="row">
+            <label for="username">
+                <i class="fa-regular fa-user"></i>
+                <input id="username" name="username" placeholder="login">
+            </label>
+        </div>
+        <div class="row">
+            <label for="username">
+                <i class="fa-regular fa-user"></i>
+                <input id="username" name="password" placeholder="pasword" type="password">
+            </label>
+        </div>
+        <div class="row">
+            <button type="submit" class="form-item">login</button>
+        </div>
+    </form>
+    <div class="forgot">
+        <span>Forgot password? Contact with sales<span class="green">Manago</span> support!</span>
+    </div>
+</div>
 </body>
 
 </html>
