@@ -24,10 +24,4 @@ public class TemplateService {
         return file;
     }
 
-    public String createFileWithCutUTM(TemplateComponents templateComponents, FieldsBuilder fieldsBuilder) {
-        String file = template.createFileWithCutUTM(templateComponents, fieldsBuilder);
-        logger.info("File with cutUTM created successfully");
-        return file;
-    }
-
 }

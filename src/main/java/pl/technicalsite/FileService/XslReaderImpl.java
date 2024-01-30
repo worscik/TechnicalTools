@@ -15,7 +15,7 @@ public class XslReaderImpl implements XslReader {
     private List<String> structureList = List.of("structure");
     private List<String> classicKeyList = List.of("id", "name",
             "brand", "categories", "categoryMain", "description", "detail1",
-            "detail2", "detail3", "detail4", "detail5", "manufacturer", "price", "pricePromo", "quantityKey",
+            "detail2", "detail3", "detail4", "detail5", "manufacturer", "price", "pricePromo", "quantity",
             "urlProduct", "urlImg", "urlCategory", "urlCategoryMark", "popularity", "season",
             "color", "addidtionalImage");
     private List<String> numericKeyList = List.of("newProductKey", "availableKey", "bestsellerKey", "genderKey");
@@ -34,7 +34,6 @@ public class XslReaderImpl implements XslReader {
 
         List<String> structureXsl = fileLineByLine.stream()
                 .map(line -> resolveValues(line, structure))
-
                 .flatMap(List::stream)
                 .collect(Collectors.toList());
 
