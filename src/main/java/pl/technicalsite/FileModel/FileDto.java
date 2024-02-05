@@ -35,12 +35,4 @@ public class FileDto extends FileCustomDto {
         this.fieldsDto = fieldsDto;
     }
 
-    @Override
-    public String toString() {
-        return "FileDto{" +
-                "structure='" + structure + '\'' +
-                ", headers='" + headers + '\'' +
-                ", fieldsDto=" + fieldsDto +
-                '}';
-    }
 }

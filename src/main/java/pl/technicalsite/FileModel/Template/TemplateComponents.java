@@ -1,4 +1,4 @@
-package pl.technicalsite.Template.TemplateModel;
+package pl.technicalsite.FileModel.Template;
 
 public class TemplateComponents {
 
@@ -7,7 +7,7 @@ public class TemplateComponents {
     private String cutLine;
     private String matchLine;
 
-    public TemplateComponents(String structure, String headers, String cutLine, String matchLine) {
+    private TemplateComponents(String structure, String headers, String cutLine, String matchLine) {
         this.structure = structure;
         this.headers = headers;
         this.cutLine = cutLine;

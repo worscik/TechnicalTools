@@ -8,13 +8,10 @@ public class FileCustomDto {
     private boolean isCustom;
     @JsonProperty("CutLine")
     private String cutLine;
-    @JsonProperty("MatchLine")
-    private String customMatchLine;
 
-    public FileCustomDto(boolean isCustom, String cutLine, String customMatchLine) {
+    public FileCustomDto(boolean isCustom, String cutLine) {
         this.isCustom = isCustom;
         this.cutLine = cutLine;
-        this.customMatchLine = customMatchLine;
     }
 
     public FileCustomDto() {
@@ -36,11 +33,4 @@ public class FileCustomDto {
         this.cutLine = cutLine;
     }
 
-    public String getCustomMatchLine() {
-        return customMatchLine;
-    }
-
-    public void setCustomMatchLine(String customMatchLine) {
-        this.customMatchLine = customMatchLine;
-    }
 }

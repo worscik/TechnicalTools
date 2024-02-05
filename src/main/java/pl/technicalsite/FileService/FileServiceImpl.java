@@ -3,15 +3,14 @@ package pl.technicalsite.FileService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
-import pl.technicalsite.FileComponents.CutLine.CutLineService;
-import pl.technicalsite.FileComponents.MatchLine.MatchLineService;
-import pl.technicalsite.FileComponents.Structure.StructureFile;
-import pl.technicalsite.FileComponents.Headers.HeadersService;
+import pl.technicalsite.FileComponents.CutLineService;
+import pl.technicalsite.FileComponents.HeadersService;
+import pl.technicalsite.FileComponents.StructureFile;
+import pl.technicalsite.FileComponents.MatchLineService;
 import pl.technicalsite.FileModel.FieldsBuilder;
 import pl.technicalsite.FileModel.FieldsDto;
 import pl.technicalsite.FileModel.FileDto;
-import pl.technicalsite.Template.TemplateModel.TemplateComponents;
-import pl.technicalsite.Template.TemplateService.TemplateService;
+import pl.technicalsite.FileModel.Template.TemplateComponents;
 
 
 @Service
@@ -34,28 +33,29 @@ public class FileServiceImpl implements FileService {
         this.templateService = templateService;
     }
 
-    private boolean checkStructure(String structure) {
-        return structureFile.resolveStructure(structure);
+    private TemplateComponents buildStandardComponentsTemplate(FileDto fileDto) {
+        return new TemplateComponents.Builder()
+                .structure(fileDto.getStructure())
+                .headers(headersService.resolveHeaders(fileDto.getStructure()))
+                .cutLine(cutLineService.resolveStandardCutLine(fileDto.getStructure()))
+                .matchLine(matchLineService.resolveStandardMatchLine(fileDto.getStructure()))
+                .build();
     }
 
-    private TemplateComponents buildStandardComponentsTemplate(String structure) {
+    private TemplateComponents buildCustomComponentsTemplate(FileDto fileDto) {
         return new TemplateComponents.Builder()
-                .structure(structure)
-                .headers(headersService.resolveHeaders(structure))
-                .cutLine(cutLineService.resolveStandardCutLine(structure))
-                .matchLine(matchLineService.resolveStandardMatchLine(structure))
+                .structure(fileDto.getStructure())
+                .headers(headersService.resolveHeaders(fileDto.getStructure()))
+                .cutLine(cutLineService.resolveCustomCutLine(fileDto.getCutLine()))
+                .matchLine(matchLineService.resolveStandardMatchLine(fileDto.getStructure()))
                 .build();
     }
 
     @Override
-    public String preapreStandardFile(FileDto fileDto) {
-        if (!checkStructure(fileDto.getStructure())) {
-            logger.info("Structure is not correct " + fileDto.getStructure());
-            return "The structure is incorrect, select those available from the list (The other type is not currently supported).)";
-        }
+    public String createFile(FileDto fileDto) {
         try {
-            String structure = fileDto.getStructure();
-            TemplateComponents templateComponents = buildStandardComponentsTemplate(structure);
+            TemplateComponents templateComponents = fileDto.isCustom()
+                    ? buildCustomComponentsTemplate(fileDto) : buildStandardComponentsTemplate(fileDto);
             FieldsBuilder fileFields = buildFileFields(fileDto.getFieldsDto());
             return createFile(templateComponents, fileFields);
         } catch (Exception e) {
@@ -64,8 +64,7 @@ public class FileServiceImpl implements FileService {
         }
     }
 
-    @Override
-    public String createFile(TemplateComponents templateComponents, FieldsBuilder fieldsBuilder) {
+    private String createFile(TemplateComponents templateComponents, FieldsBuilder fieldsBuilder) {
         return templateService.createFile(templateComponents, fieldsBuilder);
     }
 
@@ -107,7 +106,6 @@ public class FileServiceImpl implements FileService {
                     .intDetail1(resolveEmptyField(field.getIntDetail1()))
                     .intDetail2(resolveEmptyField(field.getIntDetail2()))
                     .intDetail3(resolveEmptyField(field.getIntDetail3()))
-                    .cutUTM(field.isCutUTM())
                     .build();
         } catch (Exception e) {
             logger.error("An unexpected error occurred during build object" + e);

@@ -1,4 +1,4 @@
-package pl.technicalsite.FileComponents.Structure;
+package pl.technicalsite.FileComponents;
 
 import org.springframework.stereotype.Component;
 

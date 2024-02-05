@@ -1,5 +1,7 @@
 package pl.technicalsite.WebController;
 
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,12 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pl.technicalsite.AppConfig.AppConfig;
 import pl.technicalsite.AppConfig.AppVersionResponse;
-import pl.technicalsite.FileModel.FieldsFileResponse;
 import pl.technicalsite.FileModel.FileDto;
 import pl.technicalsite.FileModel.FileResponse;
 import pl.technicalsite.FileService.FileServiceImpl;
-import pl.technicalsite.FileService.XslReaderImpl;
+import pl.technicalsite.FileService.FileReaderService;
 
+import java.net.http.HttpResponse;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
@@ -22,11 +24,11 @@ import java.util.Objects;
 public class WebController {
 
     private final FileServiceImpl fileServiceImpl;
-    private final XslReaderImpl xslReaderImpl;
+    private final FileReaderService fileReaderService;
 
-    public WebController(FileServiceImpl fileServiceImpl, XslReaderImpl xslReaderImpl) {
+    public WebController(FileServiceImpl fileServiceImpl, FileReaderService fileReaderService) {
         this.fileServiceImpl = fileServiceImpl;
-        this.xslReaderImpl = xslReaderImpl;
+        this.fileReaderService = fileReaderService;
     }
 
     @GetMapping("/login")
@@ -42,7 +44,7 @@ public class WebController {
             fileResponse.setResult("The ID field value cannot be empty");
             return new ResponseEntity<>(fileResponse, HttpStatus.BAD_REQUEST);
         }
-        String result = fileServiceImpl.preapreStandardFile(fileDto);
+        String result = fileServiceImpl.createFile(fileDto);
         fileResponse.setResult(result);
         return new ResponseEntity<>(fileResponse, HttpStatus.OK);
     }
@@ -65,11 +67,11 @@ public class WebController {
 
     @PostMapping("/readFromFile")
     @ResponseBody
-    public ResponseEntity<FieldsFileResponse> readFromFile(@RequestBody String xslFile) {
-        if (!Objects.nonNull(xslFile)) {
-            return new ResponseEntity(Collections.EMPTY_MAP, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Map<String, String>> readFromFile(@RequestBody String xslFile) {
+        Map<String, String> result = fileReaderService.readFromXsl(xslFile);
+        if(result.isEmpty()){
+            return ResponseEntity.badRequest().build();
         }
-        Map<String, String> result = xslReaderImpl.readFromXsl(xslFile);
-        return new ResponseEntity(result, HttpStatus.OK);
+        return ResponseEntity.ok().body(result);
     }
 }

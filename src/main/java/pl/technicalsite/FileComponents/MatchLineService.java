@@ -1,4 +1,4 @@
-package pl.technicalsite.FileComponents.MatchLine;
+package pl.technicalsite.FileComponents;
 
 import org.springframework.stereotype.Component;
 
@@ -24,8 +24,10 @@ public class MatchLineService {
             case OFFERS_GROUP_O -> {
                 return "<xsl:template match=\"offers/group/o\">";
             }
+            default -> {
+                return "<xsl:template match=\"" + structure + "\">";
+            }
         }
-        return null;
     }
 
 

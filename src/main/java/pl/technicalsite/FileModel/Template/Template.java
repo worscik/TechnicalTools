@@ -1,4 +1,4 @@
-package pl.technicalsite.Template.TemplateModel;
+package pl.technicalsite.FileModel.Template;
 
 import org.springframework.stereotype.Component;
 import pl.technicalsite.FileModel.FieldsBuilder;

@@ -1,4 +1,4 @@
-package pl.technicalsite.FileComponents.CutLine;
+package pl.technicalsite.FileComponents;
 
 import org.springframework.stereotype.Service;
 
@@ -21,6 +21,10 @@ public class CutLineService {
             }
         }
         return null;
+    }
+
+    public String resolveCustomCutLine(String cutLine){
+        return "<xsl:template match=\""+ cutLine +"\" />";
     }
 
 }
