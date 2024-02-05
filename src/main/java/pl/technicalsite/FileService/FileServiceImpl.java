@@ -66,9 +66,6 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public String createFile(TemplateComponents templateComponents, FieldsBuilder fieldsBuilder) {
-        if (fieldsBuilder.isCutUTM()) {
-            return templateService.createFileWithCutUTM(templateComponents, fieldsBuilder);
-        }
         return templateService.createFile(templateComponents, fieldsBuilder);
     }
 
@@ -93,8 +90,8 @@ public class FileServiceImpl implements FileService {
                     .detail4(resolveEmptyField(field.getDetail4()))
                     .detail5(resolveEmptyField(field.getDetail5()))
                     .manufacturer(resolveEmptyField(field.getManufacturer()))
-                    .price(field.getPrice())
-                    .currency(field.getCurrency())
+                    .price(resolveEmptyField(field.getPrice()))
+                    .currency(field.getCurrency() != null ? field.getCurrency() : " ")
                     .pricePromo(resolveEmptyField(field.getPricePromo()))
                     .quantity(resolveEmptyField(field.getQuantity()))
                     .urlProduct(resolveEmptyField(field.getUrlProduct()))
