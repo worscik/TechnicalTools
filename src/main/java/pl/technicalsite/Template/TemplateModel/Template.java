@@ -226,7 +226,7 @@ public class Template {
                 "        <xsl:value-of select=\"$sep\"/>" + NEWLINE +
                 "        <!--GENDER-->" + NEWLINE +
                 "        <xsl:choose>" + NEWLINE +
-                "            <xsl:when test=\"" + fileField.getNewProductKey() + " " + "= '" + fileField.getGenderValue() + "'\">" + NEWLINE +
+                "            <xsl:when test=\"" + fileField.getGenderKey() + " " + "= '" + fileField.getGenderValue() + "'\">" + NEWLINE +
                 "                <xsl:value-of select=\"1\"/>" + NEWLINE +
                 "            </xsl:when>" + NEWLINE +
                 "            <xsl:otherwise>" + NEWLINE +
