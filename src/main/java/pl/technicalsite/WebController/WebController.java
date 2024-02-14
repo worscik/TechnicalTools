@@ -1,7 +1,5 @@
 package pl.technicalsite.WebController;
 
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,13 +9,11 @@ import pl.technicalsite.AppConfig.AppConfig;
 import pl.technicalsite.AppConfig.AppVersionResponse;
 import pl.technicalsite.FileModel.FileDto;
 import pl.technicalsite.FileModel.FileResponse;
-import pl.technicalsite.FileService.FileServiceImpl;
 import pl.technicalsite.FileService.FileReaderService;
+import pl.technicalsite.FileService.FileServiceImpl;
 
-import java.net.http.HttpResponse;
-import java.util.Collections;
 import java.util.Map;
-import java.util.Objects;
+import java.util.Optional;
 
 @Controller
 @CrossOrigin(value = "*")
@@ -67,11 +63,10 @@ public class WebController {
 
     @PostMapping("/readFromFile")
     @ResponseBody
-    public ResponseEntity<Map<String, String>> readFromFile(@RequestBody String xslFile) {
-        Map<String, String> result = fileReaderService.readFromXsl(xslFile);
-        if(result.isEmpty()){
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.ok().body(result);
+    public ResponseEntity<Map<String, String>> readFieldsFromFile(@RequestBody String xslFile) {
+        Optional<Map<String, String>> resultOptional = Optional.ofNullable(fileReaderService.readFromXsl(xslFile));
+        return resultOptional.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.badRequest().build());
     }
+
 }

@@ -1,17 +1,13 @@
 package pl.technicalsite.FileService;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.technicalsite.FileComponents.CutLine.CutLineService;
-import pl.technicalsite.FileComponents.Headers.HeadersService;
-import pl.technicalsite.FileComponents.MatchLine.MatchLineService;
-import pl.technicalsite.FileComponents.Structure.StructureFile;
+import pl.technicalsite.FileComponents.CutLineService;
+import pl.technicalsite.FileComponents.HeadersService;
+import pl.technicalsite.FileComponents.MatchLineService;
+import pl.technicalsite.FileComponents.StructureFile;
 import pl.technicalsite.FileModel.FileDto;
-import pl.technicalsite.Template.TemplateService.TemplateService;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class FileServiceImplTest {

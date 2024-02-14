@@ -21,11 +21,11 @@ public class FileReaderService implements IFileReader {
     public Map<String, String> readFromXsl(String xsl) {
         try {
             List<String> file = splitToLine(xsl);
-            Map<String, String> structureFile = addKeys(readValues(file, structure), structureList);
-            Map<String, String> standardKeys = addKeys(readValues(file, classicKey), classicKeyList);
+            Map<String, String> structureFile = addKeys(resolveStandardKey(file, structure), structureList);
+            Map<String, String> standardKeys = addKeys(resolveStandardKey(file, classicKey), classicKeyList);
             Map<String, String> numericKeys = addKeys(readBoolenValues(file, keyInNumericLine), numericKeyList);
             Map<String, String> valuesKeys = addKeysInNumeric(readBoolenValues(file, valueInNumericLine), numericValueList);
-            Map<String, String> currencyKey = addKeys(readValues(file, currencyValue), currencyList);
+            Map<String, String> currencyKey = addKeys(resolveCurrency(file, currencyValue), currencyList);
             return mergeMaps(standardKeys, numericKeys, valuesKeys, currencyKey, structureFile);
         } catch (Exception e) {
             logger.error("Error during read file: " + e);
@@ -34,19 +34,12 @@ public class FileReaderService implements IFileReader {
 
     }
 
-    @Override
-    public Map<String, String> mergeMaps(Map<String, String> structureFile,
-                                         Map<String, String> keys,
-                                         Map<String, String> numeric,
-                                         Map<String, String> values,
-                                         Map<String, String> currency) {
-        Map<String, String> list = new HashMap<>();
-        list.putAll(structureFile);
-        list.putAll(keys);
-        list.putAll(numeric);
-        list.putAll(values);
-        list.putAll(currency);
-        return list;
+    private Map<String, String> mergeMaps(Map<String, String>... maps) {
+        Map<String, String> mergedMap = new HashMap<>();
+        for (Map<String, String> map : maps) {
+            mergedMap.putAll(map);
+        }
+        return mergedMap;
 
     }
 
@@ -115,6 +108,21 @@ public class FileReaderService implements IFileReader {
         return emptyMap;
     }
 
+    private List<String> resolveStandardKey(List<String> fileLineByLine, String pattern) {
+        try {
+            return fileLineByLine.stream()
+                    .map(line -> resolveValues(line, pattern))
+                    .flatMap(List::stream)
+                    .collect(Collectors.toList());
+        } catch (ArrayIndexOutOfBoundsException a) {
+            logger.error("I have a problem when reading primary keys");
+            return Collections.emptyList();
+        } catch (Exception e) {
+            logger.error("Error during read structure " + e);
+            return Collections.emptyList();
+        }
+    }
+
     private List<String> readValues(List<String> fileLineByLine, String pattern) {
         return fileLineByLine.stream()
                 .map(line -> resolveValues(line, pattern))
@@ -126,6 +134,14 @@ public class FileReaderService implements IFileReader {
         return fileLineByLine.stream()
                 .map(line -> resolveBooleanValues(line, pattern))
                 .flatMap(List::stream)
+                .collect(Collectors.toList());
+    }
+
+    private List<String> resolveCurrency(List<String> fileLineByLine, String pattern) {
+        return fileLineByLine.stream()
+                .map(line -> resolveBooleanValues(line, pattern))
+                .flatMap(List::stream)
+                .limit(1)
                 .collect(Collectors.toList());
     }
 

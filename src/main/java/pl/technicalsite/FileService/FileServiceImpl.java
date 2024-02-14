@@ -91,7 +91,7 @@ public class FileServiceImpl implements FileService {
                     .manufacturer(resolveEmptyField(field.getManufacturer()))
                     .price(resolveEmptyField(field.getPrice()))
                     .currency(field.getCurrency() != null ? field.getCurrency() : " ")
-                    .pricePromo(resolveEmptyField(field.getPricePromo()))
+                    .pricePromo(field.getPricePromo() != null ? field.getCurrency() : " ")
                     .quantity(resolveEmptyField(field.getQuantity()))
                     .urlProduct(resolveEmptyField(field.getUrlProduct()))
                     .urlImg(resolveEmptyField(field.getUrlImg()))
