@@ -8,11 +8,11 @@
   </head>
   <body>
     <body>
-      <input type="checkbox" id="one" />
-      <input type="checkbox" id="two" />
-      <input type="checkbox" id="three" />
-      <input type="checkbox" id="four" />
-      <input type="checkbox" id="five" />
+      <input class="nav-input" type="checkbox" id="one" data-id="1" />
+      <input class="nav-input" type="checkbox" id="two" data-id="2" />
+      <input class="nav-input" type="checkbox" id="three" data-id="3" />
+      <input class="nav-input" type="checkbox" id="four" data-id="4" />
+      <input class="nav-input" type="checkbox" id="five" data-id="5" />
       <div class="container">
         <h1>Technical Tools</h1>
         <div class="indicator">
@@ -60,7 +60,9 @@
                 <label for="">Extenal ID</label>
               </div>
               <div class="btn-group">
-                <label for="one" class="btn btn-f">Next</label>
+                <label for="" class="btn btn-f nav-btn" data-checkbox="1"
+                  >Next</label
+                >
               </div>
             </form>
           </div>
@@ -77,8 +79,10 @@
                 <label for="">Extenal ID</label>
               </div>
               <div class="btn-group">
-                <label for="one" class="btn">Previous</label>
-                <label for="two" class="btn">Next</label>
+                <label for="" class="btn nav-btn" data-checkbox="1"
+                  >Previous</label
+                >
+                <label for="" class="btn nav-btn" data-checkbox="2">Next</label>
               </div>
             </form>
           </div>
@@ -95,8 +99,10 @@
                 <label for="">Extenal ID</label>
               </div>
               <div class="btn-group">
-                <label for="two" class="btn">Previous</label>
-                <label for="three" class="btn">Next</label>
+                <label for="" class="btn nav-btn" data-checkbox="2"
+                  >Previous</label
+                >
+                <label for="" class="btn nav-btn" data-checkbox="3">Next</label>
               </div>
             </form>
           </div>
@@ -113,8 +119,10 @@
                 <label for="">Name</label>
               </div>
               <div class="btn-group">
-                <label for="three" class="btn">Previous</label>
-                <label for="four" class="btn">Next</label>
+                <label for="" class="btn nav-btn" data-checkbox="3"
+                  >Previous</label
+                >
+                <label for="" class="btn nav-btn" data-checkbox="4">Next</label>
               </div>
             </form>
           </div>
@@ -131,8 +139,10 @@
                 <label for="">Name</label>
               </div>
               <div class="btn-group">
-                <label for="four" class="btn">Previous</label>
-                <label for="five" class="btn">Next</label>
+                <label for="" class="btn nav-btn" data-checkbox="4"
+                  >Previous</label
+                >
+                <label for="" class="btn nav-btn" data-checkbox="5">Next</label>
               </div>
             </form>
           </div>
@@ -149,8 +159,12 @@
                 <label for="">Name</label>
               </div>
               <div class="btn-group">
-                <label for="five" class="btn">Previous</label>
-                <button type="submit" class="btn">Submit</button>
+                <label for="" class="btn nav-btn" data-checkbox="5"
+                  >Previous</label
+                >
+                <button type="submit" class="btn" data-checkbox="-1">
+                  Submit
+                </button>
               </div>
             </form>
           </div>
