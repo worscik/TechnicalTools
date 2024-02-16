@@ -27,11 +27,13 @@ public class FileReaderService implements IFileReader {
             Map<String, String> valuesKeys = addKeysInNumeric(readBoolenValues(file, valueInNumericLine), numericValueList);
             Map<String, String> currencyKey = addKeys(resolveCurrency(file, currencyValue), currencyList);
             return mergeMaps(standardKeys, numericKeys, valuesKeys, currencyKey, structureFile);
+        } catch (ArrayIndexOutOfBoundsException e){
+            logger.error("Too much line to read. Something is bad: " + e);
+            return null;
         } catch (Exception e) {
             logger.error("Error during read file: " + e);
-            return Collections.emptyMap();
+            return null;
         }
-
     }
 
     private Map<String, String> mergeMaps(Map<String, String>... maps) {

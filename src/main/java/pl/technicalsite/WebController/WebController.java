@@ -63,8 +63,10 @@ public class WebController {
     @ResponseBody
     public ResponseEntity<Map<String, String>> readFieldsFromFile(@RequestBody String xslFile) {
         Optional<Map<String, String>> resultOptional = Optional.ofNullable(fileReaderService.readFromXsl(xslFile));
-        return resultOptional.map(ResponseEntity::ok)
-                .orElse(ResponseEntity.badRequest().build());
+        if(resultOptional.isPresent()){
+            return ResponseEntity.ok().body(resultOptional.get());
+        }
+        return ResponseEntity.badRequest().build();
     }
 
 }
