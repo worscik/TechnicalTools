@@ -6,14 +6,14 @@ import org.springframework.stereotype.Service;
 import pl.technicalsite.FileComponents.CutLineService;
 import pl.technicalsite.FileComponents.HeadersService;
 import pl.technicalsite.FileComponents.MatchLineService;
-import pl.technicalsite.FileComponents.StructureFile;
 import pl.technicalsite.FileModel.FieldsBuilder;
 import pl.technicalsite.FileModel.FieldsDto;
 import pl.technicalsite.FileModel.FileDto;
-import pl.technicalsite.FileModel.FileResponse;
 import pl.technicalsite.FileModel.Template.TemplateComponents;
 
 import java.util.Objects;
+
+import static pl.technicalsite.FileModel.MappingsType.listOfAvailableStructure;
 
 
 @Service
@@ -22,16 +22,14 @@ public class FileServiceImpl implements FileService {
     private static final Logger logger = LogManager.getLogger(FileServiceImpl.class);
     private final CutLineService cutLineService;
     private final HeadersService headersService;
-    private final StructureFile structureFile;
     private final MatchLineService matchLineService;
     private final TemplateService templateService;
 
     public FileServiceImpl(CutLineService cutLineService, HeadersService headersService,
-                           StructureFile structureFile, MatchLineService matchLineService,
+                            MatchLineService matchLineService,
                            TemplateService templateService) {
         this.cutLineService = cutLineService;
         this.headersService = headersService;
-        this.structureFile = structureFile;
         this.matchLineService = matchLineService;
         this.templateService = templateService;
     }
@@ -55,20 +53,20 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public FileResponse createFile(FileDto fileDto) {
-        boolean isStandard = structureFile.resolveStructure(fileDto.getStructure().toLowerCase());
+    public String createFile(FileDto fileDto) {
+        boolean isStandard = resolveStructure(fileDto.getStructure().toLowerCase());
         if(!isStandard &&  Objects.isNull(fileDto.getMatchLine()) && Objects.isNull(fileDto.getCutLine())){
-            return new FileResponse("Match or cut line cannot be empty");
+            return "Match or cut line cannot be empty";
         }
         try {
             TemplateComponents templateComponents = isStandard
                     ? buildStandardComponentsTemplate(fileDto)
                     : buildCustomComponentsTemplate(fileDto);
             FieldsBuilder fileFields = buildFileFields(fileDto.getFieldsDto());
-            return new FileResponse(createFile(templateComponents, fileFields));
+            return createFile(templateComponents, fileFields);
         } catch (Exception e) {
             logger.error("An error occurred while building the file" + e);
-            return new FileResponse("An unexpected error occurred.");
+            return "An unexpected error occurred.";
         }
     }
 
@@ -126,6 +124,15 @@ public class FileServiceImpl implements FileService {
             return "UNDEFINED";
         }
         return value;
+    }
+
+    private boolean resolveStructure(String structure) {
+        for (String x : listOfAvailableStructure) {
+            if (x.equals(structure)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

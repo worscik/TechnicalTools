@@ -6,7 +6,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pl.technicalsite.FileComponents.CutLineService;
 import pl.technicalsite.FileComponents.HeadersService;
 import pl.technicalsite.FileComponents.MatchLineService;
-import pl.technicalsite.FileComponents.StructureFile;
 import pl.technicalsite.FileModel.FileDto;
 
 @ExtendWith(MockitoExtension.class)
