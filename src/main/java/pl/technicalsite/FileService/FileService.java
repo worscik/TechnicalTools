@@ -1,9 +1,10 @@
 package pl.technicalsite.FileService;
 
 import pl.technicalsite.FileModel.FileDto;
+import pl.technicalsite.FileModel.FileResponse;
 
 public interface FileService {
 
-    String createFile(FileDto fileDto);
+    FileResponse createFile(FileDto fileDto);
 
 }

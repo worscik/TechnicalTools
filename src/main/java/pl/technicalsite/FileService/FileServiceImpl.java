@@ -5,12 +5,15 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import pl.technicalsite.FileComponents.CutLineService;
 import pl.technicalsite.FileComponents.HeadersService;
-import pl.technicalsite.FileComponents.StructureFile;
 import pl.technicalsite.FileComponents.MatchLineService;
+import pl.technicalsite.FileComponents.StructureFile;
 import pl.technicalsite.FileModel.FieldsBuilder;
 import pl.technicalsite.FileModel.FieldsDto;
 import pl.technicalsite.FileModel.FileDto;
+import pl.technicalsite.FileModel.FileResponse;
 import pl.technicalsite.FileModel.Template.TemplateComponents;
+
+import java.util.Objects;
 
 
 @Service
@@ -37,8 +40,8 @@ public class FileServiceImpl implements FileService {
         return new TemplateComponents.Builder()
                 .structure(fileDto.getStructure())
                 .headers(headersService.resolveHeaders(fileDto.getStructure()))
-                .cutLine(cutLineService.resolveStandardCutLine(fileDto.getStructure()))
-                .matchLine(matchLineService.resolveStandardMatchLine(fileDto.getStructure()))
+                .cutLine(cutLineService.resolveCutLine(fileDto.getStructure()))
+                .matchLine(matchLineService.resolveMatchLine(fileDto.getStructure()))
                 .build();
     }
 
@@ -46,21 +49,26 @@ public class FileServiceImpl implements FileService {
         return new TemplateComponents.Builder()
                 .structure(fileDto.getStructure())
                 .headers(headersService.resolveHeaders(fileDto.getStructure()))
-                .cutLine(cutLineService.resolveCustomCutLine(fileDto.getCutLine()))
-                .matchLine(matchLineService.resolveStandardMatchLine(fileDto.getStructure()))
+                .cutLine(cutLineService.resolveCutLine(fileDto.getCutLine()))
+                .matchLine(matchLineService.resolveMatchLine(fileDto.getMatchLine()))
                 .build();
     }
 
     @Override
-    public String createFile(FileDto fileDto) {
+    public FileResponse createFile(FileDto fileDto) {
+        boolean isStandard = structureFile.resolveStructure(fileDto.getStructure().toLowerCase());
+        if(!isStandard &&  Objects.isNull(fileDto.getMatchLine()) && Objects.isNull(fileDto.getCutLine())){
+            return new FileResponse("Match or cut line cannot be empty");
+        }
         try {
-            TemplateComponents templateComponents = fileDto.isCustom()
-                    ? buildCustomComponentsTemplate(fileDto) : buildStandardComponentsTemplate(fileDto);
+            TemplateComponents templateComponents = isStandard
+                    ? buildStandardComponentsTemplate(fileDto)
+                    : buildCustomComponentsTemplate(fileDto);
             FieldsBuilder fileFields = buildFileFields(fileDto.getFieldsDto());
-            return createFile(templateComponents, fileFields);
+            return new FileResponse(createFile(templateComponents, fileFields));
         } catch (Exception e) {
             logger.error("An error occurred while building the file" + e);
-            return "An unexpected error occurred.";
+            return new FileResponse("An unexpected error occurred.");
         }
     }
 

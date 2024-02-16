@@ -40,9 +40,7 @@ public class WebController {
             fileResponse.setResult("The ID field value cannot be empty");
             return new ResponseEntity<>(fileResponse, HttpStatus.BAD_REQUEST);
         }
-        String result = fileServiceImpl.createFile(fileDto);
-        fileResponse.setResult(result);
-        return new ResponseEntity<>(fileResponse, HttpStatus.OK);
+        return ResponseEntity.ok().body(fileServiceImpl.createFile(fileDto));
     }
 
     @GetMapping("/applicationVersion")
