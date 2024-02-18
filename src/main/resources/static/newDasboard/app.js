@@ -7,8 +7,6 @@ function init() {
   initNavigation();
   initStructureSelect();
   initErrorClearForInputs();
-
-  console.log(structureSelect.value);
 }
 
 function initNavigation() {
@@ -43,11 +41,9 @@ function initErrorClearForInputs() {
       }
     })
   );
-  console.log(inputs);
 }
 
 function validateStep(id) {
-  console.log(id);
   switch (Number(id)) {
     case 1:
     case 3:
@@ -57,7 +53,6 @@ function validateStep(id) {
       return true;
     case 0:
       // Sprawdzanie czy jeśli selekt ma value other to czy pole struktury nie jest puste
-      console.log(structureSelect.value);
       if (structureSelect.value != "other") return true;
       if (!document.getElementById("structure-input").value) {
         addErrorMessage(
@@ -66,7 +61,46 @@ function validateStep(id) {
         );
         return false;
       }
-
+      return true;
+    case 2: {
+      if (!document.getElementById("external-id").value) {
+        addErrorMessage(
+          document.getElementById("external-id"),
+          "The field cannot be empty"
+        );
+        return false;
+      }
+      return true;
+    }
+    case 4: {
+      let flag = true;
+      // sprawdzenie czy jeśli jendo pole ma wartość to czy deugie też
+      ["new-product", "availability", "bestseller", "gender"].forEach(
+        (item) => {
+          if (
+            document.getElementById(item).value &&
+            !document.getElementById(item + "-value").value
+          ) {
+            addErrorMessage(
+              document.getElementById(item + "-value"),
+              "The field cannot be empty"
+            );
+            flag = false;
+          }
+          if (
+            document.getElementById(item + "-value").value &&
+            !document.getElementById(item).value
+          ) {
+            addErrorMessage(
+              document.getElementById(item),
+              "The field cannot be empty"
+            );
+            flag = false;
+          }
+        }
+      );
+      return flag;
+    }
     default:
       return true;
   }
@@ -85,10 +119,6 @@ function initStructureSelect() {
 
   // Dodaj event zmiany selekta i zarządzaj ukrytym polem input
   structureSelect.addEventListener("change", () => {
-    console.log(structureSelect.value);
-    console.log(
-      document.getElementById("structure-input").parentNode.classList
-    );
     if (structureSelect.value === "other") {
       document
         .getElementById("structure-input")
