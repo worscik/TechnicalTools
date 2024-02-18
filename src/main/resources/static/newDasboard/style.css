@@ -184,6 +184,36 @@ body {
   margin: 15px 0;
 }
 
+.form .form-group-twice {
+  display: flex;
+  /* gap: 5px; */
+  width: 80%;
+  height: 50px;
+  margin: 15px;
+}
+
+.form .form-group-twice .form-group:first-of-type input {
+  border-radius: 5px 0px 0px 5px;
+  border-right: none;
+}
+
+.form .form-group-twice .form-group:last-of-type input {
+  position: relative;
+  border-radius: 0px 5px 5px 0px;
+  border-left: none;
+}
+
+.form .form-group-twice .form-group:last-of-type::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 0;
+  width: 1px;
+  height: 80%;
+  background-color: var(--light-color);
+  z-index: 999;
+}
+
 .form-group select {
   height: 100%;
   width: 100%;
