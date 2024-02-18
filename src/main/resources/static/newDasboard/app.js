@@ -1,12 +1,14 @@
 const navCheckboxs = document.querySelectorAll(".nav-input");
 const navButtons = document.querySelectorAll(".nav-btn");
 const structureSelect = document.getElementById("structure-select");
+const submitButton = document.querySelector(".submit-btn");
 
 function init() {
   console.log("Init...");
   initNavigation();
   initStructureSelect();
   initErrorClearForInputs();
+  initSubmitBuuton();
 }
 
 function initNavigation() {
@@ -41,6 +43,13 @@ function initErrorClearForInputs() {
       }
     })
   );
+}
+
+function initSubmitBuuton() {
+  submitButton.addEventListener("click", () => {
+    let data = getDataFromForm();
+    console.log(data);
+  });
 }
 
 function validateStep(id) {
@@ -172,6 +181,62 @@ function addErrorMessage(inputNode, errorMessage) {
   parentNode.appendChild(errorElement);
 }
 
+function getDataFromForm() {
+  const fields = {
+    id: document.getElementById("external-id").value,
+    name: document.getElementById("name").value,
+    newProductKey: document.getElementById("new-product").value,
+    newProductValue: document.getElementById("new-product-value").value,
+    availableKey: document.getElementById("availability").value,
+    availableValue: document.getElementById("availability-value").value,
+    bestsellerKey: document.getElementById("bestseller").value,
+    bestsellerValue: document.getElementById("bestseller-value").value,
+    brand: document.getElementById("brand").value,
+    categories: document.getElementById("categories").value,
+    categoryMain: document.getElementById("main-category").value,
+    description: document.getElementById("description").value,
+    detail1: document.getElementById("detail-1").value,
+    detail2: document.getElementById("detail-2").value,
+    detail3: document.getElementById("detail-3").value,
+    detail4: document.getElementById("detail-4").value,
+    detail5: document.getElementById("detail-5").value,
+    manufacturer: document.getElementById("manufacturer").value,
+    price: document.getElementById("price").value,
+    currency: document.getElementById("currency").value,
+    pricePromo: document.getElementById("sale-price").value,
+    quantity: document.getElementById("quantity").value,
+    urlProduct: document.getElementById("product-url").value,
+    // To zawsze jak tru
+    cutUTM: true,
+    urlImg: document.getElementById("image-url").value,
+    genderKey: document.getElementById("gender").value,
+    genderValue: document.getElementById("gender-value").value,
+    popularity: document.getElementById("popularity").value,
+    season: document.getElementById("season").value,
+    color: document.getElementById("color").value,
+    urlCategory: "",
+    urlCategoryMark: "",
+    addidtionalImage: "",
+    intDetail1: "",
+    intDetail2: "",
+    intDetail3: "",
+  };
+
+  const structure =
+    structureSelect.value === "other"
+      ? inputStructureElement.value
+      : document.getElementById("structure-input").value;
+
+  const mathLine = document.getElementById("match-line").value;
+  const cutLine = document.getElementById("cut-line").value;
+
+  return {
+    StructureFile: structure,
+    CutLine: cutLine,
+    MatchLine: mathLine,
+    Fields: fields,
+  };
+}
 init();
 
 // testowe metody lub mock
