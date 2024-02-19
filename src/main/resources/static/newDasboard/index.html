@@ -61,14 +61,32 @@
               <div class="form-group hide">
                 <input id="structure-input" type="text" required />
                 <label for="">Type structure</label>
+                <div class="tooltip">
+                  <span class="tooltip-icon">&#9432;</span>
+                  <span class="tooltip-text">Główna ścieżka do produktu</span>
+                </div>
               </div>
               <div class="form-group">
                 <input id="match-line" type="text" required />
                 <label for="">Additional path to product</label>
+                <div class="tooltip">
+                  <span class="tooltip-icon">&#9432;</span>
+                  <span class="tooltip-text"
+                    >Alternatywne ścieżki do produktów, oddzielone
+                    przecinkiem</span
+                  >
+                </div>
               </div>
               <div class="form-group">
                 <input id="cut-line" type="text" required />
                 <label for="">Fields to cut</label>
+                <div class="tooltip">
+                  <span class="tooltip-icon">&#9432;</span>
+                  <span class="tooltip-text"
+                    >Pola które mają być pominiete przez transformatę,
+                    oddzielone przecinkiem
+                  </span>
+                </div>
               </div>
               <div class="btn-group">
                 <label for="" class="btn btn-f nav-btn" data-checkbox="1" id="0"
@@ -84,6 +102,13 @@
               <div class="form-group">
                 <input id="external-id" type="text" required />
                 <label for="">Extenal ID</label>
+                <div class="tooltip">
+                  <span class="tooltip-icon">&#9432;</span>
+                  <span class="tooltip-text"
+                    >Obowiązkowe pole które bedzie mapowane jako id
+                    produktu</span
+                  >
+                </div>
               </div>
               <div class="form-group">
                 <input id="name" type="text" required />
@@ -118,7 +143,17 @@
 
           <div class="page3">
             <form action="#" class="form">
-              <h2>Conditions</h2>
+              <h2>
+                Conditions
+                <div class="tooltip inline-block">
+                  <span class="tooltip-icon">&#9432;</span>
+                  <span class="tooltip-text"
+                    >Warunki przyjmują wartosć true/false, jako value nalezy
+                    podać kiedy warunek ma być zmapowany jako prawda</span
+                  >
+                </div>
+              </h2>
+
               <div class="form-group-twice">
                 <div class="form-group">
                   <input id="new-product" type="text" required />
@@ -157,6 +192,14 @@
                 <div class="form-group">
                   <input id="gender-value" type="text" required />
                   <label for="">Value</label>
+                  <div class="tooltip">
+                    <span class="tooltip-icon">&#9432;</span>
+                    <span class="tooltip-text"
+                      >Płeć nalezy zmapować jako 1-male, 0-female. Jeśli w XML
+                      jest większa ilośc płci potrzeba customowego
+                      rozwiązania</span
+                    >
+                  </div>
                 </div>
               </div>
               <div class="btn-group">
@@ -218,6 +261,13 @@
               <div class="form-group">
                 <input id="currency" type="text" required />
                 <label for="">Currency</label>
+                <div class="tooltip">
+                  <span class="tooltip-icon">&#9432;</span>
+                  <span class="tooltip-text"
+                    >Należy podać walutę która jest umieszczona przy cenie w
+                    feedzie</span
+                  >
+                </div>
               </div>
               <div class="form-group">
                 <input id="product-url" type="text" required />
@@ -267,13 +317,14 @@
                 >
                 <label class="btn submit-btn" data-checkbox="-1" id="10">
                   Submit
-                </button>
+                </label>
               </div>
             </form>
           </div>
-        </div> 
+        </div>
       </div>
     </body>
+    <script src="../Toast.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

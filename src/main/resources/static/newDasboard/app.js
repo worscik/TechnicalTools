@@ -2,6 +2,13 @@ const navCheckboxs = document.querySelectorAll(".nav-input");
 const navButtons = document.querySelectorAll(".nav-btn");
 const structureSelect = document.getElementById("structure-select");
 const submitButton = document.querySelector(".submit-btn");
+// const toasts = new Toast({
+//   width: 300,
+//   timing: "ease",
+//   duration: ".5s",
+//   dimOld: false,
+//   position: "top-right",
+// });
 
 function init() {
   console.log("Init...");
@@ -83,6 +90,12 @@ function validateStep(id) {
           document.getElementById("external-id"),
           "The field cannot be empty"
         );
+        // toasts.push({
+        //   title: "Empty field",
+        //   content: `Field external_id is empty, pls enter value!`,
+        //   style: "error",
+        //   dismissAfter: "2s",
+        // });
         return false;
       }
       return true;
@@ -287,17 +300,35 @@ function copyResponsElement() {
 
   // Copy the text inside the text field
   navigator.clipboard.writeText(copyText.value);
+  // toasts.push({
+  //   title: "Success",
+  //   content: `Coopied!`,
+  //   style: "success",
+  //   dismissAfter: "2s",
+  // });
 }
 
 function clearResponseElement() {
   console.log("Clear!!!");
   document.getElementById("transform-text").value = "";
+  // toasts.push({
+  //   title: "Success",
+  //   content: `Form cleared`,
+  //   style: "success",
+  //   dismissAfter: "2s",
+  // });
 }
 
 function moveToFirstStep() {
   navCheckboxs.forEach((item) => {
     item.checked = false;
   });
+}
+
+function initTooltips() {
+  const tooltips = document.querySelectorAll(".tooltip");
+
+  tooltips.style.width = tooltips.querySelector(".tooltip-tex");
 }
 
 function createLoader() {
