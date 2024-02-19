@@ -45,11 +45,16 @@ function initErrorClearForInputs() {
   );
 }
 
-function initSubmitBuuton() {
-  submitButton.addEventListener("click", () => {
+async function initSubmitBuuton() {
+  submitButton.addEventListener("click", async () => {
     let data = getDataFromForm();
-    console.log(data);
-    createReponseModal();
+    // uderzenie do API
+    let loader = createLoader();
+    const result = await fetchTransform();
+    removeLoader(loader);
+
+    console.log(result);
+    createReponseModal(result);
   });
 }
 
@@ -158,8 +163,19 @@ function fetchStructures() {
     "rss/channel/item",
     "feed/entry",
   ];
+
   return result;
   // Expected output: "resolved"
+}
+
+async function fetchTransform(mapping) {
+  try {
+    //  fetch
+    await delay(5000); // You mock a delay here
+    return await "text"; // Resolve value from `res` promise.
+  } catch (err) {
+    throw new Error("error.unknown");
+  }
 }
 
 function createNewOption(value, text, name) {
@@ -239,16 +255,16 @@ function getDataFromForm() {
   };
 }
 
-function createReponseModal() {
+function createReponseModal(text) {
   const responseElement = document.createElement("div");
   responseElement.classList.add("response");
   responseElement.id = "response";
   responseElement.innerHTML = ` <h1 class="title">Transform</h1>
   <div class="main">
-    <textarea id="transform-text" placeholder="Enter text here"></textarea>
+    <textarea id="transform-text" placeholder="Enter text here">${text}</textarea>
   </div>
   <div class="btn-group">
-    <label class="btn" id="clear-mapping-button">Clear</label>
+    <label class="btn" id="close-mapping-button" onclick="closeResponseElement()">Close</label>
     <label class="btn" id="copy-mapping-button" onclick="copyResponsElement()">Copy</label>
   </div>
   <div class="close-button" onclick="closeResponseElement()" >&#10006;</div>`;
@@ -258,6 +274,7 @@ function createReponseModal() {
 
 function closeResponseElement() {
   document.getElementById("response").remove();
+  moveToFirstStep();
 }
 
 function copyResponsElement() {
@@ -272,6 +289,28 @@ function copyResponsElement() {
   navigator.clipboard.writeText(copyText.value);
 }
 
+function clearResponseElement() {
+  console.log("Clear!!!");
+  document.getElementById("transform-text").value = "";
+}
+
+function moveToFirstStep() {
+  navCheckboxs.forEach((item) => {
+    item.checked = false;
+  });
+}
+
+function createLoader() {
+  const loader = document.createElement("span");
+  loader.classList.add("loader");
+  document.body.append(loader);
+  return loader;
+}
+
+function removeLoader(loader) {
+  loader.remove();
+}
+
 init();
 
 // testowe metody lub mock
@@ -284,3 +323,5 @@ function resolveAfter2Seconds() {
     }, 2000);
   });
 }
+
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
