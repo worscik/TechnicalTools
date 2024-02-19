@@ -45,7 +45,7 @@ body {
   overflow: hidden;
 }
 
-.container h1 {
+.container .title {
   position: absolute;
   font-size: 40px;
   top: 0px;
@@ -374,4 +374,65 @@ body {
 #four:checked ~ .container .indicator .step5 span,
 #five:checked ~ .container .indicator .step6 span {
   color: var(--blue-color);
+}
+
+/* response container */
+
+.response {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f1f5f2;
+}
+
+.response .title {
+  position: relative;
+  font-size: 40px;
+  text-align: center;
+  width: 100%;
+  padding: 20px;
+  color: var(--blue-color);
+}
+
+.response .main {
+  display: flex;
+  width: 90%;
+  flex-grow: 1;
+  resize: none;
+}
+
+.main textarea {
+  width: 100%;
+  padding: 15px;
+  color: var(--blue-color);
+  border: 5px solid var(--blue-color);
+  border-radius: 5px;
+  resize: none;
+  outline: none;
+}
+
+.main textarea:active,
+.main textarea:focus {
+  /* border-color: var(--green-color); */
+}
+
+.response .btn-group {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  padding: 20px 0;
+}
+
+.response .close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
 }

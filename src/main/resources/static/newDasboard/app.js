@@ -49,6 +49,7 @@ function initSubmitBuuton() {
   submitButton.addEventListener("click", () => {
     let data = getDataFromForm();
     console.log(data);
+    createReponseModal();
   });
 }
 
@@ -237,6 +238,40 @@ function getDataFromForm() {
     Fields: fields,
   };
 }
+
+function createReponseModal() {
+  const responseElement = document.createElement("div");
+  responseElement.classList.add("response");
+  responseElement.id = "response";
+  responseElement.innerHTML = ` <h1 class="title">Transform</h1>
+  <div class="main">
+    <textarea id="transform-text" placeholder="Enter text here"></textarea>
+  </div>
+  <div class="btn-group">
+    <label class="btn" id="clear-mapping-button">Clear</label>
+    <label class="btn" id="copy-mapping-button" onclick="copyResponsElement()">Copy</label>
+  </div>
+  <div class="close-button" onclick="closeResponseElement()" >&#10006;</div>`;
+
+  document.querySelector(".container").appendChild(responseElement);
+}
+
+function closeResponseElement() {
+  document.getElementById("response").remove();
+}
+
+function copyResponsElement() {
+  console.log("Copied!!!");
+  var copyText = document.getElementById("transform-text");
+
+  // Select the text field
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); // For mobile devices
+
+  // Copy the text inside the text field
+  navigator.clipboard.writeText(copyText.value);
+}
+
 init();
 
 // testowe metody lub mock

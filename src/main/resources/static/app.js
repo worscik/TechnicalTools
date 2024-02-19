@@ -266,7 +266,6 @@ function validDateFromForm(data) {
 }
 
 function loadDataToForm(data) {
-
   const formInputs = document.querySelectorAll(".form-row input");
 
   formInputs.forEach((input) => {
@@ -277,12 +276,12 @@ function loadDataToForm(data) {
         selectStructureElement.value = "other";
         inputStructureElement.value = data["structure"];
         inputStructureElement.style.display = "block";
-//          toasts.push({
-//              title: "Error",
-//              content: "Wrong structure type.",
-//              style: "error",
-//              dismissAfter: "2s",
-//            });
+        //          toasts.push({
+        //              title: "Error",
+        //              content: "Wrong structure type.",
+        //              style: "error",
+        //              dismissAfter: "2s",
+        //            });
       }
     } else if (input.id === "cutUTM") {
       input.checked = data[input.id];
