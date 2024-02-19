@@ -1,14 +1,19 @@
-package pl.technicalsite.FileComponents.MatchLine;
+package pl.technicalsite.FileComponents;
 
 import org.springframework.stereotype.Component;
+
+import java.util.Objects;
 
 import static pl.technicalsite.FileModel.MappingsType.*;
 
 @Component
 public class MatchLineService {
 
-    public String resolveStandardMatchLine(String structure) {
-        switch (structure) {
+    public String resolveMatchLine(String matchLine) {
+        if (Objects.isNull(matchLine)) {
+            matchLine = "";
+        }
+        switch (matchLine) {
             case RSS_CHANNEL_ITEM -> {
                 return "<xsl:template match=\"rss/channel/item\">";
             }
@@ -24,8 +29,15 @@ public class MatchLineService {
             case OFFERS_GROUP_O -> {
                 return "<xsl:template match=\"offers/group/o\">";
             }
+            default -> {
+                return splitValues(matchLine);
+            }
         }
-        return null;
+    }
+
+    private String splitValues(String cutLine) {
+        cutLine.replaceAll(",", "|");
+        return "<xsl:template match=\"" + cutLine + "\">";
     }
 
 

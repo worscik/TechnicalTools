@@ -38,8 +38,6 @@ public class FieldsBuilder {
     private String intDetail2;
     private String intDetail3;
 
-    private boolean cutUTM;
-
     public FieldsBuilder(Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
@@ -76,7 +74,6 @@ public class FieldsBuilder {
         this.intDetail1 = builder.intDetail1;
         this.intDetail2 = builder.intDetail2;
         this.intDetail3 = builder.intDetail3;
-        this.cutUTM = builder.cutUTM;
     }
 
     public String getId() {
@@ -217,10 +214,6 @@ public class FieldsBuilder {
 
     public String getIntDetail3() {
         return intDetail3;
-    }
-
-    public boolean isCutUTM() {
-        return cutUTM;
     }
 
     public static class Builder {

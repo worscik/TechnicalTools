@@ -1,32 +1,30 @@
 package pl.technicalsite.WebController;
 
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pl.technicalsite.AppConfig.AppConfig;
 import pl.technicalsite.AppConfig.AppVersionResponse;
-import pl.technicalsite.FileModel.FieldsFileResponse;
 import pl.technicalsite.FileModel.FileDto;
-import pl.technicalsite.FileModel.FileResponse;
+import pl.technicalsite.FileModel.MappingsType;
+import pl.technicalsite.FileService.FileReaderService;
 import pl.technicalsite.FileService.FileServiceImpl;
-import pl.technicalsite.FileService.XslReaderImpl;
 
-import java.util.Collections;
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+import java.util.Optional;
 
 @Controller
 @CrossOrigin(value = "*")
 public class WebController {
 
     private final FileServiceImpl fileServiceImpl;
-    private final XslReaderImpl xslReaderImpl;
+    private final FileReaderService fileReaderService;
 
-    public WebController(FileServiceImpl fileServiceImpl, XslReaderImpl xslReaderImpl) {
+    public WebController(FileServiceImpl fileServiceImpl, FileReaderService fileReaderService) {
         this.fileServiceImpl = fileServiceImpl;
-        this.xslReaderImpl = xslReaderImpl;
+        this.fileReaderService = fileReaderService;
     }
 
     @GetMapping("/login")
@@ -36,15 +34,13 @@ public class WebController {
 
     @PostMapping("/create")
     @ResponseBody
-    public ResponseEntity<FileResponse> create(@RequestBody @Valid FileDto fileDto) {
-        FileResponse fileResponse = new FileResponse("");
+    public ResponseEntity<String> create(@RequestBody @Valid FileDto fileDto) {
         if (fileDto.getFieldsDto().getId() == null || fileDto.getFieldsDto().getId().isBlank()) {
-            fileResponse.setResult("The ID field value cannot be empty");
-            return new ResponseEntity<>(fileResponse, HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().body("The ID field value cannot be empty");
         }
-        String result = fileServiceImpl.preapreStandardFile(fileDto);
-        fileResponse.setResult(result);
-        return new ResponseEntity<>(fileResponse, HttpStatus.OK);
+        Optional<String> result = Optional.ofNullable(fileServiceImpl.createFile(fileDto));
+        return result.map(stringStringMap -> ResponseEntity.ok().body(stringStringMap))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
     @GetMapping("/applicationVersion")
@@ -65,11 +61,16 @@ public class WebController {
 
     @PostMapping("/readFromFile")
     @ResponseBody
-    public ResponseEntity<FieldsFileResponse> readFromFile(@RequestBody String xslFile) {
-        if (!Objects.nonNull(xslFile)) {
-            return new ResponseEntity(Collections.EMPTY_MAP, HttpStatus.BAD_REQUEST);
-        }
-        Map<String, String> result = xslReaderImpl.readFromXsl(xslFile);
-        return new ResponseEntity(result, HttpStatus.OK);
+    public ResponseEntity<Map<String, String>> readFieldsFromFile(@RequestBody String xslFile) {
+        Optional<Map<String, String>> resultOptional = Optional.ofNullable(fileReaderService.readFromXsl(xslFile));
+        return resultOptional.map(stringStringMap -> ResponseEntity.ok().body(stringStringMap))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
     }
+
+    @GetMapping("/structures")
+    @ResponseBody
+    public List<String> getAvailableStructure(){
+        return MappingsType.listOfAvailableStructure;
+    }
+
 }

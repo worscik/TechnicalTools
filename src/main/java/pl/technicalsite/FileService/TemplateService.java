@@ -1,12 +1,12 @@
-package pl.technicalsite.Template.TemplateService;
+package pl.technicalsite.FileService;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import pl.technicalsite.FileModel.FieldsBuilder;
 import pl.technicalsite.FileService.FileServiceImpl;
-import pl.technicalsite.Template.TemplateModel.Template;
-import pl.technicalsite.Template.TemplateModel.TemplateComponents;
+import pl.technicalsite.FileModel.Template.Template;
+import pl.technicalsite.FileModel.Template.TemplateComponents;
 
 @Service
 public class TemplateService {

@@ -1,4 +1,4 @@
-package pl.technicalsite.AppConfig.SecurityConfig;
+package pl.technicalsite.AppConfig;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,11 +35,10 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService() {
         UserDetails userDetails = User.withDefaultPasswordEncoder()
                 .username("user")
-//                .password("technicalTools123#!")
                 .password("user")
                 .roles("USER")
                 .build();
         return new InMemoryUserDetailsManager(userDetails);
     }
-}
 
+}

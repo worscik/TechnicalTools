@@ -3,30 +3,10 @@ package pl.technicalsite.FileModel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class FileCustomDto {
-
-    @JsonProperty("Custom")
-    private boolean isCustom;
     @JsonProperty("CutLine")
     private String cutLine;
     @JsonProperty("MatchLine")
-    private String customMatchLine;
-
-    public FileCustomDto(boolean isCustom, String cutLine, String customMatchLine) {
-        this.isCustom = isCustom;
-        this.cutLine = cutLine;
-        this.customMatchLine = customMatchLine;
-    }
-
-    public FileCustomDto() {
-    }
-
-    public boolean isCustom() {
-        return isCustom;
-    }
-
-    public void setCustom(boolean custom) {
-        isCustom = custom;
-    }
+    private String matchLine;
 
     public String getCutLine() {
         return cutLine;
@@ -36,11 +16,11 @@ public class FileCustomDto {
         this.cutLine = cutLine;
     }
 
-    public String getCustomMatchLine() {
-        return customMatchLine;
+    public String getMatchLine() {
+        return matchLine;
     }
 
-    public void setCustomMatchLine(String customMatchLine) {
-        this.customMatchLine = customMatchLine;
+    public void setMatchLine(String matchLine) {
+        this.matchLine = matchLine;
     }
 }
