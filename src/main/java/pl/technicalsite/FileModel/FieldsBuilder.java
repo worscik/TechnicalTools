@@ -252,7 +252,6 @@ public class FieldsBuilder {
         private String intDetail1;
         private String intDetail2;
         private String intDetail3;
-        private boolean cutUTM;
 
         public Builder id(String id) {
             this.id = id;
@@ -426,11 +425,6 @@ public class FieldsBuilder {
 
         public Builder intDetail3(String intDetail3) {
             this.intDetail3 = intDetail3;
-            return this;
-        }
-
-        public Builder cutUTM(boolean cutUTM) {
-            this.cutUTM = cutUTM;
             return this;
         }
 

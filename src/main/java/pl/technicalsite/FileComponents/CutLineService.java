@@ -11,7 +11,7 @@ public class CutLineService {
 
     public String resolveCutLine(String cutLine) {
         if (Objects.isNull(cutLine)) {
-            return null;
+            return " ";
         }
         switch (cutLine) {
             case ROOT_ITEM, OFFERS_GROUP_O, PRODUCTS_PRODUCT -> {
@@ -30,8 +30,8 @@ public class CutLineService {
     }
 
     private String splitValues(String cutLine) {
-        cutLine.replaceAll(",", "|");
-        return "<xsl:template match=\"" + cutLine + "\"/>";
+        String replacedString = cutLine.replaceAll(",", " | ");
+        return "<xsl:template match=\"" + replacedString + "\"/>";
     }
 
 }

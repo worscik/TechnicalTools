@@ -8,10 +8,10 @@ public class Template {
 
     public static final String NEWLINE = "\n";
 
-    public String createFile(TemplateComponents templateComponents, FieldsBuilder fileField) {
+    public String createFile(TemplateComponentsDto templateComponentsDto, FieldsBuilder fileField) {
 
         String sb = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + NEWLINE
-                + templateComponents.getHeaders() + NEWLINE +
+                + templateComponentsDto.getHeaders() + NEWLINE +
                 "    <xsl:output method=\"text\"/>" + NEWLINE +
                 "    <xsl:strip-space elements=\"node\"/>" + NEWLINE +
                 "    <xsl:strip-space elements=\"*\" />" + NEWLINE +
@@ -19,8 +19,8 @@ public class Template {
                 "    <xsl:variable name=\"newline\"><xsl:text>&#x0a;</xsl:text></xsl:variable>" + NEWLINE +
                 "    <xsl:variable name=\"sep\"><xsl:text>&#x7f;</xsl:text></xsl:variable>" + NEWLINE +
                 NEWLINE +
-                templateComponents.getCutLine() + NEWLINE +
-                templateComponents.getMatchLine() + NEWLINE +
+                templateComponentsDto.getCutLine() + NEWLINE +
+                templateComponentsDto.getMatchLine() + NEWLINE +
                 NEWLINE +
                 "        <!-- ustawienie zmiennych -->" + NEWLINE +
                 "        <!--EXTERNAL_ID-->" + NEWLINE +
@@ -226,7 +226,7 @@ public class Template {
                 "        <xsl:value-of select=\"$sep\"/>" + NEWLINE +
                 "        <!--GENDER-->" + NEWLINE +
                 "        <xsl:choose>" + NEWLINE +
-                "            <xsl:when test=\"" + fileField.getNewProductKey() + " " + "= '" + fileField.getGenderValue() + "'\">" + NEWLINE +
+                "            <xsl:when test=\"" + fileField.getGenderKey() + " " + "= '" + fileField.getGenderValue() + "'\">" + NEWLINE +
                 "                <xsl:value-of select=\"1\"/>" + NEWLINE +
                 "            </xsl:when>" + NEWLINE +
                 "            <xsl:otherwise>" + NEWLINE +

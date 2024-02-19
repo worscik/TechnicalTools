@@ -69,7 +69,7 @@ public class WebController {
 
     @GetMapping("/structures")
     @ResponseBody
-    public List<String> getAvailableStructure(){
+    public List<String> getAvailableStructure() {
         return MappingsType.listOfAvailableStructure;
     }
 

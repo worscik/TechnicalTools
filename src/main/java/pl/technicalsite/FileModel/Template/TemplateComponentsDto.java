@@ -1,13 +1,13 @@
 package pl.technicalsite.FileModel.Template;
 
-public class TemplateComponents {
+public class TemplateComponentsDto {
 
     private String structure;
     private String headers;
     private String cutLine;
     private String matchLine;
 
-    private TemplateComponents(String structure, String headers, String cutLine, String matchLine) {
+    private TemplateComponentsDto(String structure, String headers, String cutLine, String matchLine) {
         this.structure = structure;
         this.headers = headers;
         this.cutLine = cutLine;
@@ -30,7 +30,7 @@ public class TemplateComponents {
         return matchLine;
     }
 
-    private TemplateComponents(Builder templateBuilder) {
+    private TemplateComponentsDto(Builder templateBuilder) {
         this.structure = templateBuilder.structure;
         this.headers = templateBuilder.headers;
         this.cutLine = templateBuilder.cutLine;
@@ -73,8 +73,8 @@ public class TemplateComponents {
             return this;
         }
 
-        public TemplateComponents build() {
-            return new TemplateComponents(this);
+        public TemplateComponentsDto build() {
+            return new TemplateComponentsDto(this);
         }
 
     }
