@@ -2,6 +2,13 @@ const navCheckboxs = document.querySelectorAll(".nav-input");
 const navButtons = document.querySelectorAll(".nav-btn");
 const structureSelect = document.getElementById("structure-select");
 const submitButton = document.querySelector(".submit-btn");
+// const toasts = new Toast({
+//   width: 300,
+//   timing: "ease",
+//   duration: ".5s",
+//   dimOld: false,
+//   position: "top-right",
+// });
 
 function init() {
   console.log("Init...");
@@ -45,10 +52,16 @@ function initErrorClearForInputs() {
   );
 }
 
-function initSubmitBuuton() {
-  submitButton.addEventListener("click", () => {
+async function initSubmitBuuton() {
+  submitButton.addEventListener("click", async () => {
     let data = getDataFromForm();
-    console.log(data);
+    // uderzenie do API
+    let loader = createLoader();
+    const result = await fetchTransform();
+    removeLoader(loader);
+
+    console.log(result);
+    createReponseModal(result);
   });
 }
 
@@ -77,6 +90,12 @@ function validateStep(id) {
           document.getElementById("external-id"),
           "The field cannot be empty"
         );
+        // toasts.push({
+        //   title: "Empty field",
+        //   content: `Field external_id is empty, pls enter value!`,
+        //   style: "error",
+        //   dismissAfter: "2s",
+        // });
         return false;
       }
       return true;
@@ -157,8 +176,19 @@ function fetchStructures() {
     "rss/channel/item",
     "feed/entry",
   ];
+
   return result;
   // Expected output: "resolved"
+}
+
+async function fetchTransform(mapping) {
+  try {
+    //  fetch
+    await delay(5000); // You mock a delay here
+    return await "text"; // Resolve value from `res` promise.
+  } catch (err) {
+    throw new Error("error.unknown");
+  }
 }
 
 function createNewOption(value, text, name) {
@@ -237,6 +267,81 @@ function getDataFromForm() {
     Fields: fields,
   };
 }
+
+function createReponseModal(text) {
+  const responseElement = document.createElement("div");
+  responseElement.classList.add("response");
+  responseElement.id = "response";
+  responseElement.innerHTML = ` <h1 class="title">Transform</h1>
+  <div class="main">
+    <textarea id="transform-text" placeholder="Enter text here">${text}</textarea>
+  </div>
+  <div class="btn-group">
+    <label class="btn" id="close-mapping-button" onclick="closeResponseElement()">Close</label>
+    <label class="btn" id="copy-mapping-button" onclick="copyResponsElement()">Copy</label>
+  </div>
+  <div class="close-button" onclick="closeResponseElement()" >&#10006;</div>`;
+
+  document.querySelector(".container").appendChild(responseElement);
+}
+
+function closeResponseElement() {
+  document.getElementById("response").remove();
+  moveToFirstStep();
+}
+
+function copyResponsElement() {
+  console.log("Copied!!!");
+  var copyText = document.getElementById("transform-text");
+
+  // Select the text field
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); // For mobile devices
+
+  // Copy the text inside the text field
+  navigator.clipboard.writeText(copyText.value);
+  // toasts.push({
+  //   title: "Success",
+  //   content: `Coopied!`,
+  //   style: "success",
+  //   dismissAfter: "2s",
+  // });
+}
+
+function clearResponseElement() {
+  console.log("Clear!!!");
+  document.getElementById("transform-text").value = "";
+  // toasts.push({
+  //   title: "Success",
+  //   content: `Form cleared`,
+  //   style: "success",
+  //   dismissAfter: "2s",
+  // });
+}
+
+function moveToFirstStep() {
+  navCheckboxs.forEach((item) => {
+    item.checked = false;
+  });
+}
+
+function initTooltips() {
+  const tooltips = document.querySelectorAll(".tooltip");
+
+  tooltips.style.width = tooltips.querySelector(".tooltip-tex");
+}
+
+function createLoader() {
+  const loader = document.createElement("span");
+  loader.classList.add("loader");
+  document.body.append(loader);
+  return loader;
+}
+
+function removeLoader(loader) {
+  loader.remove();
+}
+
 init();
 
 // testowe metody lub mock
@@ -249,3 +354,5 @@ function resolveAfter2Seconds() {
     }, 2000);
   });
 }
+
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
