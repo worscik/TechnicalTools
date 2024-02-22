@@ -9,7 +9,7 @@ import pl.technicalsite.FileComponents.MatchLineService;
 import pl.technicalsite.FileModel.FieldsBuilder;
 import pl.technicalsite.FileModel.FieldsDto;
 import pl.technicalsite.FileModel.FileDto;
-import pl.technicalsite.FileModel.Template.TemplateComponents;
+import pl.technicalsite.FileModel.Template.TemplateComponentsDto;
 
 import java.util.Objects;
 
@@ -34,8 +34,8 @@ public class FileServiceImpl implements FileService {
         this.templateService = templateService;
     }
 
-    private TemplateComponents buildStandardComponentsTemplate(FileDto fileDto) {
-        return new TemplateComponents.Builder()
+    private TemplateComponentsDto buildStandardComponentsTemplate(FileDto fileDto) {
+        return new TemplateComponentsDto.Builder()
                 .structure(fileDto.getStructure())
                 .headers(headersService.resolveHeaders(fileDto.getStructure()))
                 .cutLine(cutLineService.resolveCutLine(fileDto.getStructure()))
@@ -43,35 +43,35 @@ public class FileServiceImpl implements FileService {
                 .build();
     }
 
-    private TemplateComponents buildCustomComponentsTemplate(FileDto fileDto) {
-        return new TemplateComponents.Builder()
+    private TemplateComponentsDto buildCustomComponentsTemplate(FileDto fileDto) {
+        return new TemplateComponentsDto.Builder()
                 .structure(fileDto.getStructure())
                 .headers(headersService.resolveHeaders(fileDto.getStructure()))
                 .cutLine(cutLineService.resolveCutLine(fileDto.getCutLine()))
-                .matchLine(matchLineService.resolveMatchLine(fileDto.getMatchLine()))
+                .matchLine(matchLineService.resolveMatchLine(fileDto.getStructure()))
                 .build();
     }
 
     @Override
     public String createFile(FileDto fileDto) {
         boolean isStandard = resolveStructure(fileDto.getStructure().toLowerCase());
-        if(!isStandard &&  Objects.isNull(fileDto.getMatchLine()) && Objects.isNull(fileDto.getCutLine())){
-            return "Match or cut line cannot be empty";
+        if(!isStandard &&  Objects.isNull(fileDto.getStructure())){
+            return "Structure cannot be empty";
         }
         try {
-            TemplateComponents templateComponents = isStandard
+            TemplateComponentsDto templateComponentsDto = isStandard
                     ? buildStandardComponentsTemplate(fileDto)
                     : buildCustomComponentsTemplate(fileDto);
             FieldsBuilder fileFields = buildFileFields(fileDto.getFieldsDto());
-            return createFile(templateComponents, fileFields);
+            return createFile(templateComponentsDto, fileFields);
         } catch (Exception e) {
             logger.error("An error occurred while building the file" + e);
             return "An unexpected error occurred.";
         }
     }
 
-    private String createFile(TemplateComponents templateComponents, FieldsBuilder fieldsBuilder) {
-        return templateService.createFile(templateComponents, fieldsBuilder);
+    private String createFile(TemplateComponentsDto templateComponentsDto, FieldsBuilder fieldsBuilder) {
+        return templateService.createFile(templateComponentsDto, fieldsBuilder);
     }
 
     private FieldsBuilder buildFileFields(FieldsDto field) {

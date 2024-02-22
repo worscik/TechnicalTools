@@ -10,9 +10,6 @@ import static pl.technicalsite.FileModel.MappingsType.*;
 public class MatchLineService {
 
     public String resolveMatchLine(String matchLine) {
-        if (Objects.isNull(matchLine)) {
-            matchLine = "";
-        }
         switch (matchLine) {
             case RSS_CHANNEL_ITEM -> {
                 return "<xsl:template match=\"rss/channel/item\">";
@@ -36,8 +33,8 @@ public class MatchLineService {
     }
 
     private String splitValues(String cutLine) {
-        cutLine.replaceAll(",", "|");
-        return "<xsl:template match=\"" + cutLine + "\">";
+        String replacedString = cutLine.replaceAll(",", " | ");
+        return "<xsl:template match=\"" + replacedString + "\">";
     }
 
 

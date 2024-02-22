@@ -1,12 +1,14 @@
 package pl.technicalsite.WebController;
 
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pl.technicalsite.AppConfig.AppConfig;
 import pl.technicalsite.AppConfig.AppVersionResponse;
 import pl.technicalsite.FileModel.FileDto;
+import pl.technicalsite.FileModel.FileResponse;
 import pl.technicalsite.FileModel.MappingsType;
 import pl.technicalsite.FileService.FileReaderService;
 import pl.technicalsite.FileService.FileServiceImpl;
@@ -34,14 +36,17 @@ public class WebController {
 
     @PostMapping("/create")
     @ResponseBody
-    public ResponseEntity<String> create(@RequestBody @Valid FileDto fileDto) {
+    public ResponseEntity<FileResponse> create(@RequestBody @Valid FileDto fileDto) {
+        FileResponse fileResponse = new FileResponse();
         if (fileDto.getFieldsDto().getId() == null || fileDto.getFieldsDto().getId().isBlank()) {
-            return ResponseEntity.badRequest().body("The ID field value cannot be empty");
+            fileResponse.setResult("The ID field value cannot be empty");
+            return new ResponseEntity<>(fileResponse, HttpStatus.BAD_REQUEST);
         }
-        Optional<String> result = Optional.ofNullable(fileServiceImpl.createFile(fileDto));
-        return result.map(stringStringMap -> ResponseEntity.ok().body(stringStringMap))
-                .orElseGet(() -> ResponseEntity.badRequest().build());
+        fileResponse.setResult(fileServiceImpl.createFile(fileDto));
+        return ResponseEntity.ok().body(fileResponse);
     }
+
+
 
     @GetMapping("/applicationVersion")
     @ResponseBody
@@ -69,7 +74,7 @@ public class WebController {
 
     @GetMapping("/structures")
     @ResponseBody
-    public List<String> getAvailableStructure(){
+    public List<String> getAvailableStructure() {
         return MappingsType.listOfAvailableStructure;
     }
 
