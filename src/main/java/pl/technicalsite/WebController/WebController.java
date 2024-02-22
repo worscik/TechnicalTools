@@ -29,6 +29,11 @@ public class WebController {
         this.fileReaderService = fileReaderService;
     }
 
+    @GetMapping("/newDasboard")
+    public String newDasboard() {
+        return "/newDasboard/index.html";
+    }
+
     @GetMapping("/login")
     public String homePage() {
         return "loginPage";
