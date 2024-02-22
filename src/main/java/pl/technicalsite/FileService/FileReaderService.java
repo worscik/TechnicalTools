@@ -8,6 +8,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static pl.technicalsite.FileModel.Template.FileFields.*;
 import static pl.technicalsite.FileModel.Template.TemplateRegex.*;
@@ -83,18 +84,12 @@ public class FileReaderService implements IFileReader {
 
 
     private List<String> splitToLine(String xsl) {
-        List<String> file = new ArrayList<>();
-        String[] lines = xsl.split("<!--");
-        file.addAll(Arrays.asList(lines));
-        return file;
+        return Arrays.asList(xsl.split("<!--"));
     }
 
     private Map<String, String> addKeys(List<String> key, List<String> values) {
-        Map<String, String> emptyMap = new HashMap<>();
-        for (int i = 0; i < key.size(); i++) {
-            emptyMap.put(values.get(i), key.get(i));
-        }
-        return emptyMap;
+        return IntStream.range(0, key.size())
+                .collect(HashMap::new, (map, i) -> map.put(values.get(i), key.get(i)), HashMap::putAll);
     }
 
     private Map<String, String> addKeysInNumeric(List<String> key, List<String> values) {
