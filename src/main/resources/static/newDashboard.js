@@ -57,12 +57,47 @@ async function initSubmitBuuton() {
     let data = getDataFromForm();
     // uderzenie do API
     let loader = createLoader();
-    const result = await fetchTransform();
+    const result = await fetchData(data);
     removeLoader(loader);
-
-    console.log(result);
-    createReponseModal(result);
+    if(result){
+       createReponseModal(result);
+        document.getElementById('transform-text').textContent=result;
+    }
   });
+}
+
+async function fetchData(data) {
+
+  try {
+    const response = await fetch("/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.status === 200) {
+      const responseText = await response.json();
+      return responseText.result;
+    } else {
+      console.error(
+          "Error: Unexpected response status:",
+          response.status,
+          response
+      );
+      // toasts.push({
+      //   title: "Error",
+      //   content: `Error: Unexpected response status: ${response.status}`,
+      //   style: "error",
+      //   dismissAfter: "2s",
+      // });
+      return null
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return  null;
+  }
 }
 
 function validateStep(id) {
@@ -134,9 +169,9 @@ function validateStep(id) {
   }
 }
 
-function initStructureSelect() {
+async  function initStructureSelect() {
   //Pobranie listy z API
-  const strucureList = fetchStructures();
+  const strucureList = await fetchStructures();
 
   strucureList.forEach((item) => {
     structureSelect.insertBefore(
@@ -169,13 +204,37 @@ function initStructureSelect() {
   }
 }
 
-function fetchStructures() {
-  let result = [
-    "products/product",
-    "items/item",
-    "rss/channel/item",
-    "feed/entry",
-  ];
+async function fetchStructures() {
+  let result = [];
+  try {
+    const response = await fetch("/structures", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+    if (response.status === 200) {
+      const body = await response.json();
+      result=body;
+    } else {
+      console.error(
+          "Error: Unexpected response status:",
+          response.status,
+          response
+      );
+      // toasts.push({
+      //   title: "Error",
+      //   content: `Error: Unexpected response status: ${response.status}`,
+      //   style: "error",
+      //   dismissAfter: "2s",
+      // });
+      return null
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return  null;
+  }
+
 
   return result;
   // Expected output: "resolved"
@@ -184,7 +243,7 @@ function fetchStructures() {
 async function fetchTransform(mapping) {
   try {
     //  fetch
-    await delay(5000); // You mock a delay here
+    await delay(1000); // You mock a delay here
     return await "text"; // Resolve value from `res` promise.
   } catch (err) {
     throw new Error("error.unknown");
@@ -254,8 +313,8 @@ function getDataFromForm() {
 
   const structure =
     structureSelect.value === "other"
-      ? inputStructureElement.value
-      : document.getElementById("structure-input").value;
+      ? document.getElementById("structure-input").value
+      : document.getElementById("structure-select").value;
 
   const mathLine = document.getElementById("match-line").value;
   const cutLine = document.getElementById("cut-line").value;
@@ -274,7 +333,7 @@ function createReponseModal(text) {
   responseElement.id = "response";
   responseElement.innerHTML = ` <h1 class="title">Transform</h1>
   <div class="main">
-    <textarea id="transform-text" placeholder="Enter text here">${text}</textarea>
+    <textarea id="transform-text" placeholder="Enter text here"></textarea>
   </div>
   <div class="btn-group">
     <label class="btn" id="close-mapping-button" onclick="closeResponseElement()">Close</label>
