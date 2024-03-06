@@ -22,19 +22,56 @@ function initButtons(){
         }
     );
 
-    sendButton.addEventListener("click", () => {
+    sendButton.addEventListener("click", async () => {
+
             let data = getData();
             let valid = validateData(data);
             if (!valid.status) {
                 addErrorMessage(document.getElementById('transform-text'), valid.message);
                 return;
             }
+
+        let loader = createLoader();
+        const result = await fetchData(data);
+        removeLoader(loader);
+        if(result){
+            createReponseElement(result);
             document.getElementById("response").classList.remove("hide")
+        }
+
         }
     );
 }
 
 init();
+
+async function fetchData(data) {
+
+    try {
+        const response = await fetch("/readFromFile", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+        console.log(response)
+        if (response.status === 200) {
+            const responseText = await response.json();
+            return responseText;
+        } else {
+            console.error(
+                "Error: Unexpected response status:",
+                response.status,
+                response
+            );
+            return null
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        return  null;
+    }
+}
 
 function getData(){
     return document.getElementById('transform-text').value;
@@ -75,4 +112,19 @@ function initErrorClear() {
             }
         })
 
+}
+
+function createLoader() {
+    const loader = document.createElement("span");
+    loader.classList.add("loader");
+    document.body.append(loader);
+    return loader;
+}
+
+function removeLoader(loader) {
+    loader.remove();
+}
+
+function createReponseElement(){
+    console.log('createReponseElement')
 }
