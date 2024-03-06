@@ -34,6 +34,11 @@ public class WebController {
         return "/newDasboard/index.html";
     }
 
+    @GetMapping("/loadMapping")
+    public String loadMapping() {
+        return "/loadMapping/index.html";
+    }
+
     @GetMapping("/login")
     public String homePage() {
         return "loginPage";

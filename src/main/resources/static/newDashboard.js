@@ -2,13 +2,13 @@ const navCheckboxs = document.querySelectorAll(".nav-input");
 const navButtons = document.querySelectorAll(".nav-btn");
 const structureSelect = document.getElementById("structure-select");
 const submitButton = document.querySelector(".submit-btn");
-// const toasts = new Toast({
-//   width: 300,
-//   timing: "ease",
-//   duration: ".5s",
-//   dimOld: false,
-//   position: "top-right",
-// });
+const toasts = new Toast({
+  width: 300,
+  timing: "ease",
+  duration: ".5s",
+  dimOld: false,
+  position: "top-right",
+});
 
 function init() {
   console.log("Init...");
@@ -86,12 +86,12 @@ async function fetchData(data) {
           response.status,
           response
       );
-      // toasts.push({
-      //   title: "Error",
-      //   content: `Error: Unexpected response status: ${response.status}`,
-      //   style: "error",
-      //   dismissAfter: "2s",
-      // });
+      toasts.push({
+        title: "Error",
+        content: `Error: Unexpected response status: ${response.status}`,
+        style: "error",
+        dismissAfter: "2s",
+      });
       return null
     }
   } catch (error) {
@@ -125,12 +125,12 @@ function validateStep(id) {
           document.getElementById("external-id"),
           "The field cannot be empty"
         );
-        // toasts.push({
-        //   title: "Empty field",
-        //   content: `Field external_id is empty, pls enter value!`,
-        //   style: "error",
-        //   dismissAfter: "2s",
-        // });
+        toasts.push({
+          title: "Empty field",
+          content: `Field external_id is empty, pls enter value!`,
+          style: "error",
+          dismissAfter: "2s",
+        });
         return false;
       }
       return true;
@@ -222,12 +222,12 @@ async function fetchStructures() {
           response.status,
           response
       );
-      // toasts.push({
-      //   title: "Error",
-      //   content: `Error: Unexpected response status: ${response.status}`,
-      //   style: "error",
-      //   dismissAfter: "2s",
-      // });
+      toasts.push({
+        title: "Error",
+        content: `Error: Unexpected response status: ${response.status}`,
+        style: "error",
+        dismissAfter: "2s",
+      });
       return null
     }
   } catch (error) {
@@ -359,23 +359,23 @@ function copyResponsElement() {
 
   // Copy the text inside the text field
   navigator.clipboard.writeText(copyText.value);
-  // toasts.push({
-  //   title: "Success",
-  //   content: `Coopied!`,
-  //   style: "success",
-  //   dismissAfter: "2s",
-  // });
+  toasts.push({
+    title: "Success",
+    content: `Coopied!`,
+    style: "success",
+    dismissAfter: "2s",
+  });
 }
 
 function clearResponseElement() {
   console.log("Clear!!!");
   document.getElementById("transform-text").value = "";
-  // toasts.push({
-  //   title: "Success",
-  //   content: `Form cleared`,
-  //   style: "success",
-  //   dismissAfter: "2s",
-  // });
+  toasts.push({
+    title: "Success",
+    content: `Form cleared`,
+    style: "success",
+    dismissAfter: "2s",
+  });
 }
 
 function moveToFirstStep() {
