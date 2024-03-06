@@ -17,7 +17,6 @@ class Toasts {
     }
 
     push(obj) {
-        console.log(obj);
         this.numToasts++;
         let toast = document.createElement(obj.link ? 'a' : 'div');
         if (obj.link) {
@@ -28,7 +27,7 @@ class Toasts {
         toast.innerHTML = `
             <div class="toast-notification-wrapper">
                 ${obj.title ? '<h3 class="toast-notification-header">' + obj.title + '</h3>' : ''}
-                ${obj.content ? '<div class="toast-notification-content">' + obj.content + '</div>' : ''}
+                ${obj.content ? '<div class="toast-notification-content" style = "word-break: keep-all">' + obj.content + '</div>' : ''}
             </div>
             ${obj.closeButton == null || obj.closeButton === true ? '<button class="toast-notification-close">&times;</button>' : ''}
         `;
