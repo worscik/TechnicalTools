@@ -2,7 +2,7 @@ const navCheckboxs = document.querySelectorAll(".nav-input");
 const navButtons = document.querySelectorAll(".nav-btn");
 const structureSelect = document.getElementById("structure-select");
 const submitButton = document.querySelector(".submit-btn");
-const toasts = new Toast({
+const toasts = new Toasts({
   width: 300,
   timing: "ease",
   duration: ".5s",
