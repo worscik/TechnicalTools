@@ -273,13 +273,16 @@ function createNewOption(value, text, name) {
 }
 
 function addErrorMessage(inputNode, errorMessage) {
-  const parentNode = inputNode.parentNode;
-  parentNode.classList.add("error");
-  inputNode.classList.add("error");
-  let errorElement = document.createElement("span");
-  errorElement.textContent = errorMessage;
-  errorElement.classList = "error";
-  parentNode.appendChild(errorElement);
+  if(!inputNode.classList.contains('error')){
+    const parentNode = inputNode.parentNode;
+    parentNode.classList.add("error");
+    inputNode.classList.add("error");
+
+    let errorElement = document.createElement("span");
+    errorElement.textContent = errorMessage;
+    errorElement.classList = "error";
+    parentNode.appendChild(errorElement);
+  }
 }
 
 function getDataFromForm() {

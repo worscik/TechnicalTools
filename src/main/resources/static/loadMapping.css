@@ -76,6 +76,7 @@ body {
   width: 90%;
   flex-grow: 1;
   resize: none;
+  position: relative;
 }
 
 .main textarea {
@@ -91,6 +92,23 @@ body {
 .main textarea:active,
 .main textarea:focus {
   /* border-color: var(--green-color); */
+}
+
+.main.error textarea {
+  border-color: red;
+}
+
+.main span.error {
+  display: none;
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  font-size: 12px;
+  color: red;
+}
+
+.main.error span.error {
+  display: block;
 }
 
 .panel .btn-group {
