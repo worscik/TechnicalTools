@@ -197,7 +197,7 @@ body {
 }
 
 .section.single div {
-  min-width: 50%;
+  /*min-width: 50%;*/
 }
 
 .section.double div {

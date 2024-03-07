@@ -125,6 +125,15 @@ function removeLoader(loader) {
     loader.remove();
 }
 
-function createReponseElement(){
-    console.log('createReponseElement')
+function createReponseElement(data){
+    let fieldsElements = document.querySelectorAll('.field')
+
+    fieldsElements.forEach(el =>{
+        let data_id = el.getAttribute('data-id');
+        let value = data[data_id];
+        if(value) el.textContent = value;
+        else el.textContent = '';
+    })
+
 }
+
