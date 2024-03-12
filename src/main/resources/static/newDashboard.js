@@ -389,7 +389,6 @@ async function copyResponsElement() {
      try {
       let text = document.getElementById("transform-text").value;
       await navigator.clipboard.writeText(text);
-      console.log(this);
 
        let btn = document.getElementById("copy-mapping-button");
        btn.classList.toggle("copied");
@@ -410,7 +409,6 @@ async function copyResponsElement() {
 }
 
 function clearResponseElement() {
-  console.log("Clear!!!");
   document.getElementById("transform-text").value = "";
   // toasts.push({
   //   title: "Success",

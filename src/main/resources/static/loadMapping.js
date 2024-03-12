@@ -19,7 +19,6 @@ function initButtons(){
     );
 
     goToButton.addEventListener("click", () => {
-            console.log('goTo click');
             localStorage.setItem('redirect', true);
             window.location.href ='/newDasboard'
         }
@@ -64,7 +63,6 @@ async function fetchData(data) {
             },
             body: JSON.stringify(data),
         });
-        console.log(response)
         if (response.status === 200) {
             const responseText = await response.json();
             return responseText;
