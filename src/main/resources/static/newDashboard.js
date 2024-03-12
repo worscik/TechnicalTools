@@ -16,6 +16,8 @@ function init() {
   initStructureSelect();
   initErrorClearForInputs();
   initSubmitBuuton();
+
+
 }
 
 function initNavigation() {
@@ -50,6 +52,20 @@ function initErrorClearForInputs() {
       }
     })
   );
+}
+
+function initFormFields(data){
+  let inputs = document.querySelectorAll('.form-group input');
+  inputs.forEach(input=> {
+    input.value = data[input.id] ? data[input.id] : '';
+  });
+
+  document.getElementById("structure-select").value = "other";
+  document
+      .getElementById("structure-input")
+      .parentNode.classList.remove("hide");
+  document
+      .getElementById("structure-input").value = data['structure'] ? data['structure'] : '';
 }
 
 async function initSubmitBuuton() {
@@ -126,9 +142,9 @@ function validateStep(id) {
       }
       return true;
     case 2: {
-      if (!document.getElementById("external-id").value) {
+      if (!document.getElementById("id").value) {
         addErrorMessage(
-          document.getElementById("external-id"),
+          document.getElementById("id"),
           "The field cannot be empty"
         );
         // toasts.push({
@@ -144,24 +160,24 @@ function validateStep(id) {
     case 4: {
       let flag = true;
       // sprawdzenie czy jeśli jendo pole ma wartość to czy deugie też
-      ["new-product", "availability", "bestseller", "gender"].forEach(
+      ["newProduct", "available", "bestseller", "gender"].forEach(
         (item) => {
           if (
-            document.getElementById(item).value &&
-            !document.getElementById(item + "-value").value
+            document.getElementById(item+'Key').value &&
+            !document.getElementById(item + "Value").value
           ) {
             addErrorMessage(
-              document.getElementById(item + "-value"),
+              document.getElementById(item + "Value"),
               "The field cannot be empty"
             );
             flag = false;
           }
           if (
-            document.getElementById(item + "-value").value &&
-            !document.getElementById(item).value
+            document.getElementById(item + "Value").value &&
+            !document.getElementById(item+'Key').value
           ) {
             addErrorMessage(
-              document.getElementById(item),
+              document.getElementById(item+'Key'),
               "The field cannot be empty"
             );
             flag = false;
@@ -213,6 +229,11 @@ async  function initStructureSelect() {
     document
       .getElementById("structure-input")
       .parentNode.classList.remove("hide");
+  }
+
+  if(localStorage.getItem('redirect')==='true'){
+    localStorage.setItem('redirect', true);
+    initFormFields(JSON.parse(localStorage.getItem('mapping')));
   }
 }
 
@@ -287,34 +308,34 @@ function addErrorMessage(inputNode, errorMessage) {
 
 function getDataFromForm() {
   const fields = {
-    id: document.getElementById("external-id").value,
+    id: document.getElementById("id").value,
     name: document.getElementById("name").value,
-    newProductKey: document.getElementById("new-product").value,
-    newProductValue: document.getElementById("new-product-value").value,
-    availableKey: document.getElementById("availability").value,
-    availableValue: document.getElementById("availability-value").value,
-    bestsellerKey: document.getElementById("bestseller").value,
-    bestsellerValue: document.getElementById("bestseller-value").value,
+    newProductKey: document.getElementById("newProductKey").value,
+    newProductValue: document.getElementById("newProductValue").value,
+    availableKey: document.getElementById("availableKey").value,
+    availableValue: document.getElementById("availableValue").value,
+    bestsellerKey: document.getElementById("bestsellerKey").value,
+    bestsellerValue: document.getElementById("bestsellerValue").value,
     brand: document.getElementById("brand").value,
     categories: document.getElementById("categories").value,
-    categoryMain: document.getElementById("main-category").value,
+    categoryMain: document.getElementById("categoryMain").value,
     description: document.getElementById("description").value,
-    detail1: document.getElementById("detail-1").value,
-    detail2: document.getElementById("detail-2").value,
-    detail3: document.getElementById("detail-3").value,
-    detail4: document.getElementById("detail-4").value,
-    detail5: document.getElementById("detail-5").value,
+    detail1: document.getElementById("detail1").value,
+    detail2: document.getElementById("detail2").value,
+    detail3: document.getElementById("detail3").value,
+    detail4: document.getElementById("detail4").value,
+    detail5: document.getElementById("detail5").value,
     manufacturer: document.getElementById("manufacturer").value,
     price: document.getElementById("price").value,
     currency: document.getElementById("currency").value,
-    pricePromo: document.getElementById("sale-price").value,
+    pricePromo: document.getElementById("pricePromo").value,
     quantity: document.getElementById("quantity").value,
-    urlProduct: document.getElementById("product-url").value,
+    urlProduct: document.getElementById("urlProduct").value,
     // To zawsze jak tru
     cutUTM: true,
-    urlImg: document.getElementById("image-url").value,
-    genderKey: document.getElementById("gender").value,
-    genderValue: document.getElementById("gender-value").value,
+    urlImg: document.getElementById("urlImg").value,
+    genderKey: document.getElementById("genderKey").value,
+    genderValue: document.getElementById("genderValue").value,
     popularity: document.getElementById("popularity").value,
     season: document.getElementById("season").value,
     color: document.getElementById("color").value,
@@ -331,8 +352,8 @@ function getDataFromForm() {
       ? document.getElementById("structure-input").value
       : document.getElementById("structure-select").value;
 
-  const mathLine = document.getElementById("match-line").value;
-  const cutLine = document.getElementById("cut-line").value;
+  const mathLine = document.getElementById("matchLine").value;
+  const cutLine = document.getElementById("cutLine").value;
 
   return {
     StructureFile: structure,
@@ -368,7 +389,15 @@ async function copyResponsElement() {
      try {
       let text = document.getElementById("transform-text").value;
       await navigator.clipboard.writeText(text);
-      console.log('Content copied to clipboard');
+      console.log(this);
+
+       let btn = document.getElementById("copy-mapping-button");
+       btn.classList.toggle("copied");
+       btn.innerHTML = "Copied!";
+       setTimeout(function(){
+         btn.classList.toggle("copied");
+         btn.innerHTML = "Copy";
+       }, 3000);
     } catch (err) {
       console.error('Failed to copy: ', err);
     }

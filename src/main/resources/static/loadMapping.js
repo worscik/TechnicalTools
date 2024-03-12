@@ -4,6 +4,7 @@ const goToButton = document.getElementById("goTo-button")
 const closeButton = document.getElementById("close-mapping-button");
 
 function init(){
+    clearLocalStorage();
    initButtons();
    initErrorClear()
 }
@@ -19,6 +20,8 @@ function initButtons(){
 
     goToButton.addEventListener("click", () => {
             console.log('goTo click');
+            localStorage.setItem('redirect', true);
+            window.location.href ='/newDasboard'
         }
     );
 
@@ -36,6 +39,8 @@ function initButtons(){
         removeLoader(loader);
         if(result){
             createReponseElement(result);
+            console.log(result)
+            localStorage.setItem('mapping', JSON.stringify(result))
             document.getElementById("response").classList.remove("hide")
         }
 
@@ -44,6 +49,10 @@ function initButtons(){
 }
 
 init();
+
+function clearLocalStorage(){
+    localStorage.clear()
+}
 
 async function fetchData(data) {
 

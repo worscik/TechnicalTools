@@ -322,6 +322,11 @@ body {
   opacity: 0.8;
 }
 
+.btn.copied{
+  transition: 0.5s;
+  background: #c0f939;
+}
+
 #one:checked ~ .container .panel {
   left: -1000px;
 }
