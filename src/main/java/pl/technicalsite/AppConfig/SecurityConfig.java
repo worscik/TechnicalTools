@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -18,6 +19,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+        HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
+        requestCache.setMatchingRequestParameterName(null);
         http
                 .authorizeRequests((authz) -> authz
                         .requestMatchers("/images/*.png").permitAll()
@@ -26,6 +29,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 );
         http.formLogin(login -> login.loginPage("/login").permitAll());
+        http.formLogin().defaultSuccessUrl("/", true);
         http.csrf().disable().httpBasic(withDefaults());
         return http.build();
     }
