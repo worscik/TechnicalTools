@@ -10,6 +10,10 @@ function init(){
 }
 
 function initButtons(){
+    document.querySelector('.close-btn').addEventListener('click', ()=>{
+        window.location.href ='/';
+    })
+
     clearButton.addEventListener("click", () =>
         document.getElementById('transform-text').value = ''
     );

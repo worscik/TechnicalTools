@@ -16,7 +16,9 @@ function init() {
   initStructureSelect();
   initErrorClearForInputs();
   initSubmitBuuton();
-
+  document.querySelector('.close-btn').addEventListener('click', ()=>{
+    window.location.href ='/';
+  })
 
 }
 
