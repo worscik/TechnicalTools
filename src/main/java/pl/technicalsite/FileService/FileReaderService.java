@@ -92,7 +92,7 @@ public class FileReaderService implements IFileReader {
                     .flatMap(List::stream)
                     .collect(Collectors.toList());
             if (values.size() == ONE_ELEMENT) {
-                values.add("test");
+                values.add(" ");
             }
             return values;
         } catch (ArrayIndexOutOfBoundsException a) {
