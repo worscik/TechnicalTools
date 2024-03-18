@@ -33,10 +33,10 @@ public class FileReaderService implements IFileReader {
             return mergeMaps(customLinesKeys, standardKeys, numericKeys, valuesKeys, currencyKey, structureFile);
         } catch (ArrayIndexOutOfBoundsException e) {
             logger.error("Too much line to read, regex found more than it should have: " + e);
-            return Collections.emptyMap();
+            return null;
         } catch (Exception e) {
             logger.error("Error during read file: " + e);
-            return  Collections.emptyMap();
+            return null;
         }
     }
 
