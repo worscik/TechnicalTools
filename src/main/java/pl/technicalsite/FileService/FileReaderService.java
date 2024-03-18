@@ -15,25 +15,28 @@ import static pl.technicalsite.FileModel.Template.TemplateRegex.*;
 
 @Service
 public class FileReaderService implements IFileReader {
+    private static final int ONE_ELEMENT = 1;
 
     private static final Logger logger = LogManager.getLogger(FileReaderService.class);
 
     @Override
     public Map<String, String> readFromXsl(String xsl) {
+        List<String> file = splitToLine(xsl);
+        List<String> customLine = splitHeadersToCustomLines(file.get(0));
         try {
-            List<String> file = splitToLine(xsl);
             Map<String, String> structureFile = addKeys(resolveStandardKey(file, structure), structureList);
             Map<String, String> standardKeys = addKeys(resolveStandardKey(file, classicKey), classicKeyList);
             Map<String, String> numericKeys = addKeys(readBoolenValues(file, keyInNumericLine), numericKeyList);
             Map<String, String> valuesKeys = addKeysInNumeric(readBoolenValues(file, valueInNumericLine), numericValueList);
             Map<String, String> currencyKey = addKeys(resolveCurrency(file, currencyValue), currencyList);
-            return mergeMaps(standardKeys, numericKeys, valuesKeys, currencyKey, structureFile);
+            Map<String, String> customLinesKeys = addKeys(resolveCustomLines(customLine, customLines), customCutLineList);
+            return mergeMaps(customLinesKeys, standardKeys, numericKeys, valuesKeys, currencyKey, structureFile);
         } catch (ArrayIndexOutOfBoundsException e) {
-            logger.error("Too much line to read. Something is bad: " + e);
-            return null;
+            logger.error("Too much line to read, regex found more than it should have: " + e);
+            return Collections.emptyMap();
         } catch (Exception e) {
             logger.error("Error during read file: " + e);
-            return null;
+            return  Collections.emptyMap();
         }
     }
 
@@ -82,6 +85,25 @@ public class FileReaderService implements IFileReader {
         return elements;
     }
 
+    private List<String> resolveCustomLines(List<String> xsl, String pattern) {
+        try {
+            List<String> values = xsl.stream()
+                    .map(line -> resolveValues(line, pattern))
+                    .flatMap(List::stream)
+                    .collect(Collectors.toList());
+            if (values.size() == ONE_ELEMENT) {
+                values.add("test");
+            }
+            return values;
+        } catch (ArrayIndexOutOfBoundsException a) {
+            logger.error("I have a problem when reading custom lines");
+            return Collections.emptyList();
+        } catch (Exception e) {
+            logger.error("Error during read structure " + e);
+            return Collections.emptyList();
+        }
+    }
+
 
     private List<String> splitToLine(String xsl) {
         return Arrays.asList(xsl.split("<!--"));
@@ -120,13 +142,6 @@ public class FileReaderService implements IFileReader {
         }
     }
 
-    private List<String> readValues(List<String> fileLineByLine, String pattern) {
-        return fileLineByLine.stream()
-                .map(line -> resolveValues(line, pattern))
-                .flatMap(List::stream)
-                .collect(Collectors.toList());
-    }
-
     private List<String> readBoolenValues(List<String> fileLineByLine, String pattern) {
         return fileLineByLine.stream()
                 .map(line -> resolveBooleanValues(line, pattern))
@@ -140,6 +155,10 @@ public class FileReaderService implements IFileReader {
                 .flatMap(List::stream)
                 .limit(1)
                 .collect(Collectors.toList());
+    }
+
+    private List<String> splitHeadersToCustomLines(String partOfFile) {
+        return Arrays.asList(partOfFile.split(">"));
     }
 
 }
