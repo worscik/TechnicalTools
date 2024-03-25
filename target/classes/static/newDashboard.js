@@ -68,6 +68,13 @@ function initFormFields(data){
       .parentNode.classList.remove("hide");
   document
       .getElementById("structure-input").value = data['structure'] ? data['structure'] : '';
+//   TODO: add cutLine hide
+  document
+      .getElementById("cutLine")
+      .parentNode.classList.remove("hide");
+  document
+      .getElementById("cutLine").value = data['cutLine'] ? data['cutLine'] : '';
+
 }
 
 async function initSubmitBuuton() {
@@ -216,10 +223,17 @@ async  function initStructureSelect() {
       document
         .getElementById("structure-input")
         .parentNode.classList.remove("hide");
+      document
+          .getElementById("cutLine")
+          .parentNode.classList.remove("hide");
     } else {
       document
         .getElementById("structure-input")
         .parentNode.classList.add("hide");
+
+      document
+          .getElementById("cutLine")
+          .parentNode.classList.remove("hide");
     }
   });
 
@@ -354,13 +368,13 @@ function getDataFromForm() {
       ? document.getElementById("structure-input").value
       : document.getElementById("structure-select").value;
 
-  const mathLine = document.getElementById("matchLine").value;
+  // const mathLine = document.getElementById("matchLine").value;
   const cutLine = document.getElementById("cutLine").value;
 
   return {
     StructureFile: structure,
     CutLine: cutLine,
-    MatchLine: mathLine,
+    MatchLine: '',
     Fields: fields,
   };
 }

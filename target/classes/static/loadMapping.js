@@ -142,8 +142,14 @@ function createReponseElement(data){
     fieldsElements.forEach(el =>{
         let data_id = el.getAttribute('data-id');
         let value = data[data_id];
+        // if(data_id === 'matchLine'){
+        //     value = String(data[data_id]).split('|').map((item,index) => index != 0 ? item : '').join(' | ');
+        //     console.log(value)
+        // }
+
         if(value) el.textContent = value;
         else el.textContent = '';
+
     })
 
 }

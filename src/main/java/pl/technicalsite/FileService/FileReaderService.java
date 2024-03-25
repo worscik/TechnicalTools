@@ -158,7 +158,7 @@ public class FileReaderService implements IFileReader {
     }
 
     private List<String> splitHeadersToCustomLines(String partOfFile) {
-        return Arrays.asList(partOfFile.split(">"));
+        return Arrays.asList(partOfFile.split(">")).stream().map(item -> item+='>').toList();
     }
 
 }
