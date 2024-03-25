@@ -233,7 +233,7 @@ async  function initStructureSelect() {
 
       document
           .getElementById("cutLine")
-          .parentNode.classList.remove("hide");
+          .parentNode.classList.add("hide");
     }
   });
 
