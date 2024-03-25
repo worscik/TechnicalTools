@@ -15,7 +15,6 @@ import static pl.technicalsite.FileModel.Template.TemplateRegex.*;
 
 @Service
 public class FileReaderService implements IFileReader {
-    private static final int ONE_ELEMENT = 1;
 
     private static final Logger logger = LogManager.getLogger(FileReaderService.class);
 
@@ -24,12 +23,12 @@ public class FileReaderService implements IFileReader {
         List<String> file = splitToLine(xsl);
         List<String> customLine = splitHeadersToCustomLines(file.get(0));
         try {
-            Map<String, String> structureFile = addKeys(resolveStandardKey(file, structure), structureList);
+            Map<String, String> structureFile = addKeys(resolveStandardKey(customLine, structureLine), structureList);
             Map<String, String> standardKeys = addKeys(resolveStandardKey(file, classicKey), classicKeyList);
             Map<String, String> numericKeys = addKeys(readBoolenValues(file, keyInNumericLine), numericKeyList);
             Map<String, String> valuesKeys = addKeysInNumeric(readBoolenValues(file, valueInNumericLine), numericValueList);
             Map<String, String> currencyKey = addKeys(resolveCurrency(file, currencyValue), currencyList);
-            Map<String, String> customLinesKeys = addKeys(resolveCustomLines(customLine, customLines), customCutLineList);
+            Map<String, String> customLinesKeys = addKeys(resolveCustomLines(customLine, cutLine), customCutLineList);
             return mergeMaps(customLinesKeys, standardKeys, numericKeys, valuesKeys, currencyKey, structureFile);
         } catch (ArrayIndexOutOfBoundsException e) {
             logger.error("Too much line to read, regex found more than it should have: " + e);
@@ -91,9 +90,6 @@ public class FileReaderService implements IFileReader {
                     .map(line -> resolveValues(line, pattern))
                     .flatMap(List::stream)
                     .collect(Collectors.toList());
-            if (values.size() == ONE_ELEMENT) {
-                values.add(" ");
-            }
             return values;
         } catch (ArrayIndexOutOfBoundsException a) {
             logger.error("I have a problem when reading custom lines");
@@ -158,7 +154,7 @@ public class FileReaderService implements IFileReader {
     }
 
     private List<String> splitHeadersToCustomLines(String partOfFile) {
-        return Arrays.asList(partOfFile.split(">")).stream().map(item -> item+='>').toList();
+        return Arrays.asList(partOfFile.split(">")).stream().map(item -> item += '>').toList();
     }
 
 }

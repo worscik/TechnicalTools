@@ -62,7 +62,6 @@ public class WebController {
     }
 
 
-
     @GetMapping("/applicationVersion")
     @ResponseBody
     public AppVersionResponse applicationVersion() {

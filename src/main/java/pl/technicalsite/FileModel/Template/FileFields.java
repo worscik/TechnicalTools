@@ -13,6 +13,6 @@ public class FileFields {
     public static final List<String> numericKeyList = List.of("newProductKey", "availableKey", "bestsellerKey", "genderKey");
     public static final List<String> numericValueList = List.of("newProductValue", "availableValue", "bestsellerValue", "genderValue");
     public static final List<String> currencyList = List.of("currency");
-    public static final List<String> customCutLineList = List.of("cutLine","matchLine");
+    public static final List<String> customCutLineList = List.of("cutLine");
 
 }
