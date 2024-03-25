@@ -29,9 +29,19 @@ public class WebController {
         this.fileReaderService = fileReaderService;
     }
 
+    @GetMapping("/")
+    public String mainDasboard() {
+        return "/mainDasboard/index.html";
+    }
+
     @GetMapping("/newDasboard")
     public String newDasboard() {
         return "/newDasboard/index.html";
+    }
+
+    @GetMapping("/loadMapping")
+    public String loadMapping() {
+        return "/loadMapping/index.html";
     }
 
     @GetMapping("/login")
@@ -50,7 +60,6 @@ public class WebController {
         fileResponse.setResult(fileServiceImpl.createFile(fileDto));
         return ResponseEntity.ok().body(fileResponse);
     }
-
 
 
     @GetMapping("/applicationVersion")
