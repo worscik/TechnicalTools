@@ -248,7 +248,7 @@ async  function initStructureSelect() {
   }
 
   if(localStorage.getItem('redirect')==='true'){
-    localStorage.setItem('redirect', true);
+    localStorage.setItem('redirect', false);
     initFormFields(JSON.parse(localStorage.getItem('mapping')));
   }
 }
