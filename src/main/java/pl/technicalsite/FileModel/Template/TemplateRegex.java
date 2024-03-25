@@ -8,5 +8,6 @@ public class TemplateRegex {
     public static final String keyInNumericLine = "(?:when test\\=\\\\\\\"(.*) (=|>))";
     public static final String valueInNumericLine = "(?: ?(?:=|>).?\\'(.*)')";
     public static final String currencyValue = "(?:translate\\(.*\\, \\'([A-z,#&0-9; ]+)\\')";
+    public static final String customLines = "\\\\n<xsl:template match=\\\\\\\"(.*)\\\\\\\"";
 
 }
