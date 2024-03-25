@@ -4,10 +4,6 @@ public class FileResponse {
 
     private String result;
 
-    public FileResponse(String result) {
-        this.result = result;
-    }
-
     public String getResult() {
         return result;
     }
