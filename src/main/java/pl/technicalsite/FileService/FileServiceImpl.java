@@ -9,9 +9,11 @@ import pl.technicalsite.FileComponents.MatchLineService;
 import pl.technicalsite.FileModel.FieldsBuilder;
 import pl.technicalsite.FileModel.FieldsDto;
 import pl.technicalsite.FileModel.FileDto;
+import pl.technicalsite.FileModel.FileResponse;
 import pl.technicalsite.FileModel.Template.TemplateComponentsDto;
 
-import java.util.Objects;
+import java.util.List;
+import java.util.Optional;
 
 import static pl.technicalsite.FileModel.MappingsType.listOfAvailableStructure;
 
@@ -26,7 +28,7 @@ public class FileServiceImpl implements FileService {
     private final TemplateService templateService;
 
     public FileServiceImpl(CutLineService cutLineService, HeadersService headersService,
-                            MatchLineService matchLineService,
+                           MatchLineService matchLineService,
                            TemplateService templateService) {
         this.cutLineService = cutLineService;
         this.headersService = headersService;
@@ -53,20 +55,18 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public String createFile(FileDto fileDto) {
+    public Optional<FileResponse> createFile(FileDto fileDto) {
         boolean isStandard = resolveStructure(fileDto.getStructure().toLowerCase());
-        if(!isStandard &&  Objects.isNull(fileDto.getStructure())){
-            return "Structure cannot be empty";
-        }
         try {
             TemplateComponentsDto templateComponentsDto = isStandard
                     ? buildStandardComponentsTemplate(fileDto)
                     : buildCustomComponentsTemplate(fileDto);
-            FieldsBuilder fileFields = buildFileFields(fileDto.getFieldsDto());
-            return createFile(templateComponentsDto, fileFields);
+            Optional<FieldsBuilder> fileFields = buildFileFields(fileDto.getFieldsDto());
+            String file = createFile(templateComponentsDto, fileFields.get());
+            return Optional.of(new FileResponse(file, List.of("")));
         } catch (Exception e) {
-            logger.error("An error occurred while building the file" + e);
-            return "An unexpected error occurred.";
+            logger.error("An error occurred while building the file", e);
+            return Optional.of(new FileResponse("", List.of("An error occurred while building the file.")));
         }
     }
 
@@ -74,9 +74,9 @@ public class FileServiceImpl implements FileService {
         return templateService.createFile(templateComponentsDto, fieldsBuilder);
     }
 
-    private FieldsBuilder buildFileFields(FieldsDto field) {
+    private Optional<FieldsBuilder> buildFileFields(FieldsDto field) {
         try {
-            return new FieldsBuilder.Builder()
+            return Optional.of(new FieldsBuilder.Builder()
                     .id(field.getId())
                     .name(resolveEmptyField(field.getName()))
                     .newProductKey(resolveEmptyField(field.getNewProductKey()))
@@ -96,8 +96,8 @@ public class FileServiceImpl implements FileService {
                     .detail5(resolveEmptyField(field.getDetail5()))
                     .manufacturer(resolveEmptyField(field.getManufacturer()))
                     .price(resolveEmptyField(field.getPrice()))
-                    .currency(field.getCurrency() != null ? field.getCurrency() : "UNDEFINED")
-                    .pricePromo(field.getPricePromo() != null ? field.getPricePromo() : "UNDEFINED")
+                    .currency(field.getCurrency())
+                    .pricePromo(resolveEmptyField(field.getPrice()))
                     .quantity(resolveEmptyField(field.getQuantity()))
                     .urlProduct(resolveEmptyField(field.getUrlProduct()))
                     .urlImg(resolveEmptyField(field.getUrlImg()))
@@ -112,10 +112,10 @@ public class FileServiceImpl implements FileService {
                     .intDetail1(resolveEmptyField(field.getIntDetail1()))
                     .intDetail2(resolveEmptyField(field.getIntDetail2()))
                     .intDetail3(resolveEmptyField(field.getIntDetail3()))
-                    .build();
+                    .build());
         } catch (Exception e) {
-            logger.error("An unexpected error occurred during build object" + e);
-            return null;
+            logger.error("An unexpected error occurred during build object", e);
+            return Optional.empty();
         }
     }
 

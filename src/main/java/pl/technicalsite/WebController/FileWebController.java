@@ -1,9 +1,10 @@
 package pl.technicalsite.WebController;
 
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import pl.technicalsite.AppConfig.AppConfig;
 import pl.technicalsite.AppConfig.AppVersionResponse;
@@ -11,59 +12,44 @@ import pl.technicalsite.FileModel.FileDto;
 import pl.technicalsite.FileModel.FileResponse;
 import pl.technicalsite.FileModel.MappingsType;
 import pl.technicalsite.FileService.FileReaderService;
-import pl.technicalsite.FileService.FileServiceImpl;
+import pl.technicalsite.FileService.FileService;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-@Controller
+@RestController
 @CrossOrigin(value = "*")
-public class WebController {
+public class FileWebController {
 
-    private final FileServiceImpl fileServiceImpl;
+    private final FileService fileService;
     private final FileReaderService fileReaderService;
 
-    public WebController(FileServiceImpl fileServiceImpl, FileReaderService fileReaderService) {
-        this.fileServiceImpl = fileServiceImpl;
+    public FileWebController(FileService fileService, FileReaderService fileReaderService) {
+        this.fileService = fileService;
         this.fileReaderService = fileReaderService;
     }
 
-    @GetMapping("/")
-    public String mainDasboard() {
-        return "/mainDasboard/index.html";
-    }
-
-    @GetMapping("/newDasboard")
-    public String newDasboard() {
-        return "/newDasboard/index.html";
-    }
-
-    @GetMapping("/loadMapping")
-    public String loadMapping() {
-        return "/loadMapping/index.html";
-    }
-
-    @GetMapping("/login")
-    public String homePage() {
-        return "loginPage";
-    }
-
     @PostMapping("/create")
-    @ResponseBody
-    public ResponseEntity<FileResponse> create(@RequestBody @Valid FileDto fileDto) {
+    public ResponseEntity<FileResponse> create(@RequestBody @Valid FileDto fileDto, BindingResult result) {
         FileResponse fileResponse = new FileResponse();
-        if (fileDto.getFieldsDto().getId() == null || fileDto.getFieldsDto().getId().isBlank()) {
-            fileResponse.setResult("The ID field value cannot be empty");
-            return new ResponseEntity<>(fileResponse, HttpStatus.BAD_REQUEST);
+
+        if(result.hasErrors()){
+            List<String> errorMessages = result.getFieldErrors().stream()
+                    .map(FieldError::getDefaultMessage)
+                    .collect(Collectors.toList());
+            fileResponse.setErrorMessages(errorMessages);
+            return ResponseEntity.badRequest().body(fileResponse);
         }
-        fileResponse.setResult(fileServiceImpl.createFile(fileDto));
-        return ResponseEntity.ok().body(fileResponse);
+
+        return fileService.createFile(fileDto)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.badRequest().build());
     }
 
 
     @GetMapping("/applicationVersion")
-    @ResponseBody
     public AppVersionResponse applicationVersion() {
         AppVersionResponse appVersion = new AppVersionResponse();
         appVersion.setAppVersion(AppConfig.APP_VERSION);
@@ -71,7 +57,6 @@ public class WebController {
     }
 
     @GetMapping("/previousApplicationVersion")
-    @ResponseBody
     public AppVersionResponse previousApplicationVersion() {
         AppVersionResponse appVersion = new AppVersionResponse();
         appVersion.setAppVersion(AppConfig.OLD_APP_VERSION);
@@ -79,7 +64,6 @@ public class WebController {
     }
 
     @PostMapping("/readFromFile")
-    @ResponseBody
     public ResponseEntity<Map<String, String>> readFieldsFromFile(@RequestBody String xslFile) {
         Optional<Map<String, String>> resultOptional = Optional.ofNullable(fileReaderService.readFromXsl(xslFile));
         return resultOptional.map(stringStringMap -> ResponseEntity.ok().body(stringStringMap))
@@ -87,7 +71,6 @@ public class WebController {
     }
 
     @GetMapping("/structures")
-    @ResponseBody
     public List<String> getAvailableStructure() {
         return MappingsType.listOfAvailableStructure;
     }
