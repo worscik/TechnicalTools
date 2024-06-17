@@ -12,4 +12,13 @@ public class MappingsType {
 
     public static List<String> listOfAvailableStructure = List.of(RSS_CHANNEL_ITEM, ROOT_ITEM, PRODUCTS_PRODUCT, FEED_ENTRY, OFFERS_GROUP_O);
 
+    public boolean resolveStructure(String structure) {
+        for (String x : listOfAvailableStructure) {
+            if (x.equals(structure)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

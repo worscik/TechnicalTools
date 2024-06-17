@@ -43,9 +43,7 @@ public class FileWebController {
             return ResponseEntity.badRequest().body(fileResponse);
         }
 
-        return fileService.createFile(fileDto)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.badRequest().build());
+        return ResponseEntity.ok().body(fileService.createFile(fileDto));
     }
 
 

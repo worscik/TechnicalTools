@@ -17,7 +17,7 @@ public class TemplateService {
         this.template = template;
     }
 
-    public String createFile(TemplateComponentsDto templateComponentsDto, FieldsBuilder fieldsBuilder) {
+    public String createTemplate(TemplateComponentsDto templateComponentsDto, FieldsBuilder fieldsBuilder) {
         String file = template.createFile(templateComponentsDto, fieldsBuilder);
         logger.info("File created successfully");
         return file;
