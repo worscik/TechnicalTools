@@ -24,7 +24,7 @@ function initButtons(){
 
     goToButton.addEventListener("click", () => {
             localStorage.setItem('redirect', true);
-            window.location.href ='/newDasboard'
+            window.location.href ='/newDashboard'
         }
     );
 
@@ -60,7 +60,7 @@ function clearLocalStorage(){
 async function fetchData(data) {
 
     try {
-        const response = await fetch("/readFromFile", {
+        const response = await fetch("template", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

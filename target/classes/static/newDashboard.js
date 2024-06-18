@@ -94,8 +94,8 @@ async function initSubmitBuuton() {
 async function fetchData(data) {
 
   try {
-    const response = await fetch("/create", {
-      method: "POST",
+    const response = await fetch("/template", {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
@@ -256,7 +256,7 @@ async  function initStructureSelect() {
 async function fetchStructures() {
   let result = [];
   try {
-    const response = await fetch("/structures", {
+    const response = await fetch("template/structures", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -357,7 +357,7 @@ function getDataFromForm() {
     color: document.getElementById("color").value,
     urlCategory: "",
     urlCategoryMark: "",
-    addidtionalImage: "",
+    additionalImage: "",
     intDetail1: "",
     intDetail2: "",
     intDetail3: "",
@@ -372,10 +372,10 @@ function getDataFromForm() {
   const cutLine = document.getElementById("cutLine").value;
 
   return {
-    StructureFile: structure,
-    CutLine: cutLine,
-    MatchLine: '',
-    Fields: fields,
+    structureFile: structure,
+    cutLine: cutLine,
+    matchLine: '',
+    fields: fields,
   };
 }
 

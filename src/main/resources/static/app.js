@@ -92,7 +92,7 @@ loadMappingButton.addEventListener("click", async () => {
 
   if (transform.length > 0) {
     try {
-      const response = await fetch("/readFromFile", {
+      const response = await fetch("template", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -158,8 +158,8 @@ async function fetchData() {
   if (!validDateFromForm(formFields)) return;
 
   try {
-    const response = await fetch("/create", {
-      method: "POST",
+    const response = await fetch("/template", {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
@@ -222,7 +222,7 @@ function getDataFromForm() {
     popularity: document.getElementById("popularity").value,
     season: document.getElementById("season").value,
     color: document.getElementById("color").value,
-    addidtionalImage: document.getElementById("default").value,
+    additionalImage: document.getElementById("default").value,
     intDetail1: document.getElementById("default").value,
     intDetail2: document.getElementById("default").value,
     intDetail3: document.getElementById("default").value,

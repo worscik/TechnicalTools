@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class LoginWebController {
 
     @GetMapping("/")
-    public String mainDasboard() {
-        return "/mainDasboard/index.html";
+    public String mainDashboard() {
+        return "mainDashboard.html";
     }
 
-    @GetMapping("/newDasboard")
-    public String newDasboard() {
-        return "/newDasboard/index.html";
+    @GetMapping("/newDashboard")
+    public String newDashboard() {
+        return "newDashboard.html";
     }
 
     @GetMapping("/loadMapping")
     public String loadMapping() {
-        return "/loadMapping/index.html";
+        return "loadMapping.html";
     }
 
     @GetMapping("/login")

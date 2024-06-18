@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
-import static pl.technicalsite.FileModel.MappingsType.*;
+import static pl.technicalsite.FieldsModel.StandardMappingsType.*;
 
 @Service
 public class CutLineService {

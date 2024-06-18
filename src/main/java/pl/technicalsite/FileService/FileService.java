@@ -1,9 +1,7 @@
 package pl.technicalsite.FileService;
 
-import pl.technicalsite.FileModel.FileDto;
-import pl.technicalsite.FileModel.FileResponse;
-
-import java.util.Optional;
+import pl.technicalsite.FieldsModel.FileDto;
+import pl.technicalsite.FieldsModel.FileResponse;
 
 public interface FileService {
 
