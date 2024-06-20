@@ -12,7 +12,7 @@ import java.util.Objects;
 @Service
 public class TemplateServiceImpl implements TemplateService {
 
-    public final Template template;
+    private final Template template;
     private static final Logger logger = LogManager.getLogger(FileServiceImpl.class);
 
     public TemplateServiceImpl(Template template) {
