@@ -8,7 +8,8 @@ public class HeadersService {
 
     public String resolveHeaders(String structure) {
         switch (structure) {
-            case StandardMappingsType.ROOT_ITEM, StandardMappingsType.OFFERS_GROUP_O, StandardMappingsType.PRODUCTS_PRODUCT -> {
+            case StandardMappingsType.ROOT_ITEM, StandardMappingsType.OFFERS_GROUP_O,
+                 StandardMappingsType.PRODUCTS_PRODUCT -> {
                 return "<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" version=\"1.0\">";
             }
             case StandardMappingsType.RSS_CHANNEL_ITEM -> {

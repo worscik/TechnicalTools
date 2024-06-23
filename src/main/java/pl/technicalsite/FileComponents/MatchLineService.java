@@ -31,7 +31,7 @@ public class MatchLineService {
     }
 
     private String splitValues(String cutLine) {
-        String replacedString = cutLine.replaceAll(",", " | ");
+        String replacedString = cutLine.replaceAll(",", " |");
         return "<xsl:template match=\"" + replacedString + "\">";
     }
 
