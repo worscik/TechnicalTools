@@ -44,6 +44,9 @@ public class FieldsDto {
     private String intDetail2;
     private String intDetail3;
 
+    public FieldsDto() {
+    }
+
     public FieldsDto(String id,
                      String name,
                      String newProductKey,
