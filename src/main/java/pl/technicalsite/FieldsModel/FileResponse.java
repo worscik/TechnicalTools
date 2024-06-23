@@ -48,4 +48,12 @@ public class FileResponse {
         this.errorMessage = errorMessage;
     }
 
+    @Override
+    public String toString() {
+        return "FileResponse{" +
+                "result='" + result + '\'' +
+                ", errorMessages=" + errorMessages +
+                ", errorMessage='" + errorMessage + '\'' +
+                '}';
+    }
 }
