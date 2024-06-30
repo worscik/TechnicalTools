@@ -8,10 +8,17 @@ import java.util.List;
 public class FileResponse {
 
     private String result;
+    private boolean success;
     private List<String> errorMessages;
     private String errorMessage;
 
     public FileResponse() {
+    }
+
+    public FileResponse(String result, boolean success, String errorMessage) {
+        this.result = result;
+        this.success = success;
+        this.errorMessage = errorMessage;
     }
 
     public FileResponse(String result, List<String> errorMessages) {
@@ -48,10 +55,19 @@ public class FileResponse {
         this.errorMessage = errorMessage;
     }
 
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
     @Override
     public String toString() {
         return "FileResponse{" +
                 "result='" + result + '\'' +
+                ", success=" + success +
                 ", errorMessages=" + errorMessages +
                 ", errorMessage='" + errorMessage + '\'' +
                 '}';

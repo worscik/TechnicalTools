@@ -2,10 +2,10 @@ package pl.technicalsite.TemplateModel;
 
 public class TemplateComponentsDto {
 
-    private String structure;
-    private String headers;
-    private String cutLine;
-    private String matchLine;
+    private final String structure;
+    private final String headers;
+    private final String cutLine;
+    private final String matchLine;
 
     private TemplateComponentsDto(String structure, String headers, String cutLine, String matchLine) {
         this.structure = structure;

@@ -47,14 +47,14 @@ public class TemplateFieldsMapper {
                     .popularity(setUndefinedIfEmpty(field.getPopularity()))
                     .season(setUndefinedIfEmpty(field.getSeason()))
                     .color(setUndefinedIfEmpty(field.getColor()))
-                    .addidtionalImage(setUndefinedIfEmpty(field.getAdditionalImage()))
+                    .additionalImage(setUndefinedIfEmpty(field.getAdditionalImage()))
                     .intDetail1(setUndefinedIfEmpty(field.getIntDetail1()))
                     .intDetail2(setUndefinedIfEmpty(field.getIntDetail2()))
                     .intDetail3(setUndefinedIfEmpty(field.getIntDetail3()))
                     .build();
         } catch (Exception e) {
             logger.error("An unexpected error occurred during build object", e);
-            return new FieldsBuilder.Builder().build();
+            return null;
         }
     }
 

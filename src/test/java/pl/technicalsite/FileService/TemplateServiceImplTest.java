@@ -106,7 +106,7 @@ class TemplateServiceImplTest {
                 .popularity("high")
                 .season("Summer")
                 .color("Red")
-                .addidtionalImage("http://example.com/additionalImage.jpg")
+                .additionalImage("http://example.com/additionalImage.jpg")
                 .intDetail1("Internal Detail 1")
                 .intDetail2("Internal Detail 2")
                 .intDetail3("Internal Detail 3")

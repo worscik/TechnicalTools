@@ -42,10 +42,10 @@ class FileServiceImplTest {
     @Test
     void createFileSuccessWithStandardStructure() {
         when(standardMappingsType.resolveStructure(any())).thenReturn(true);
-        FileDto fileDto = new FileDto(STRUCTURE, createFieldsDto());
-        FileResponse expected = fileService.createFile(fileDto);
+        FileBasicRequest fileBasicRequest = new FileBasicRequest(STRUCTURE, createFieldsDto());
+        FileResponse expected = fileService.createFile(fileBasicRequest);
 
-        assertThat(fileService.createFile(fileDto).getResult())
+        assertThat(fileService.createFile(fileBasicRequest).getResult())
                 .isNotNull()
                 .usingDefaultComparator()
                 .isEqualTo(expected.getResult());
@@ -54,10 +54,10 @@ class FileServiceImplTest {
     @Test
     void createFileSuccessWithCustomStructure() {
         when(standardMappingsType.resolveStructure(any())).thenReturn(false);
-        FileDto fileDto = new FileDto(STRUCTURE, createFieldsDto());
-        FileResponse expected = fileService.createFile(fileDto);
+        FileBasicRequest fileBasicRequest = new FileBasicRequest(STRUCTURE, createFieldsDto());
+        FileResponse expected = fileService.createFile(fileBasicRequest);
 
-        assertThat(fileService.createFile(fileDto).getResult())
+        assertThat(fileService.createFile(fileBasicRequest).getResult())
                 .isNotNull()
                 .usingDefaultComparator()
                 .isEqualTo(expected.getResult());
@@ -67,8 +67,8 @@ class FileServiceImplTest {
     void createFileFailed() {
         when(standardMappingsType.resolveStructure(any())).thenReturn(true);
         when(templateServiceImpl.createTemplate(any(),any())).thenThrow(NullPointerException.class);
-        FileDto fileDto = new FileDto(STRUCTURE, createFieldsDto());
-        FileResponse fileResponse = fileService.createFile(fileDto);
+        FileBasicRequest fileBasicRequest = new FileBasicRequest(STRUCTURE, createFieldsDto());
+        FileResponse fileResponse = fileService.createFile(fileBasicRequest);
         assertThat(fileResponse.getResult())
                 .usingDefaultComparator()
                 .isEqualTo(null);
@@ -158,7 +158,7 @@ class FileServiceImplTest {
                 .popularity("high")
                 .season("Summer")
                 .color("Red")
-                .addidtionalImage("http://example.com/additionalImage.jpg")
+                .additionalImage("http://example.com/additionalImage.jpg")
                 .intDetail1("Internal Detail 1")
                 .intDetail2("Internal Detail 2")
                 .intDetail3("Internal Detail 3")

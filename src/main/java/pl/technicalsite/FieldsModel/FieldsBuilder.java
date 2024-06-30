@@ -33,7 +33,7 @@ public class FieldsBuilder {
     private String popularity;
     private String season;
     private String color;
-    private String addidtionalImage;
+    private String additionalImage;
     private String intDetail1;
     private String intDetail2;
     private String intDetail3;
@@ -70,7 +70,7 @@ public class FieldsBuilder {
         this.popularity = builder.popularity;
         this.season = builder.season;
         this.color = builder.color;
-        this.addidtionalImage = builder.addidtionalImage;
+        this.additionalImage = builder.additionalImage;
         this.intDetail1 = builder.intDetail1;
         this.intDetail2 = builder.intDetail2;
         this.intDetail3 = builder.intDetail3;
@@ -200,8 +200,8 @@ public class FieldsBuilder {
         return color;
     }
 
-    public String getAddidtionalImage() {
-        return addidtionalImage;
+    public String getAdditionalImage() {
+        return additionalImage;
     }
 
     public String getIntDetail1() {
@@ -248,7 +248,7 @@ public class FieldsBuilder {
         private String popularity;
         private String season;
         private String color;
-        private String addidtionalImage;
+        private String additionalImage;
         private String intDetail1;
         private String intDetail2;
         private String intDetail3;
@@ -408,8 +408,8 @@ public class FieldsBuilder {
             return this;
         }
 
-        public Builder addidtionalImage(String addidtionalImage) {
-            this.addidtionalImage = addidtionalImage;
+        public Builder additionalImage(String additionalImage) {
+            this.additionalImage = additionalImage;
             return this;
         }
 

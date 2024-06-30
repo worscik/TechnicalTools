@@ -38,32 +38,32 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public FileResponse createFile(FileDto fileDto) {
+    public FileResponse createFile(FileBasicRequest fileBasicRequest) {
         try {
             boolean isStandardStructure =
-                    standardMappingsType.resolveStructure(fileDto.getStructureFile().toLowerCase());
-            TemplateComponentsDto templateComponentsDto = buildComponents(fileDto, isStandardStructure);
-            FieldsBuilder fileFields = templateFieldsMapper.buildFileFields(fileDto.getFields());
-            Optional<String> file =
+                    standardMappingsType.resolveStructure(fileBasicRequest.getStructureFile().toLowerCase());
+            TemplateComponentsDto templateComponentsDto = buildComponents(fileBasicRequest, isStandardStructure);
+            FieldsBuilder fileFields = templateFieldsMapper.buildFileFields(fileBasicRequest.getFields());
+            Optional<String> result =
                     Optional.ofNullable(templateServiceImpl.createTemplate(templateComponentsDto, fileFields));
-            return file
-                    .map(s -> new FileResponse(s, ""))
-                    .orElseGet(() -> new FileResponse("", "Cannot create a file"));
+            return result
+                    .map(s -> new FileResponse(s,true, ""))
+                    .orElseGet(() -> new FileResponse("", false,"Cannot create a file"));
         } catch (Exception e) {
             logger.error("An error occurred while building the file", e);
             return new FileResponse(null, "An error occurred while building the file.");
         }
     }
 
-    private TemplateComponentsDto buildComponents(FileDto fileDto, boolean isStandardStructure) {
-        logger.debug("Building components for fileDto with structure: {}", fileDto.getStructureFile());
+    private TemplateComponentsDto buildComponents(FileBasicRequest fileBasicRequest, boolean isStandardStructure) {
+        logger.debug("Building components for fileDto with structure: {}", fileBasicRequest.getStructureFile());
         return new TemplateComponentsDto.Builder()
-                .structure(fileDto.getStructureFile())
-                .headers(headersService.resolveHeaders(fileDto.getStructureFile()))
+                .structure(fileBasicRequest.getStructureFile())
+                .headers(headersService.resolveHeaders(fileBasicRequest.getStructureFile()))
                 .cutLine(isStandardStructure
-                        ? cutLineService.resolveCutLine(fileDto.getStructureFile())
-                        : cutLineService.resolveCutLine(fileDto.getCutLine()))
-                .matchLine(matchLineService.resolveMatchLine(fileDto.getStructureFile()))
+                        ? cutLineService.resolveCutLine(fileBasicRequest.getStructureFile())
+                        : cutLineService.resolveCutLine(fileBasicRequest.getCutLine()))
+                .matchLine(matchLineService.resolveMatchLine(fileBasicRequest.getStructureFile()))
                 .build();
     }
 

@@ -286,8 +286,8 @@ public class Template {
                 "        <xsl:value-of select=\"$sep\"/>" + NEWLINE +
                 "        <!--ADDITIONAL_IMAGE-->" + NEWLINE +
                 "        <xsl:choose>" + NEWLINE +
-                "            <xsl:when test=\"string-length(" + fileField.getAddidtionalImage() + ")\">" + NEWLINE +
-                "                <xsl:value-of select=\"substring(normalize-space(" + fileField.getAddidtionalImage() + "),0,128)\"/>" + NEWLINE +
+                "            <xsl:when test=\"string-length(" + fileField.getAdditionalImage() + ")\">" + NEWLINE +
+                "                <xsl:value-of select=\"substring(normalize-space(" + fileField.getAdditionalImage() + "),0,128)\"/>" + NEWLINE +
                 "            </xsl:when>" + NEWLINE +
                 "            <xsl:otherwise>" + NEWLINE +
                 "                <xsl:text>\\N</xsl:text>" + NEWLINE +

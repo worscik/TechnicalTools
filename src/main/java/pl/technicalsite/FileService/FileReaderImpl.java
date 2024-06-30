@@ -8,7 +8,6 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import static pl.technicalsite.TemplateModel.TemplateKeys.*;
 import static pl.technicalsite.TemplateModel.TemplateRegex.*;
@@ -32,13 +31,14 @@ public class FileReaderImpl implements FileReader {
             return mergeMaps(customLinesKeys, standardKeys, numericKeys, valuesKeys, currencyKey, structureFile);
         } catch (ArrayIndexOutOfBoundsException e) {
             logger.error("Too much line to read, regex found more than it should have: " + e);
-            return null;
+            return Collections.emptyMap();
         } catch (Exception e) {
             logger.error("Error during read file: " + e);
-            return null;
+            return Collections.emptyMap();
         }
     }
 
+    @SafeVarargs
     private Map<String, String> mergeMaps(Map<String, String>... maps) {
         Map<String, String> mergedMap = new HashMap<>();
         for (Map<String, String> map : maps) {
@@ -95,8 +95,7 @@ public class FileReaderImpl implements FileReader {
             logger.error("Problem with reading values ", a);
             return Collections.emptyList();
         } catch (Exception e) {
-            logger.error("Error during read structure " + e);
-            return Collections.emptyList();
+            return buildFailedException(e);
         }
     }
 
@@ -105,8 +104,11 @@ public class FileReaderImpl implements FileReader {
     }
 
     private Map<String, String> addKeys(List<String> key, List<String> values) {
-        return IntStream.range(0, key.size())
-                .collect(HashMap::new, (map, i) -> map.put(values.get(i), key.get(i)), HashMap::putAll);
+        Map<String, String> keysMap = new HashMap<>();
+        for (int i = 0; i < key.size(); i++) {
+            keysMap.put(values.get(i), key.get(i));
+        }
+        return keysMap;
     }
 
     private Map<String, String> addKeysInNumeric(List<String> key, List<String> values) {
@@ -131,28 +133,46 @@ public class FileReaderImpl implements FileReader {
             logger.error("I have a problem when reading primary keys");
             return Collections.emptyList();
         } catch (Exception e) {
-            logger.error("Error during read structure " + e);
-            return Collections.emptyList();
+            return buildFailedException(e);
         }
     }
 
     private List<String> readBooleanValues(List<String> fileLineByLine, String pattern) {
-        return fileLineByLine.stream()
-                .map(line -> resolveBooleanValues(line, pattern))
-                .flatMap(List::stream)
-                .collect(Collectors.toList());
+        try {
+            return fileLineByLine.stream()
+                    .map(line -> resolveBooleanValues(line, pattern))
+                    .flatMap(List::stream)
+                    .collect(Collectors.toList());
+        } catch (ArrayIndexOutOfBoundsException a) {
+            logger.error("I have a problem when reading boolean values");
+            return Collections.emptyList();
+        } catch (Exception e) {
+            return buildFailedException(e);
+        }
     }
 
     private List<String> resolveCurrency(List<String> fileLineByLine, String pattern) {
-        return fileLineByLine.stream()
-                .map(line -> resolveBooleanValues(line, pattern))
-                .flatMap(List::stream)
-                .limit(1)
-                .collect(Collectors.toList());
+        try {
+            return fileLineByLine.stream()
+                    .map(line -> resolveBooleanValues(line, pattern))
+                    .flatMap(List::stream)
+                    .limit(1)
+                    .collect(Collectors.toList());
+        } catch (ArrayIndexOutOfBoundsException a) {
+            logger.error("I have a problem when reading currency");
+            return Collections.emptyList();
+        } catch (Exception e) {
+            return buildFailedException(e);
+        }
     }
 
     private List<String> splitHeadersToCustomLines(String partOfFile) {
         return Arrays.asList(partOfFile.split(">")).stream().map(item -> item += '>').toList();
+    }
+
+    private List<String> buildFailedException(Exception e) {
+        logger.error("Error during read the file " + e);
+        return Collections.emptyList();
     }
 
 }
