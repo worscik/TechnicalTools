@@ -8,6 +8,7 @@ import pl.technicalsite.TemplateModel.Template;
 import pl.technicalsite.TemplateModel.TemplateComponentsDto;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class TemplateServiceImpl implements TemplateService {
@@ -21,19 +22,19 @@ public class TemplateServiceImpl implements TemplateService {
 
 
     @Override
-    public String createTemplate(TemplateComponentsDto templateComponentsDto, FieldsBuilder fieldsBuilder) {
+    public Optional<String> createTemplate(TemplateComponentsDto templateComponentsDto, FieldsBuilder fieldsBuilder) {
         if (Objects.nonNull(templateComponentsDto) && Objects.nonNull(fieldsBuilder)) {
             try {
                 String file = template.createFile(templateComponentsDto, fieldsBuilder);
                 logger.info("File created successfully with structure: {}", templateComponentsDto.getStructure());
-                return file;
+                return Optional.ofNullable(file);
             } catch (Exception e) {
                 logger.error("Error creating file with structure: {}", templateComponentsDto.getStructure(), e);
-                return null;
+                return Optional.empty();
             }
         } else {
             logger.warn("TemplateComponentsDto or FieldsBuilder is null.");
-            return null;
+            return Optional.empty();
         }
     }
 

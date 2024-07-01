@@ -9,6 +9,8 @@ import pl.technicalsite.FieldsModel.FieldsBuilder;
 import pl.technicalsite.TemplateModel.Template;
 import pl.technicalsite.TemplateModel.TemplateComponentsDto;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -35,7 +37,7 @@ class TemplateServiceImplTest {
 
         when(template.createFile(any(),any())).thenReturn("createdFile");
 
-        String expected = "createdFile";
+        Optional<String> expected = Optional.of("createdFile");
 
         assertThat(templateService.createTemplate(templateComponentsDto, fieldsBuilder))
                 .isNotNull()
@@ -49,7 +51,7 @@ class TemplateServiceImplTest {
         TemplateComponentsDto templateComponentsDto = buildTemplateComponentsDto();
 
         assertThat(templateService.createTemplate(templateComponentsDto, fieldsBuilder))
-                .isNull();
+                .isEmpty();
     }
 
     @Test
@@ -60,8 +62,9 @@ class TemplateServiceImplTest {
 
         when(template.createFile(any(), any())).thenThrow(RuntimeException.class);
 
-        String result = templateService.createTemplate(templateComponentsDto, fieldsBuilder);
-        assertNull(result);
+        assertThat(templateService.createTemplate(templateComponentsDto, fieldsBuilder))
+                .isEmpty();
+
     }
 
     private TemplateComponentsDto buildTemplateComponentsDto(){

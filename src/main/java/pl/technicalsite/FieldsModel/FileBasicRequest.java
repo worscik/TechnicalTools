@@ -1,6 +1,7 @@
 package pl.technicalsite.FieldsModel;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 public class FileBasicRequest extends FileCustomLines {
@@ -23,18 +24,10 @@ public class FileBasicRequest extends FileCustomLines {
         return structureFile;
     }
 
-    public void setStructureFile(String structureFile) {
-        this.structureFile = structureFile;
-    }
-
-
     public FieldsDto getFields() {
         return fields;
     }
 
-    public void setFields(FieldsDto fields) {
-        this.fields = fields;
-    }
 
     @Override
     public String toString() {

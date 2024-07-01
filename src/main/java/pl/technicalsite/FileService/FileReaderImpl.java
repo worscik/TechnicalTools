@@ -50,16 +50,12 @@ public class FileReaderImpl implements FileReader {
 
     private List<String> resolveValues(String xsl, String pattern) {
         List<String> elements = new ArrayList<>();
-        Pattern p = Pattern.compile(pattern);
-        Matcher m = p.matcher(xsl);
+        Matcher matcher = Pattern.compile(pattern).matcher(xsl);
 
-        while (m.find()) {
-            if (m.group(1) != null) {
-                String element = m.group(1);
-                if (element.equalsIgnoreCase("UNDEFINED")) {
-                    element = "";
-                }
-                elements.add(element);
+        while (matcher.find()) {
+            String element = matcher.group(1);
+            if (element != null) {
+                elements.add(element.equalsIgnoreCase("UNDEFINED") ? "" : element);
             }
         }
         return elements;
@@ -67,35 +63,26 @@ public class FileReaderImpl implements FileReader {
 
     private List<String> resolveBooleanValues(String xsl, String pattern) {
         List<String> elements = new ArrayList<>();
-        if (xsl.contains("<xsl:when test=\\\"UNDEFINED\\\"")) {
-            elements.add("");
-        }
-        Pattern p = Pattern.compile(pattern);
-        Matcher m = p.matcher(xsl);
-        while (m.find()) {
-            if (m.group(1) != null) {
-                String element = m.group(1);
-                if (element.equalsIgnoreCase("UNDEFINED")) {
-                    element = "";
-                }
-                elements.add(element);
+        Matcher matcher = Pattern.compile(pattern).matcher(xsl);
+
+        while (matcher.find()) {
+            String element = matcher.group(1);
+            if (element != null) {
+                elements.add(element.equalsIgnoreCase("UNDEFINED") ? "" : element);
             }
         }
         return elements;
     }
 
-    private List<String> resolveCustomLines(List<String> xsl, String pattern) {
+    private List<String> resolveCustomLines(List<String> lines, String pattern) {
         try {
-            List<String> values = xsl.stream()
+            return lines.stream()
                     .map(line -> resolveValues(line, pattern))
                     .flatMap(List::stream)
                     .collect(Collectors.toList());
-            return values;
-        } catch (ArrayIndexOutOfBoundsException a) {
-            logger.error("Problem with reading values ", a);
-            return Collections.emptyList();
         } catch (Exception e) {
-            return buildFailedException(e);
+            logger.error("Error during resolving custom lines", e);
+            return Collections.emptyList();
         }
     }
 
@@ -111,16 +98,12 @@ public class FileReaderImpl implements FileReader {
         return keysMap;
     }
 
-    private Map<String, String> addKeysInNumeric(List<String> key, List<String> values) {
-        Map<String, String> emptyMap = new HashMap<>();
-        for (int i = 0; i < key.size(); i++) {
-            if (key.get(i).equals("UNDEFINED")) {
-                emptyMap.put(values.get(i), " ");
-            } else {
-                emptyMap.put(values.get(i), key.get(i));
-            }
+    private Map<String, String> addKeysInNumeric(List<String> keys, List<String> values) {
+        Map<String, String> keysMap = new HashMap<>();
+        for (int i = 0; i < keys.size(); i++) {
+            keysMap.put(values.get(i), keys.get(i).equals("UNDEFINED") ? " " : keys.get(i));
         }
-        return emptyMap;
+        return keysMap;
     }
 
     private List<String> resolveStandardKey(List<String> fileLineByLine, String pattern) {
@@ -167,7 +150,9 @@ public class FileReaderImpl implements FileReader {
     }
 
     private List<String> splitHeadersToCustomLines(String partOfFile) {
-        return Arrays.asList(partOfFile.split(">")).stream().map(item -> item += '>').toList();
+        return Arrays.stream(partOfFile.split(">"))
+                .map(item -> item + '>')
+                .collect(Collectors.toList());
     }
 
     private List<String> buildFailedException(Exception e) {
