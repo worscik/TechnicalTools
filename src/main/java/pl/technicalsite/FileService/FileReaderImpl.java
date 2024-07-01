@@ -22,13 +22,14 @@ public class FileReaderImpl implements FileReader {
         List<String> file = splitToLine(xsl);
         List<String> customLine = splitHeadersToCustomLines(file.get(0));
         try {
-            Map<String, String> structureFile = addKeys(resolveStandardKey(customLine, structureLine), structureList);
-            Map<String, String> standardKeys = addKeys(resolveStandardKey(file, classicKey), classicKeyList);
-            Map<String, String> numericKeys = addKeys(readBooleanValues(file, keyInNumericLine), numericKeyList);
-            Map<String, String> valuesKeys = addKeysInNumeric(readBooleanValues(file, valueInNumericLine), numericValueList);
-            Map<String, String> currencyKey = addKeys(resolveCurrency(file, currencyValue), currencyList);
-            Map<String, String> customLinesKeys = addKeys(resolveCustomLines(customLine, cutLine), customCutLineList);
-            return mergeMaps(customLinesKeys, standardKeys, numericKeys, valuesKeys, currencyKey, structureFile);
+            Map<String, String> structureFile = getStructureFile(customLine);
+            Map<String, String> standardKeys = getStandardKeys(file);
+            Map<String, String> numericKeys = getNumericKeys(file);
+            Map<String, String> valuesKeys = getValuesKeys(file);
+            Map<String, String> currencyKey = getCurrencyKey(file);
+            Map<String, String> customLinesKeys = getCustomLinesKeys(customLine);
+
+            return mergeMaps(structureFile, standardKeys, numericKeys, valuesKeys, currencyKey, customLinesKeys);
         } catch (ArrayIndexOutOfBoundsException e) {
             logger.error("Too much line to read, regex found more than it should have: " + e);
             return Collections.emptyMap();
@@ -36,6 +37,30 @@ public class FileReaderImpl implements FileReader {
             logger.error("Error during read file: " + e);
             return Collections.emptyMap();
         }
+    }
+
+    private Map<String, String> getStructureFile(List<String> customLine) {
+        return addKeys(resolveStandardKey(customLine, structureLine), structureList);
+    }
+
+    private Map<String, String> getStandardKeys(List<String> file) {
+        return addKeys(resolveStandardKey(file, classicKey), classicKeyList);
+    }
+
+    private Map<String, String> getNumericKeys(List<String> file) {
+        return addKeys(readBooleanValues(file, keyInNumericLine), numericKeyList);
+    }
+
+    private Map<String, String> getValuesKeys(List<String> file) {
+        return addKeysInNumeric(readBooleanValues(file, valueInNumericLine), numericValueList);
+    }
+
+    private Map<String, String> getCurrencyKey(List<String> file) {
+        return addKeys(resolveCurrency(file, currencyValue), currencyList);
+    }
+
+    private Map<String, String> getCustomLinesKeys(List<String> customLine) {
+        return addKeys(resolveCustomLines(customLine, cutLine), customCutLineList);
     }
 
     @SafeVarargs
